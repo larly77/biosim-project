@@ -51,6 +51,7 @@ class Herbivore:
 
     def aging(self):
         """Dummy"""
+        self.parameters['age'] += 1
 
     def loss_of_weight(self):
         """Dummy"""
