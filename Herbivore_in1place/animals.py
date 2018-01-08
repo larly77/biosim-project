@@ -51,6 +51,24 @@ class Herbivore:
 
     def set_parameters(self, dictionary_changes):
         """"""
-
+#        Idiotsikring her?
         for key in dictionary_changes:
             self.parameters[key] = dictionary_changes[key]
+
+    def feeding(self):
+        """Dummy"""
+
+    def procreation(self):
+        """Dummy"""
+
+    def migration(self):
+        """Dummy"""
+
+    def aging(self):
+        """Dummy"""
+
+    def loss_of_weight(self):
+        """Dummy"""
+
+    def death(self):
+        """Dummy"""
