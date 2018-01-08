@@ -35,8 +35,9 @@ class Herbivore:
         self.parameters['weight'] = weight
 
     def set_parameters(self, dictionary_changes):
-        """"""
-#        Idiotsikring her?
+        """Method that allows the user to set parameter values for the animal.
+        This replaces the default values."""
+#       Idiotsikring her?
         for key in dictionary_changes:
             self.parameters[key] = dictionary_changes[key]
 
@@ -50,11 +51,11 @@ class Herbivore:
         """Dummy"""
 
     def aging(self):
-        """Dummy"""
+        """Method that increases the age of the animal by one year"""
         self.parameters['age'] += 1
 
     def loss_of_weight(self):
-        """Dummy"""
+        """Method that decreases the weight of the animal by a percent-value"""
         self.parameters['weight'] -= self.parameters['eta'] *\
                                      self.parameters['weight']
 
