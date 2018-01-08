@@ -7,6 +7,9 @@ __author__ = 'Jon-Fredrik Blakstad Cappelen'
 __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
 
+import random
+
+
 class Herbivore:
     """"""
 
@@ -51,10 +54,13 @@ class Herbivore:
 
     def loss_of_weight(self):
         """Dummy"""
+        self.parameters['weight'] -= self.parameters['eta'] *\
+                                     self.parameters['weight']
 
     def death(self):
         """Dummy"""
 
+#        probability_of_death = self.parameters['omega']*(1-fitness)
 
 
 # Følgende angir hvordan en docstring bør se ut.
