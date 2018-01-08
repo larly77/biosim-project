@@ -49,4 +49,9 @@ class Herbivore:
         self.F = 10.0
         """
 
+    def set_parameters(self, dictionary_changes):
+        """"""
+
+        for key in dictionary_changes:
+            self.parameters{key: dictionary_changes[key]}
 
