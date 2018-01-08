@@ -53,5 +53,4 @@ class Herbivore:
         """"""
 
         for key in dictionary_changes:
-            self.parameters{key: dictionary_changes[key]}
-
+            self.parameters[key] = dictionary_changes[key]
