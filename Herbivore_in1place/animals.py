@@ -72,3 +72,30 @@ class Herbivore:
 
     def death(self):
         """Dummy"""
+
+
+
+# Følgende angir hvordan en docstring bør se ut.
+# Med det formatet blir dokumentasjons-porsessen meget grei,
+# når vi lærer Sphinx-programmet.
+def f(x):
+    """
+    one line description
+
+    many line description
+
+    Parameters
+    ----------
+    x : float
+        Description of x
+
+    Returns
+    -------
+    y : float
+        The bladibla
+
+    Raises
+    ------
+    ValueError
+        If x is not numeric
+    """
