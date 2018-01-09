@@ -9,6 +9,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
 
 from landscape import Jungle
 
+
 class TestLandscape:
     """Class for testing landscape"""
 
@@ -33,7 +34,3 @@ class TestLandscape:
         assert j1.get_fodder() == 800.0
         j1.reduce_fodder(100)
         assert j1.get_fodder() == 700
-
-
-
-

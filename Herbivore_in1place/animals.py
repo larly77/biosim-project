@@ -89,10 +89,6 @@ class Herbivore:
             self.weight += self.parameters['beta'] * available_fodder
             landscape_instance.reduce_fodder(available_fodder)
 
-
-
-
-
     def procreation(self):
         """Dummy"""
 

@@ -11,6 +11,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
 from animals import Herbivore
 from landscape import Jungle
 
+
 class TestHerbivores:
     """Class with tests for the class Herbivores in animals"""
 
@@ -57,7 +58,6 @@ class TestHerbivores:
         assert h1.weight == 20
         assert j1.get_fodder() == 0
 
-
     def test_aging(self):
         """Tests that the animal's age increases properly, including fitness"""
         h1 = Herbivore(age=5, weight=20)
@@ -83,4 +83,3 @@ class TestHerbivores:
         assert h1.weight < 20
         assert h1.weight == (1-0.05)*20
         assert fit_1 < fit_0
-
