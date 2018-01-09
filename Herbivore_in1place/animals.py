@@ -10,6 +10,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
 
 import random
 import math
+import copy
 
 
 DEFAULT_HERBIVORE_PARAMETERS = {'w_birth': 8.0,
@@ -48,7 +49,7 @@ DEFAULT_CARNIVORE_PARAMETERS = {'w_birth': 6.0,
 class Herbivore:
     """"""
 
-    parameters = DEFAULT_HERBIVORE_PARAMETERS
+    parameters = copy.deepcopy(DEFAULT_HERBIVORE_PARAMETERS)
 
     @classmethod
     def set_parameters(cls, dictionary_changes):
