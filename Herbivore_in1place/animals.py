@@ -11,7 +11,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
 import random
 import math
 import copy
-
+from landscape import Jungle
 
 DEFAULT_HERBIVORE_PARAMETERS = {'w_birth': 8.0,
                                 'sigma_birth': 1.5,
@@ -77,8 +77,21 @@ class Herbivore:
 
         self.fitness = q_plus * q_minus
 
-    def feeding(self):
+    def feeding(self, landscape_instance):
         """Dummy"""
+
+        available_fodder = landscape_instance.get_fodder()
+        appetite = self.parameters['F']
+        if available_fodder >= appetite:
+            self.weight += self.parameters['beta'] * appetite
+            landscape_instance.reduce_fodder(appetite)
+        if 0 < available_fodder < appetite:
+            self.weight += self.parameters['beta'] * available_fodder
+            landscape_instance.reduce_fodder(available_fodder)
+
+
+
+
 
     def procreation(self):
         """Dummy"""

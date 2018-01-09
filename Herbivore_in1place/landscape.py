@@ -37,3 +37,11 @@ class Jungle:
     def reset_fodder(self):
         """Method that set the amount of fodder in the jungle to f_max."""
         self.fodder = copy.deepcopy(self.parameters['f_max'])
+
+    def reduce_fodder(self, amount):
+        """"""
+        self.fodder -= amount
+
+    def get_fodder(self):
+        """"""
+        return self.fodder
