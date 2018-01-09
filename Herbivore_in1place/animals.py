@@ -47,6 +47,16 @@ DEFAULT_CARNIVORE_PARAMETERS = {'w_birth': 6.0,
 
 class Herbivore:
     """"""
+    parameters = DEFAULT_HERBIVORE_PARAMETERS
+
+    @classmethod
+    def set_parameters(cls, dictionary_changes):
+        """Method that allows the user to set parameter values for the animal.
+        This replaces the default values."""
+        #       Idiotsikring her?
+
+        for key in dictionary_changes:
+            cls.parameters[key] = dictionary_changes[key]
 
     def __init__(self, age, weight, parameters=None):
         self.parameters = parameters if parameters is not None \
@@ -55,13 +65,6 @@ class Herbivore:
         self.parameters['weight'] = weight
         self.parameters['fitness'] = None
         self.update_fitness()
-
-    def set_parameters(self, dictionary_changes):
-        """Method that allows the user to set parameter values for the animal.
-        This replaces the default values."""
-#       Idiotsikring her?
-        for key in dictionary_changes:
-            self.parameters[key] = dictionary_changes[key]
 
     def update_fitness(self):
         """Method to update the fitness of the animal"""
