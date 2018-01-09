@@ -9,7 +9,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
 
 
 from animals import Herbivore
-
+from landscape import Jungle
 
 class TestHerbivores:
     """Class with tests for the class Herbivores in animals"""
@@ -26,10 +26,37 @@ class TestHerbivores:
     def test_set_parameters(self):
         """Test for the method set_parameters"""
         h1 = Herbivore(age=5, weight=20)
-        h1.set_parameters({'xi': 1.3, 'w_half': 20})
+        Herbivore.set_parameters({'xi': 1.3, 'w_half': 20})
 
         assert h1.parameters['xi'] == 1.3
         assert h1.parameters['w_half'] == 20
+
+    def test_feeding_plenty(self):
+        """Test for feeding method with plenty of fodder"""
+        h1 = Herbivore(age=5, weight=20)
+        j1 = Jungle()
+        h1.feeding(j1)
+        assert h1.weight == 29
+        assert j1.get_fodder() == 790
+
+    def test_feeding_little(self):
+        """Test for feeding method with little fodder"""
+        h1 = Herbivore(age=5, weight=20)
+        j1 = Jungle()
+        j1.fodder = 5
+        h1.feeding(j1)
+        assert h1.weight == 24.5
+        assert j1.get_fodder() == 0
+
+    def test_feeding_none(self):
+        """Test for feeding method with no fodder"""
+        h1 = Herbivore(age=5, weight=20)
+        j1 = Jungle()
+        j1.fodder = 0
+        h1.feeding(j1)
+        assert h1.weight == 20
+        assert j1.get_fodder() == 0
+
 
     def test_aging(self):
         """Tests that the animal's age increases properly, including fitness"""
@@ -56,3 +83,4 @@ class TestHerbivores:
         assert h1.weight < 20
         assert h1.weight == (1-0.05)*20
         assert fit_1 < fit_0
+
