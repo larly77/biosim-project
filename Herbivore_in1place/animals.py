@@ -9,6 +9,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
 
 
 import random
+import math
 
 
 DEFAULT_HERBIVORE_PARAMETERS = {'w_birth': 8.0,
@@ -36,6 +37,8 @@ class Herbivore:
                           else DEFAULT_HERBIVORE_PARAMETERS
         self.parameters['age'] = age
         self.parameters['weight'] = weight
+        self.parameters['fitness'] = None
+        self.update_fitness()
 
     def set_parameters(self, dictionary_changes):
         """Method that allows the user to set parameter values for the animal.
@@ -43,6 +46,15 @@ class Herbivore:
 #       Idiotsikring her?
         for key in dictionary_changes:
             self.parameters[key] = dictionary_changes[key]
+
+    def update_fitness(self):
+        """Method to update the fitness of the animal"""
+        q_plus = 1/(1+math.exp(self.parameters['phi_age'] *
+                            (self.parameters['age']-self.parameters['a_half'])))
+        q_minus = 1/(1+math.exp(-self.parameters['phi_weight'] *
+                         (self.parameters['weight']-self.parameters['w_half'])))
+
+        self.parameters['fitness'] = q_plus * q_minus
 
     def feeding(self):
         """Dummy"""
@@ -56,11 +68,13 @@ class Herbivore:
     def aging(self):
         """Method that increases the age of the animal by one year"""
         self.parameters['age'] += 1
+        self.update_fitness()
 
     def loss_of_weight(self):
         """Method that decreases the weight of the animal by a percent-value"""
         self.parameters['weight'] -= self.parameters['eta'] *\
                                      self.parameters['weight']
+        self.update_fitness()
 
     def death(self):
         """Dummy"""
