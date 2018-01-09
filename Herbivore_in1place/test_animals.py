@@ -36,19 +36,24 @@ class TestHerbivores:
         """Tests that the animal's age increases properly, including fitness"""
         h1 = Herbivore(age=5, weight=20)
         fit_0 = h1.parameters['fitness']
+
         h1.aging()
         fit_1 = h1.parameters['fitness']
         assert h1.parameters['age'] > 5
         assert fit_1 < fit_0
+
         h1.aging()
         fit_2 = h1.parameters['fitness']
         assert h1.parameters['age'] == 7
         assert fit_2 < fit_1 and fit_2 < fit_0
 
     def test_loss_of_weight(self):
-        """Tests that the animal loses weight"""
+        """Tests that the animal loses weight, including fitness update"""
         h1 = Herbivore(age=5, weight=20)
+        fit_0 = h1.parameters['fitness']
         h1.loss_of_weight()
+        fit_1 = h1.parameters['fitness']
 
         assert h1.parameters['weight'] < 20
         assert h1.parameters['weight'] == (1-0.05)*20
+        assert fit_1 < fit_0
