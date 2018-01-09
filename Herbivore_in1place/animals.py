@@ -47,6 +47,7 @@ DEFAULT_CARNIVORE_PARAMETERS = {'w_birth': 6.0,
 
 class Herbivore:
     """"""
+
     parameters = DEFAULT_HERBIVORE_PARAMETERS
 
     @classmethod
@@ -58,24 +59,22 @@ class Herbivore:
         for key in dictionary_changes:
             cls.parameters[key] = dictionary_changes[key]
 
-    def __init__(self, age, weight, parameters=None):
-        self.parameters = parameters if parameters is not None \
-                          else DEFAULT_HERBIVORE_PARAMETERS
-        self.parameters['age'] = age
-        self.parameters['weight'] = weight
-        self.parameters['fitness'] = None
+    def __init__(self, age, weight):
+        self.age = age
+        self.weight = weight
+        self.fitness = None
         self.update_fitness()
 
     def update_fitness(self):
         """Method to update the fitness of the animal"""
         q_plus = 1/(1+math.exp(self.parameters['phi_age'] *
-                               (self.parameters['age'] -
+                               (self.age -
                                 self.parameters['a_half'])))
         q_minus = 1/(1+math.exp(-self.parameters['phi_weight'] *
-                                (self.parameters['weight'] -
+                                (self.weight -
                                 self.parameters['w_half'])))
 
-        self.parameters['fitness'] = q_plus * q_minus
+        self.fitness = q_plus * q_minus
 
     def feeding(self):
         """Dummy"""
@@ -88,13 +87,13 @@ class Herbivore:
 
     def aging(self):
         """Method that increases the age of the animal by one year"""
-        self.parameters['age'] += 1
+        self.age += 1
         self.update_fitness()
 
     def loss_of_weight(self):
         """Method that decreases the weight of the animal by a percent-value"""
-        self.parameters['weight'] -= self.parameters['eta'] *\
-            self.parameters['weight']
+        self.weight -= self.parameters['eta'] *\
+            self.weight
         self.update_fitness()
 
     def death(self):
