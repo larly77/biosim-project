@@ -100,7 +100,10 @@ class Herbivore:
     def death(self):
         """Dummy"""
 
-#        probability_of_death = self.parameters['omega']*(1-fitness)
+        probability_of_death = self.parameters['omega'] * (1-self.fitness)
+#        if random.random() < probability_of_death:
+
+
 
 
 # Følgende angir hvordan en docstring bør se ut.
