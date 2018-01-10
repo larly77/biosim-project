@@ -116,11 +116,12 @@ class Herbivore:
             self.weight
         self.update_fitness()
 
-    def death(self):
+    def death(self, index_animal_list):
         """Dummy"""
 
         probability_of_death = self.parameters['omega'] * (1-self.fitness)
-#        if random.random() < probability_of_death:
+        if random.random() < probability_of_death:
+            return index_animal_list
 
 
 
@@ -149,3 +150,4 @@ def f(x):
     ValueError
         If x is not numeric
     """
+
