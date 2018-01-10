@@ -54,4 +54,27 @@ class Jungle:
 
 
 class Savannah(Jungle):
-        """"""
+    """"""
+
+    parameters = copy.deepcopy(DEFAULT_SAVANNAH_PARAMETERS)
+
+
+    def __init__(self):
+        super().__init__()
+
+    def reset_fodder(self):
+        """Method that updates the fodder amount in the savannah each year"""
+        
+
+
+if __name__ == '__main__':
+
+    j1 = Jungle()
+    s1 = Savannah()
+    j2 = Jungle()
+    s2 = Savannah()
+
+    print(j1.parameters['f_max'])
+    print(s1.parameters['f_max'])
+    print(j2.parameters['f_max'])
+    print(s2.parameters['f_max'], s2.fodder)
