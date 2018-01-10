@@ -47,6 +47,23 @@ class BioSim:
         a4 = np.array(a3)
         return a4
 
+    def array_to_island(self):
+
+        arr = np.zeros(np.shape(self.string_to_array()))
+        nest = list(arr)
+        for i, e in enumerate(nest):
+            nest[i] = list(e)
+
+        for i in range(np.shape(self.string_to_array())[0]):
+            for j in range(np.shape(self.string_to_array())[1]):
+                if self.string_to_array()[i, j] == 'J':
+                    nest[i][j] = Jungle()
+                if self.string_to_array()[i, j] == 'S':
+                    nest[i][j] = Savannah()
+
+        self.island = np.array(nest)
+
+
 
 
     def simulate_in_one_place_herbivores(self, num_steps):
