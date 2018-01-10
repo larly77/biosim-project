@@ -51,3 +51,7 @@ class Jungle:
     def get_herbivore_list(self):
         """"""
         return self.herbivore_list
+
+
+class Savannah(Jungle):
+        """"""
