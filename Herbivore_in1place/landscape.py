@@ -33,6 +33,8 @@ class Jungle:
         self.fodder = copy.deepcopy(self.parameters['f_max'])
         self.herbivore_list = []
         self.carnivore_list = []
+        self.herbivore_list_newborn = []
+        self.carnivore_list_newborn = []
 
     def reset_fodder(self):
         """Method that set the amount of fodder in the jungle to f_max."""
@@ -45,3 +47,7 @@ class Jungle:
     def get_fodder(self):
         """"""
         return self.fodder
+
+    def get_herbivore_list(self):
+        """"""
+        return self.herbivore_list

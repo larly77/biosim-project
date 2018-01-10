@@ -89,8 +89,18 @@ class Herbivore:
             self.weight += self.parameters['beta'] * available_fodder
             landscape_instance.reduce_fodder(available_fodder)
 
-    def procreation(self):
+    def procreation(self, landscape_instance, number_of_adults):
         """Dummy"""
+        if self.weight >= self.parameters['zeta'] * (
+                self.parameters['w_birth'] + self.parameters['sigma_birth']):
+            probability_of_birth = min([1, self.parameters['gamma'] *
+                                        self.fitness * (number_of_adults-1)])
+            if random.random < probability_of_birth:
+                weight_birth = random.gauss(self.parameters['w_birth'],
+                                            self.parameters['sigma_birth'])
+                self.weight -= self.parameters['xi'] * weight_birth
+                landscape_instance.herbivore_list_newborn.append(
+                    Herbivore(age=0, weight=weight_birth))
 
     def migration(self):
         """Dummy"""
