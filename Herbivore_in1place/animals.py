@@ -95,7 +95,7 @@ class Herbivore:
                 self.parameters['w_birth'] + self.parameters['sigma_birth']):
             probability_of_birth = min([1, self.parameters['gamma'] *
                                         self.fitness * (number_of_adults-1)])
-            if random.random < probability_of_birth:
+            if random.random() < probability_of_birth:
                 weight_birth = random.gauss(self.parameters['w_birth'],
                                             self.parameters['sigma_birth'])
                 self.weight -= self.parameters['xi'] * weight_birth
@@ -122,6 +122,8 @@ class Herbivore:
         probability_of_death = self.parameters['omega'] * (1-self.fitness)
         if random.random() < probability_of_death:
             return index_animal_list
+        else:
+            return 'placeholder'
 
 
 
