@@ -9,6 +9,8 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
 from landscape import Jungle, Savannah
 from animals import Herbivore
+import numpy as np
+import copy
 
 
 class BioSim:
@@ -22,8 +24,30 @@ class BioSim:
 
         self.seed = seed
 
-    def create_map(self):
+    def string_to_array(self):
         """"""
+
+        temp_map = copy.deepcopy(self.map.replace(" ", ""))
+        a = list(temp_map)
+
+        # fjerner '\n' og finner hvor lange radene skal være
+        a2 = [e for e in a if '\n' not in e]
+        for element in a:
+            if element == '\n':
+                line_length = len(a[0:a.index(element)])
+                break
+
+        # deler lista inn i like store chunks, som passer med radlengden vi fant over
+        a3 = []
+        for i in range(0, len(a2), line_length):
+            af = a2[i:i + line_length]
+            a3.append(af)
+
+        # lager en array av det
+        a4 = np.array(a3)
+        return a4
+
+
 
     def simulate_in_one_place_herbivores(self, num_steps):
 
