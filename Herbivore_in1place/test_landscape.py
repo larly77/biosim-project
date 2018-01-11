@@ -29,7 +29,7 @@ class TestLandscape:
         assert j1.fodder == 600
 
     def test_get_fodder(self):
-        """Test for metgod get_fodder"""
+        """Test for method get_fodder"""
         j1 = Jungle()
         assert j1.get_fodder() == 800.0
         j1.reduce_fodder(100)
