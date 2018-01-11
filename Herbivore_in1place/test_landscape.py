@@ -43,7 +43,7 @@ class TestLandscape:
         s1.reset_fodder()
         assert s1.fodder == 195
 
-    def test_feeding(self):
+    def test_feeding_jungle(self):
         """Test that all animals in the cell feeds: the method feeding"""
         j1 = Jungle()
         j1.herbivore_list = [Herbivore(3, 15), Herbivore(3, 20),
@@ -52,3 +52,13 @@ class TestLandscape:
         assert j1.get_fodder() == 760
         assert j1.herbivore_list[0].weight == 39
         assert j1.herbivore_list[3].weight == 24
+
+    def test_feeding_savannah(self):
+        """Test that all animals in the cell feeds: the method feeding"""
+        s1 = Savannah()
+        s1.herbivore_list = [Herbivore(3, 15), Herbivore(3, 20),
+                             Herbivore(3, 30), Herbivore(3, 25)]
+        s1.feeding()
+        assert s1.get_fodder() == 260
+        assert s1.herbivore_list[0].weight == 39
+        assert s1.herbivore_list[3].weight == 24
