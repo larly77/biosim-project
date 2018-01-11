@@ -8,6 +8,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
             'lars.martin.boe.lied@nmbu.no'
 
 from landscape import Jungle, Savannah
+from animals import Herbivore
 
 
 class TestLandscape:
@@ -41,3 +42,13 @@ class TestLandscape:
         s1.fodder = 150.0
         s1.reset_fodder()
         assert s1.fodder == 195
+
+    def test_feeding(self):
+        """Test that all animals in the cell feeds: the method feeding"""
+        j1 = Jungle()
+        j1.herbivore_list = [Herbivore(3, 15), Herbivore(3, 20),
+                             Herbivore(3, 30), Herbivore(3, 25)]
+        j1.feeding()
+        assert j1.get_fodder() == 760
+        assert j1.herbivore_list[0].weight == 39
+        assert j1.herbivore_list[3].weight == 24

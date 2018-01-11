@@ -56,6 +56,18 @@ class Jungle:
         """"""
         return self.carnivore_list
 
+    def feeding(self):
+        """Method that makes all animals in the cell feed"""
+
+        self.herbivore_list.sort(key=lambda x: x.fitness, reverse=True)
+        for animal in self.herbivore_list:
+            animal.feeding(landscape_instance=self)
+
+        # Carnivorene må spise her. Eller noe.
+
+
+
+
 class Savannah(Jungle):
     """"""
 
