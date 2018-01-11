@@ -83,3 +83,11 @@ class TestLandscape:
         j1.aging()
         for animal in j1.herbivore_list:
             assert animal.age == 5
+
+    def test_loss_of_weight(self):
+        """Test that all animal in cell lose weight:the method loss_of_weight"""
+        j1 = Jungle()
+        j1.herbivore_list = [Herbivore(age=3, weight=20) for _ in range(5)]
+        j1.loss_of_weight()
+        for animal in j1.herbivore_list:
+            assert animal.weight == 19

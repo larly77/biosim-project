@@ -89,6 +89,10 @@ class Jungle:
         for animal in self.herbivore_list + self.carnivore_list:
             animal.aging()
 
+    def loss_of_weight(self):
+        """Method that makes all animals in the cell lose weight"""
+        for animal in self.herbivore_list + self.carnivore_list:
+            animal.loss_of_weight()
 
 
 class Savannah(Jungle):
