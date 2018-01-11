@@ -138,5 +138,5 @@ if __name__ == '__main__':
                          for _ in range(20)]}]
 
     sim = BioSim(island_map="""J""", ini_pop=ini_herb, seed=123)
-    sim.array_to_island()
+    #sim.array_to_island()
     #sim.simulate_in_one_place_herbivores(200)

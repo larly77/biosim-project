@@ -87,7 +87,7 @@ class Herbivore:
             landscape_instance.reduce_fodder(appetite)
         if 0 < available_fodder < appetite:
             self.weight += self.parameters['beta'] * available_fodder
-            landscape_instance.reduce_fodder(available_fodder)
+            landscape_instance.fodder = 0
 
     def procreation(self, landscape_instance, number_of_adults):
         """Dummy"""
