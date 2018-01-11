@@ -25,19 +25,22 @@ class BioSim:
         self.seed = seed
 
     def string_to_array(self):
-        """"""
+        """Converts the string-input for the map into an array"""
 
         temp_map = copy.deepcopy(self.map.replace(" ", ""))
         a = list(temp_map)
+        line_length = 0
 
-        # fjerner '\n' og finner hvor lange radene skal være
+        # Removes the line-shifts and calculate the lengths
+        # of the rows in the new array
         a2 = [e for e in a if '\n' not in e]
         for element in a:
             if element == '\n':
                 line_length = len(a[0:a.index(element)])
                 break
 
-        # deler lista inn i like store chunks, som passer med radlengden vi fant over
+        # divide the lhe list into equal chunks,
+        # that fits with the row-lengths found earlier
         a3 = []
         for i in range(0, len(a2), line_length):
             af = a2[i:i + line_length]
@@ -48,23 +51,22 @@ class BioSim:
         return a4
 
     def array_to_island(self):
+        array_map = self.string_to_array()
+        array_shape = np.shape(array_map)
 
-        arr = np.zeros(np.shape(self.string_to_array()))
+        arr = np.zeros(array_shape)
         nest = list(arr)
         for i, e in enumerate(nest):
             nest[i] = list(e)
-
-        for i in range(np.shape(self.string_to_array())[0]):
-            for j in range(np.shape(self.string_to_array())[1]):
+        
+        for i in range(array_shape[0]):
+            for j in range(array_shape[1]):
                 if self.string_to_array()[i, j] == 'J':
                     nest[i][j] = Jungle()
                 if self.string_to_array()[i, j] == 'S':
                     nest[i][j] = Savannah()
 
         self.island = np.array(nest)
-
-
-
 
     def simulate_in_one_place_herbivores(self, num_steps):
 
