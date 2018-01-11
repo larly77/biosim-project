@@ -52,18 +52,18 @@ class BioSim:
 
     def array_to_island(self):
         array_map = self.string_to_array()
-        array_shape = np.shape(array_map)
+        array_shape = np.shape(array_map)   # type: tuple
 
         arr = np.zeros(array_shape)
         nest = list(arr)
         for i, e in enumerate(nest):
             nest[i] = list(e)
-        
+
         for i in range(array_shape[0]):
             for j in range(array_shape[1]):
-                if self.string_to_array()[i, j] == 'J':
+                if array_map[i, j] == 'J':
                     nest[i][j] = Jungle()
-                if self.string_to_array()[i, j] == 'S':
+                if array_map[i, j] == 'S':
                     nest[i][j] = Savannah()
 
         self.island = np.array(nest)
@@ -138,5 +138,5 @@ if __name__ == '__main__':
                          for _ in range(20)]}]
 
     sim = BioSim(island_map="""J""", ini_pop=ini_herb, seed=123)
-
-    sim.simulate_in_one_place_herbivores(200)
+    sim.array_to_island()
+    #sim.simulate_in_one_place_herbivores(200)

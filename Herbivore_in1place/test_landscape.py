@@ -34,3 +34,6 @@ class TestLandscape:
         assert j1.get_fodder() == 800.0
         j1.reduce_fodder(100)
         assert j1.get_fodder() == 700
+
+
+
