@@ -44,7 +44,7 @@ class TestLandscape:
         assert s1.fodder == 195
 
     def test_feeding_jungle(self):
-        """Test that all animals in the cell feeds: the method feeding"""
+        """Test that all animals in the cell feed: the method feeding"""
         j1 = Jungle()
         j1.herbivore_list = [Herbivore(3, 15), Herbivore(3, 20),
                              Herbivore(3, 30), Herbivore(3, 25)]
@@ -54,7 +54,7 @@ class TestLandscape:
         assert j1.herbivore_list[3].weight == 24
 
     def test_feeding_savannah(self):
-        """Test that all animals in the cell feeds: the method feeding"""
+        """Test that all animals in the cell feed: the method feeding"""
         s1 = Savannah()
         s1.herbivore_list = [Herbivore(3, 15), Herbivore(3, 20),
                              Herbivore(3, 30), Herbivore(3, 25)]
@@ -62,3 +62,13 @@ class TestLandscape:
         assert s1.get_fodder() == 260
         assert s1.herbivore_list[0].weight == 39
         assert s1.herbivore_list[3].weight == 24
+
+    def test_procreation(self):
+        """Test that all animals in cell procreate: the method procreation"""
+        s1 = Savannah()
+        Herbivore.set_parameters({'gamma': 1})
+        s1.herbivore_list = [Herbivore(age=3, weight=1000) for _ in range(3)]
+        s1.procreation()
+        Herbivore.set_parameters({'gamma': 0.2})  # default value
+        assert len(s1.herbivore_list_newborn) == 0
+        assert len(s1.get_herbivore_list()) == 6

@@ -58,13 +58,31 @@ class Jungle:
 
     def feeding(self):
         """Method that makes all animals in the cell feed"""
-
         self.herbivore_list.sort(key=lambda x: x.fitness, reverse=True)
         for animal in self.herbivore_list:
             animal.feeding(landscape_instance=self)
 
         # Carnivorene må spise her. Eller noe.
 
+    def procreation(self):
+        """Method that makes all animals in the cell try to procreate"""
+        number_adult_herbivores = len(self.herbivore_list)
+        number_adult_carnivores = len(self.carnivore_list)
+
+        for animal in self.herbivore_list:
+            animal.procreation(landscape_instance=self,
+                               number_of_adults=number_adult_herbivores)
+        for animal in self.carnivore_list:
+            animal.procreation(landscape_instance=self,
+                               number_of_adults=number_adult_carnivores)
+
+        self.herbivore_list += self.herbivore_list_newborn
+        self.herbivore_list_newborn = []
+        self.carnivore_list += self.carnivore_list_newborn
+        self.carnivore_list_newborn = []
+
+    def migration(self):
+        """Method the makes all animals in the cell try to migrate"""
 
 
 

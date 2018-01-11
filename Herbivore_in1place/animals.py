@@ -95,12 +95,18 @@ class Herbivore:
                 self.parameters['w_birth'] + self.parameters['sigma_birth']):
             probability_of_birth = min([1, self.parameters['gamma'] *
                                         self.fitness * (number_of_adults-1)])
+
             if random.random() < probability_of_birth:
                 weight_birth = random.gauss(self.parameters['w_birth'],
                                             self.parameters['sigma_birth'])
                 self.weight -= self.parameters['xi'] * weight_birth
-                landscape_instance.herbivore_list_newborn.append(
-                    Herbivore(age=0, weight=weight_birth))
+
+                if type(self).__name__ == 'Herbivore':
+                    landscape_instance.herbivore_list_newborn.append(
+                        Herbivore(age=0, weight=weight_birth))
+                if type(self).__name__ == 'Carnivore':
+                    landscape_instance.carnivore_list_newborn.append(
+                        Carnivore(age=0, weight=weight_birth))
 
     def migration(self):
         """Dummy"""
@@ -126,7 +132,8 @@ class Herbivore:
             return 'placeholder'
 
 
-
+class Carnivore(Herbivore):
+    """"""
 
 # Følgende angir hvordan en docstring bør se ut.
 # Med det formatet blir dokumentasjons-porsessen meget grei,
@@ -153,3 +160,6 @@ def f(x):
         If x is not numeric
     """
 
+if __name__ == '__main__':
+    h1 = Herbivore(3, 20)
+    print(type(h1).__name__)
