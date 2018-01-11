@@ -82,7 +82,12 @@ class Jungle:
         self.carnivore_list_newborn = []
 
     def migration(self):
-        """Method the makes all animals in the cell try to migrate"""
+        """Method that makes all animals in the cell try to migrate"""
+
+    def aging(self):
+        """Method that makes all animals in the cell age"""
+        for animal in self.herbivore_list + self.carnivore_list:
+            animal.aging()
 
 
 

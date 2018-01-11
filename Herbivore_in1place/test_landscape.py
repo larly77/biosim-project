@@ -72,3 +72,14 @@ class TestLandscape:
         Herbivore.set_parameters({'gamma': 0.2})  # default value
         assert len(s1.herbivore_list_newborn) == 0
         assert len(s1.get_herbivore_list()) == 6
+
+    def test_aging(self):
+        """Test that all animals in the cell age: the method aging"""
+        j1 = Jungle()
+        j1.herbivore_list = [Herbivore(age=3, weight=20) for _ in range(5)]
+        j1.aging()
+        for animal in j1.herbivore_list:
+            assert animal.age == 4
+        j1.aging()
+        for animal in j1.herbivore_list:
+            assert animal.age == 5
