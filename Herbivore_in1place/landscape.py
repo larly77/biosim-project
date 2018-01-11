@@ -94,6 +94,13 @@ class Jungle:
         for animal in self.herbivore_list + self.carnivore_list:
             animal.loss_of_weight()
 
+    def death(self):
+        """Method that makes some animals in the cell die, and remove them"""
+
+        self.herbivore_list = [animal for animal in self.herbivore_list
+                               if not animal.death()]
+        self.carnivore_list = [animal for animal in self.carnivore_list
+                               if not animal.death()]
 
 class Savannah(Jungle):
     """"""

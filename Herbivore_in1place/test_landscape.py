@@ -91,3 +91,14 @@ class TestLandscape:
         j1.loss_of_weight()
         for animal in j1.herbivore_list:
             assert animal.weight == 19
+
+    def test_death(self):
+        """Test that some animals in the cell die: the method death"""
+        j1 = Jungle()
+        Herbivore.set_parameters({'omega': 1})
+        j1.herbivore_list = [Herbivore(age=3, weight=20) for _ in range(50)]
+        for animal in j1.herbivore_list:
+            animal.fitness = 0
+        j1.death()
+        Herbivore.set_parameters({'omega': 0.4})  # default value
+        assert len(j1.herbivore_list) == 0

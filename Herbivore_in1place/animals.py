@@ -122,14 +122,12 @@ class Herbivore:
             self.weight
         self.update_fitness()
 
-    def death(self, index_animal_list):
+    def death(self):
         """Dummy"""
 
         probability_of_death = self.parameters['omega'] * (1-self.fitness)
-        if random.random() < probability_of_death:
-            return index_animal_list
-        else:
-            return 'placeholder'
+        return random.random() < probability_of_death
+
 
 
 class Carnivore(Herbivore):
