@@ -32,9 +32,9 @@ class TestSimulation:
     def test_add_population(self):
         """Tests the population is added to cell on island"""
         s1 = BioSim(island_map=ISLE_MAP, ini_pop=INI_HERB, seed=123)
-        assert len(s1.island.cells[1, 1].herbivores) == 0
-        s1.add_population(INI_HERB)
         assert len(s1.island.cells[1, 1].herbivores) == 20
+        s1.add_population(INI_HERB)
+        assert len(s1.island.cells[1, 1].herbivores) == 40
 
         assert len(s1.island.cells[1, 1].carnivores) == 0
         s1.add_population(INI_CARN)

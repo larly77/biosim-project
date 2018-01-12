@@ -15,10 +15,9 @@ import numpy as np
 class Island:
     """"""
 
-    def __init__(self, island_map, ini_pop):
+    def __init__(self, island_map):
         """"""
         self.map = island_map
-        self.pop = ini_pop  #evt fjerne denne
         self.cells = None
         self.array_to_island()
 
@@ -104,7 +103,7 @@ if __name__ == '__main__':
                           'weight': 20}
                          for _ in range(20)]}]
 
-    isle = Island(isle_map, ini_herb)
+    isle = Island(isle_map)
     isle.array_to_island()
 
     print(isle.cells)

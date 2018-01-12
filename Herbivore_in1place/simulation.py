@@ -11,6 +11,7 @@ from landscape import Jungle, Savannah
 from animals import Herbivore
 import numpy as np
 import copy
+import random
 from island import Island
 
 
@@ -18,11 +19,10 @@ class BioSim:
     """"""
 
     def __init__(self, island_map, ini_pop, seed):
-        self.map = island_map
-        self.pop = ini_pop
-        self.island = Island(self.map, self.pop)
+        random.seed(seed)
+        self.island = Island(island_map)
+        self.add_population(ini_pop)
 
-        self.seed = seed
 
     def add_population(self, population):
         """dum"""
@@ -33,10 +33,12 @@ class BioSim:
 
     def simulate_in_one_place_herbivores(self, num_steps):
 
-
-
         # Run thru num_steps years
         for year in range(num_steps):
+
+
+
+
 
             for animal in self.location.get_herbivores():
                 print(animal.age, animal.weight)
@@ -45,13 +47,17 @@ class BioSim:
 
 
 if __name__ == '__main__':
+    isle_map = """\
+            JSS
+            SSJ
+            SSS"""
 
-    ini_herb = [{'loc': (10, 10),
+    ini_herb = [{'loc': (2, 2),
                  'pop': [{'species': 'Herbivore',
                           'age': 5,
                           'weight': 20}
                          for _ in range(20)]}]
 
-    sim = BioSim(island_map="""J""", ini_pop=ini_herb, seed=123)
-    #sim.array_to_island()
+    sim = BioSim(island_map=isle_map, ini_pop=ini_herb, seed=123)
+
     #sim.simulate_in_one_place_herbivores(200)

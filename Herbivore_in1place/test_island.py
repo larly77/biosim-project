@@ -32,7 +32,7 @@ class TestIsland:
 
     def test_string_to_array(self):
         """Test for the method Island.string_to_array"""
-        i1 = Island(ISLE_MAP, INI_HERB)
+        i1 = Island(ISLE_MAP)
         arry = i1.string_to_array()
         correct_arry = np.array([['J', 'S', 'S'],
                                  ['S', 'S', 'J'],
@@ -40,35 +40,28 @@ class TestIsland:
         assert np.array_equal(arry, correct_arry)
 
     def test_array_to_island(self):
-        i1 = Island(ISLE_MAP, INI_HERB)
-
+        i1 = Island(ISLE_MAP)
         correct_island = np.array([[Jungle(), Savannah(), Savannah()],
                                    [Savannah(), Savannah(), Jungle()],
                                    [Savannah(), Savannah(), Savannah()]])
-        for i in range(np.shape(correct_island)[0]):
-            for j in range(np.shape(correct_island)[1]):
+        island_shape = np.shape(correct_island)   # type: tuple
+        for i in range(island_shape[0]):
+            for j in range(island_shape[1]):
                 assert type(i1.cells[i, j]) == type(correct_island[i, j])
 
     def test_add_animal_island(self):
 
-        i1 = Island(ISLE_MAP, INI_HERB)
+        i1 = Island(ISLE_MAP)
         assert len(i1.cells[1, 1].herbivores) == 0
         i1.add_animal_island((1, 1), INI_HERB[0]['pop'])
         assert len(i1.cells[1, 1].herbivores) == 20
 
-        for animal in (i1.cells[1, 1].herbivores):
+        for animal in i1.cells[1, 1].herbivores:
             assert isinstance(animal, Herbivore)
 
         assert len(i1.cells[1, 1].carnivores) == 0
         i1.add_animal_island((1, 1), INI_CARN[0]['pop'])
         assert len(i1.cells[1, 1].carnivores) == 20
 
-        for animal in (i1.cells[1, 1].carnivores):
+        for animal in i1.cells[1, 1].carnivores:
             assert isinstance(animal, Carnivore)
-
-
-
-
-
-#    def test_add_animal_island(self):
-#        i1 = Island()
