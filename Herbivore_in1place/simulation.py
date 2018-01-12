@@ -11,6 +11,7 @@ from landscape import Jungle, Savannah
 from animals import Herbivore
 import numpy as np
 import copy
+from island import Island
 
 
 class BioSim:
@@ -19,8 +20,7 @@ class BioSim:
     def __init__(self, island_map, ini_pop, seed):
         self.map = island_map
         self.pop = ini_pop
-        self.island = None
-        self.location = None
+        self.island = Island(self.map, self.pop)
 
         self.seed = seed
 
