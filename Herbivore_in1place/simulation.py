@@ -24,6 +24,13 @@ class BioSim:
 
         self.seed = seed
 
+    def add_population(self, population):
+        """dum"""
+        coordinates = population[0]['loc']
+        coordinates = (coordinates[0] - 1, coordinates[1] - 1)
+        animals = population[0]['pop']
+        self.island.add_animal_island(coordinates, animals)
+
     def simulate_in_one_place_herbivores(self, num_steps):
 
         # Make 'one place'

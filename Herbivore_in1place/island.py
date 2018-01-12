@@ -68,6 +68,17 @@ class Island:
 
         self.island = np.array(nested)
 
+    def add_animal_island(self, coordinates, animals_list):
+        """dummy"""
+        for animal in animals_list:
+            if animal['species'] == 'Herbivore':
+                self.island[coordinates].add_herbivore(animal['age'],
+                                                       animal['weight'])
+
+            if animal['species'] == 'Carnivore':
+                self.island[coordinates].add_carnivore(animal['age'],
+                                                       animal['weight'])
+
 
 if __name__ == '__main__':
 
