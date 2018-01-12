@@ -64,6 +64,7 @@ class Jungle:
 
     def feeding(self):
         """Method that makes all animals in the cell feed"""
+        self.reset_fodder()
         self.herbivores.sort(key=lambda x: x.fitness, reverse=True)
         for animal in self.herbivores:
             animal.feeding(landscape_instance=self)

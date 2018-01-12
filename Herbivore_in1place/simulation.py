@@ -23,7 +23,6 @@ class BioSim:
         self.island = Island(island_map)
         self.add_population(ini_pop)
 
-
     def add_population(self, population):
         """dum"""
         coordinates = population[0]['loc']
@@ -31,26 +30,23 @@ class BioSim:
         animals = population[0]['pop']
         self.island.add_animal_island(coordinates, animals)
 
-    def simulate_in_one_place_herbivores(self, num_steps):
+    def simulate_in_one_place_herbivores(self, num_steps, printing):
 
         # Run thru num_steps years
         for year in range(num_steps):
+            self.island.cycle()
 
-
-
-
-
-            for animal in self.location.get_herbivores():
-                print(animal.age, animal.weight)
-            print('Year over:', year)
-            print('Number of Herbivores: ', len(self.location.get_herbivores()))
+            if printing:
+                print('Year over:', year)
+                print('Number of Herbivores: ',
+                      len(self.island.cells[1, 1].herbivores))
 
 
 if __name__ == '__main__':
     isle_map = """\
-            JSS
-            SSJ
-            SSS"""
+            OOO
+            OJO
+            OOO"""
 
     ini_herb = [{'loc': (2, 2),
                  'pop': [{'species': 'Herbivore',
@@ -58,6 +54,6 @@ if __name__ == '__main__':
                           'weight': 20}
                          for _ in range(20)]}]
 
-    sim = BioSim(island_map=isle_map, ini_pop=ini_herb, seed=123)
+    sim = BioSim(island_map=isle_map, ini_pop=ini_herb, seed=12345)
 
-    #sim.simulate_in_one_place_herbivores(200)
+    sim.simulate_in_one_place_herbivores(num_steps=200, printing=True)
