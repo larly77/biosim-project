@@ -11,13 +11,10 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
 import copy
 
 
-DEFAULT_JUNGLE_PARAMETERS = {'f_max': 800.0}
-DEFAULT_SAVANNAH_PARAMETERS = {'f_max': 300.0, 'alpha': 0.3}
-
-
 class Jungle:
     """"""
 
+    DEFAULT_JUNGLE_PARAMETERS = {'f_max': 800.0}
     parameters = copy.deepcopy(DEFAULT_JUNGLE_PARAMETERS)
 
     @classmethod
@@ -102,9 +99,11 @@ class Jungle:
         self.carnivore_list = [animal for animal in self.carnivore_list
                                if not animal.death()]
 
+
 class Savannah(Jungle):
     """"""
 
+    DEFAULT_SAVANNAH_PARAMETERS = {'f_max': 300.0, 'alpha': 0.3}
     parameters = copy.deepcopy(DEFAULT_SAVANNAH_PARAMETERS)
 
     def __init__(self):
