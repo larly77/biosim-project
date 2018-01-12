@@ -14,6 +14,26 @@ from animals import Herbivore
 class TestLandscape:
     """Class for testing landscape"""
 
+    def test_add_herbivore(self):
+        j1 = Jungle()
+        assert len(j1.herbivores) == 0
+        j1.add_herbivore(5, 20)
+        assert j1.herbivores[0].weight == 20
+        assert j1.herbivores[0].age == 5
+        for _ in range(5):
+            j1.add_herbivore(5, 20)
+        assert len(j1.herbivores) == 6
+
+    def test_add_carnivores(self):
+        j1 = Jungle()
+        assert len(j1.carnivores) == 0
+        j1.add_carnivore(5, 20)
+        assert j1.carnivores[0].weight == 20
+        assert j1.carnivores[0].age == 5
+        for _ in range(5):
+            j1.add_carnivore(5, 20)
+        assert len(j1.carnivores) == 6
+
     def test_reset_fodder_jungle(self):
         """Test for the method Jungle.reset_fodder"""
         j1 = Jungle()

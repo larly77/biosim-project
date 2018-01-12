@@ -11,7 +11,6 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
 import random
 import math
 import copy
-from landscape import Jungle
 
 
 class Herbivore:

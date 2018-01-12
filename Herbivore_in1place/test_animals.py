@@ -12,8 +12,8 @@ from animals import Herbivore
 from landscape import Jungle
 
 
-class TestHerbivores:
-    """Class with tests for the class Herbivores in animals"""
+class TestAnimal:
+    """Class for testing animal"""
 
     def test_init_parameters(self):
         """Test input values and some default parameters"""
