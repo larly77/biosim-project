@@ -80,6 +80,17 @@ class Island:
                 self.cells[coordinates].add_carnivore(animal['age'],
                                                       animal['weight'])
 
+    def cycle(self):
+        for i in range(len(self.cells[0])):
+            for j in range(len(self.cells[1])):
+                self.cells[i][j].feeding()
+                self.cells[i][j].procreation()
+                self.cells[i][j].migration()
+                self.cells[i][j].aging()
+                self.cells[i][j].loss_of_weight()
+                self.cells[i][j].death()
+
+
 
 if __name__ == '__main__':
 
