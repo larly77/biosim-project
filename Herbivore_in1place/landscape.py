@@ -9,6 +9,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
 
 
 import copy
+from animals import Herbivore, Carnivore
 
 
 class Jungle:
@@ -33,6 +34,14 @@ class Jungle:
         self.herbivores_newborn = []
         self.carnivores_newborn = []
 
+    def add_herbivores(self, age, weight):
+        """Method for adding a herbivore into the landscape-cell"""
+        self.herbivores.append(Herbivore(age, weight))
+
+    def add_carnivores(self, age, weight):
+        """Method for adding a carnivore into the landscape-cell"""
+        self.carnivores.append(Carnivore(age, weight))
+        
     def reset_fodder(self):
         """Method that set the amount of fodder in the jungle to f_max."""
         self.fodder = copy.deepcopy(self.parameters['f_max'])
