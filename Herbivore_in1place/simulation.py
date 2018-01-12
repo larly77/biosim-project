@@ -14,7 +14,7 @@ from island import Island
 class BioSim:
     """"""
 
-    def __init__(self, island_map, ini_pop=None, seed):
+    def __init__(self, island_map, ini_pop=None, seed=12345):
         random.seed(seed)
         self.island = Island(island_map)
         if ini_pop is not None:
@@ -40,9 +40,11 @@ class BioSim:
 
 
 if __name__ == '__main__':
+
+#   from landscape import Jungle, Savannah
     isle_map = """\
             OOO
-            OSO
+            OJO
             OOO"""
 
     ini_herb = [{'loc': (2, 2),
@@ -52,5 +54,6 @@ if __name__ == '__main__':
                          for _ in range(20)]}]
 
     sim = BioSim(island_map=isle_map, ini_pop=ini_herb, seed=12345)
+#    Savannah.set_parameters({'f_max': 800})
 
     sim.simulate_in_one_place_herbivores(num_steps=200, printing=True)
