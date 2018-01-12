@@ -33,18 +33,7 @@ class BioSim:
 
     def simulate_in_one_place_herbivores(self, num_steps):
 
-        # Make 'one place'
-        if self.location is None:
-            if self.map == 'J':
-                self.location = Jungle()
-            if self.map == 'S':
-                self.location = Savannah()
 
-        # Populate 'one place'
-            for animal in self.pop[0]['pop']:
-                if animal['species'] == 'Herbivore':
-                    self.location.herbivores.append(
-                        Herbivore(weight=animal['weight'], age=animal['age']))
 
         # Run thru num_steps years
         for year in range(num_steps):

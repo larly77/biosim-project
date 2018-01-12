@@ -18,8 +18,9 @@ class Island:
     def __init__(self, island_map, ini_pop):
         """"""
         self.map = island_map
-        self.pop = ini_pop
-        self.island = None
+        self.pop = ini_pop  #evt fjerne denne
+        self.cells = None
+        self.array_to_island()
 
     def string_to_array(self):
         """Converts the string-input for the map into an array"""
@@ -66,18 +67,18 @@ class Island:
                 if array_map[i, j] == 'M':
                     nested[i][j] = Mountain()
 
-        self.island = np.array(nested)
+        self.cells = np.array(nested)
 
     def add_animal_island(self, coordinates, animals_list):
         """dummy"""
         for animal in animals_list:
             if animal['species'] == 'Herbivore':
-                self.island[coordinates].add_herbivore(animal['age'],
-                                                       animal['weight'])
+                self.cells[coordinates].add_herbivore(animal['age'],
+                                                      animal['weight'])
 
             if animal['species'] == 'Carnivore':
-                self.island[coordinates].add_carnivore(animal['age'],
-                                                       animal['weight'])
+                self.cells[coordinates].add_carnivore(animal['age'],
+                                                      animal['weight'])
 
 
 if __name__ == '__main__':
@@ -95,4 +96,4 @@ if __name__ == '__main__':
     isle = Island(isle_map, ini_herb)
     isle.array_to_island()
 
-    print(isle.island)
+    print(isle.cells)
