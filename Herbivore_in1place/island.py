@@ -81,8 +81,8 @@ class Island:
                                                       animal['weight'])
 
     def cycle(self):
-        for i in range(len(self.cells[0])):
-            for j in range(len(self.cells[1])):
+        for i in range(np.shape(self.cells)[0]):
+            for j in range(np.shape(self.cells)[1]):
                 self.cells[i][j].feeding()
                 self.cells[i][j].procreation()
                 self.cells[i][j].migration()
