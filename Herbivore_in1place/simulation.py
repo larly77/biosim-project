@@ -14,10 +14,11 @@ from island import Island
 class BioSim:
     """"""
 
-    def __init__(self, island_map, ini_pop, seed):
+    def __init__(self, island_map, ini_pop=None, seed):
         random.seed(seed)
         self.island = Island(island_map)
-        self.add_population(ini_pop)
+        if ini_pop is not None:
+            self.add_population(ini_pop)
 
     def add_population(self, population):
         """dum"""
