@@ -85,10 +85,10 @@ class Herbivore:
                 self.weight -= self.parameters['xi'] * weight_birth
 
                 if type(self).__name__ == 'Herbivore':
-                    landscape_instance.herbivore_list_newborn.append(
+                    landscape_instance.herbivores_newborn.append(
                         Herbivore(age=0, weight=weight_birth))
                 if type(self).__name__ == 'Carnivore':
-                    landscape_instance.carnivore_list_newborn.append(
+                    landscape_instance.carnivores_newborn.append(
                         Carnivore(age=0, weight=weight_birth))
 
     def migration(self):

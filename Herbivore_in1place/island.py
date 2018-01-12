@@ -7,7 +7,7 @@ __author__ = 'Jon-Fredrik Blakstad Cappelen'
 __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
 
-from landscape import Jungle, Savannah
+from landscape import Jungle, Savannah, Mountain, Ocean
 import copy
 import numpy as np
 
@@ -20,7 +20,6 @@ class Island:
         self.map = island_map
         self.pop = ini_pop
         self.island = None
-
 
     def string_to_array(self):
         """Converts the string-input for the map into an array"""
@@ -62,6 +61,10 @@ class Island:
                     nested[i][j] = Jungle()
                 if array_map[i, j] == 'S':
                     nested[i][j] = Savannah()
+                if array_map[i, j] == 'O':
+                    nested[i][j] = Ocean()
+                if array_map[i, j] == 'M':
+                    nested[i][j] = Mountain()
 
         self.island = np.array(nested)
 

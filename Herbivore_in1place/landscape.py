@@ -28,10 +28,10 @@ class Jungle:
 
     def __init__(self):
         self.fodder = copy.deepcopy(self.parameters['f_max'])
-        self.herbivore_list = []
-        self.carnivore_list = []
-        self.herbivore_list_newborn = []
-        self.carnivore_list_newborn = []
+        self.herbivores = []
+        self.carnivores = []
+        self.herbivores_newborn = []
+        self.carnivores_newborn = []
 
     def reset_fodder(self):
         """Method that set the amount of fodder in the jungle to f_max."""
@@ -45,59 +45,59 @@ class Jungle:
         """"""
         return self.fodder
 
-    def get_herbivore_list(self):
+    def get_herbivores(self):
         """"""
-        return self.herbivore_list
+        return self.herbivores
 
-    def get_carnivore_list(self):
+    def get_carnivores(self):
         """"""
-        return self.carnivore_list
+        return self.carnivores
 
     def feeding(self):
         """Method that makes all animals in the cell feed"""
-        self.herbivore_list.sort(key=lambda x: x.fitness, reverse=True)
-        for animal in self.herbivore_list:
+        self.herbivores.sort(key=lambda x: x.fitness, reverse=True)
+        for animal in self.herbivores:
             animal.feeding(landscape_instance=self)
 
         # Carnivorene må spise her. Eller noe.
 
     def procreation(self):
         """Method that makes all animals in the cell try to procreate"""
-        number_adult_herbivores = len(self.herbivore_list)
-        number_adult_carnivores = len(self.carnivore_list)
+        number_adult_herbivores = len(self.herbivores)
+        number_adult_carnivores = len(self.carnivores)
 
-        for animal in self.herbivore_list:
+        for animal in self.herbivores:
             animal.procreation(landscape_instance=self,
                                number_of_adults=number_adult_herbivores)
-        for animal in self.carnivore_list:
+        for animal in self.carnivores:
             animal.procreation(landscape_instance=self,
                                number_of_adults=number_adult_carnivores)
 
-        self.herbivore_list += self.herbivore_list_newborn
-        self.herbivore_list_newborn = []
-        self.carnivore_list += self.carnivore_list_newborn
-        self.carnivore_list_newborn = []
+        self.herbivores += self.herbivores_newborn
+        self.herbivores_newborn = []
+        self.carnivores += self.carnivores_newborn
+        self.carnivores_newborn = []
 
     def migration(self):
         """Method that makes all animals in the cell try to migrate"""
 
     def aging(self):
         """Method that makes all animals in the cell age"""
-        for animal in self.herbivore_list + self.carnivore_list:
+        for animal in self.herbivores + self.carnivores:
             animal.aging()
 
     def loss_of_weight(self):
         """Method that makes all animals in the cell lose weight"""
-        for animal in self.herbivore_list + self.carnivore_list:
+        for animal in self.herbivores + self.carnivores:
             animal.loss_of_weight()
 
     def death(self):
         """Method that makes some animals in the cell die, and remove them"""
 
-        self.herbivore_list = [animal for animal in self.herbivore_list
-                               if not animal.death()]
-        self.carnivore_list = [animal for animal in self.carnivore_list
-                               if not animal.death()]
+        self.herbivores = [animal for animal in self.herbivores
+                           if not animal.death()]
+        self.carnivores = [animal for animal in self.carnivores
+                           if not animal.death()]
 
 
 class Savannah(Jungle):
@@ -113,6 +113,18 @@ class Savannah(Jungle):
         """Method that updates the fodder amount in the savannah each year"""
         self.fodder += self.parameters['alpha'] * \
             (self.parameters['f_max'] - self.fodder)
+
+
+class Ocean:
+    """Class for ocean-landscape"""
+    def __init__(self):
+        """"""
+
+
+class Mountain:
+    """Class for mountain-landscape"""
+    def __init__(self):
+        """"""
 
 
 if __name__ == '__main__':

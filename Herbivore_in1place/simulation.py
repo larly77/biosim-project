@@ -36,16 +36,16 @@ class BioSim:
         # Populate 'one place'
             for animal in self.pop[0]['pop']:
                 if animal['species'] == 'Herbivore':
-                    self.location.herbivore_list.append(
+                    self.location.herbivores.append(
                         Herbivore(weight=animal['weight'], age=animal['age']))
 
         # Run thru num_steps years
         for year in range(num_steps):
 
-            for animal in self.location.get_herbivore_list():
+            for animal in self.location.get_herbivores():
                 print(animal.age, animal.weight)
             print('Year over:', year)
-            print('Number of Herbivores: ', len(self.location.get_herbivore_list()))
+            print('Number of Herbivores: ', len(self.location.get_herbivores()))
 
 
 if __name__ == '__main__':
