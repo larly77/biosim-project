@@ -7,10 +7,6 @@ __author__ = 'Jon-Fredrik Blakstad Cappelen'
 __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
 
-from landscape import Jungle, Savannah
-from animals import Herbivore
-import numpy as np
-import copy
 import random
 from island import Island
 
@@ -45,13 +41,13 @@ class BioSim:
 if __name__ == '__main__':
     isle_map = """\
             OOO
-            OJO
+            OSO
             OOO"""
 
     ini_herb = [{'loc': (2, 2),
                  'pop': [{'species': 'Herbivore',
                           'age': 5,
-                          'weight': 20}
+                          'weight': 40}
                          for _ in range(20)]}]
 
     sim = BioSim(island_map=isle_map, ini_pop=ini_herb, seed=12345)

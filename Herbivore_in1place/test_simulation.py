@@ -6,7 +6,7 @@
 __author__ = 'Jon-Fredrik Blakstad Cappelen'
 __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
-from island import Island
+
 from simulation import BioSim
 
 

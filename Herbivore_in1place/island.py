@@ -83,7 +83,8 @@ class Island:
         cells_shape = np.shape(self.cells)   # type: tuple
         for i in range(cells_shape[0]):
             for j in range(cells_shape[1]):
-                if isinstance(self.cells[i, j], Jungle) or isinstance(self.cells[i, j], Savannah):
+                if isinstance(self.cells[i, j], Jungle) or \
+                        isinstance(self.cells[i, j], Savannah):
                     self.cells[i, j].feeding()
                     self.cells[i, j].procreation()
                     self.cells[i, j].migration()
