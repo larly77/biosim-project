@@ -8,6 +8,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
 import numpy as np
 from island import Island
+from landscape import Jungle, Savannah
 
 
 ISLE_MAP = """\
@@ -32,6 +33,18 @@ class TestIsland:
                                  ['S', 'S', 'J'],
                                  ['S', 'S', 'S']])
         assert np.array_equal(arry, correct_arry)
+
+    def test_array_to_island(self):
+        i1 = Island(ISLE_MAP, INI_HERB)
+
+        i1.array_to_island()
+        correct_island = np.array([[Jungle(), Savannah(), Savannah()],
+                                   [Savannah(), Savannah(), Jungle()],
+                                   [Savannah(), Savannah(), Savannah()]])
+        for i in range(np.shape(correct_island)[0]):
+            for j in range(np.shape(correct_island)[1]):
+                assert type(i1.island[i, j]) == type(correct_island[i, j])
+
 
 #    def test_add_animal_island(self):
 #        i1 = Island()
