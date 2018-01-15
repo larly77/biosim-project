@@ -92,6 +92,9 @@ class Herbivore:
 
     def migration(self):
         """Dummy"""
+        probability_move = self.parameters['mu'] * self.fitness
+        if random.random() < probability_move:
+            return True
 
     def aging(self):
         """Method that increases the age of the animal by one year"""
@@ -140,7 +143,6 @@ class Carnivore(Herbivore):
         herbivores = sorted(landscape_instance.get_herbivores(),
                             key=lambda x: x.fitness, reverse=False)
         eaten_bool = [True]*len(herbivores)
-
 
         for index, prey in enumerate(herbivores):
             if appetite > 0:
