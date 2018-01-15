@@ -84,10 +84,10 @@ class Herbivore:
                 self.weight -= self.parameters['xi'] * weight_birth
 
                 if type(self).__name__ == 'Herbivore':
-                    landscape_instance.herbivores_newborn.append(
+                    landscape_instance.herbivores_new.append(
                         Herbivore(age=0, weight=weight_birth))
                 if type(self).__name__ == 'Carnivore':
-                    landscape_instance.carnivores_newborn.append(
+                    landscape_instance.carnivores_new.append(
                         Carnivore(age=0, weight=weight_birth))
 
     def migration(self):
@@ -143,7 +143,7 @@ class Carnivore(Herbivore):
 
 
         for index, prey in enumerate(herbivores):
-            while appetite > 0:
+            if appetite > 0:
                 if self.fitness <= prey.fitness:
                     pass
                     #nothing

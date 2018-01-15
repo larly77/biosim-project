@@ -22,6 +22,7 @@ class BioSim:
 
     def add_population(self, population):
         """dum"""
+        # Må fikse så den ser på alle listene i population, ikke bare [0]
         coordinates = population[0]['loc']
         coordinates = (coordinates[0] - 1, coordinates[1] - 1)
         animals = population[0]['pop']
@@ -37,11 +38,13 @@ class BioSim:
                 print('Year over:', year)
                 print('Number of Herbivores: ',
                       len(self.island.cells[1, 1].herbivores))
+                print('Number of Carnivores: ',
+                      len(self.island.cells[1, 1].carnivores))
+
 
 
 if __name__ == '__main__':
 
-#   from landscape import Jungle, Savannah
     isle_map = """\
             OOO
             OJO
@@ -50,10 +53,17 @@ if __name__ == '__main__':
     ini_herb = [{'loc': (2, 2),
                  'pop': [{'species': 'Herbivore',
                           'age': 5,
-                          'weight': 40}
-                         for _ in range(20)]}]
+                          'weight': 20}
+                         for _ in range(40)]}]
+
+    ini_carn = [{'loc': (2, 2),
+                 'pop': [{'species': 'Carnivore',
+                          'age': 5,
+                          'weight': 20}
+                         for _ in range(5)]}]
 
     sim = BioSim(island_map=isle_map, ini_pop=ini_herb, seed=12345)
+    sim.add_population(ini_carn)
 #    Savannah.set_parameters({'f_max': 800})
 
     sim.simulate_in_one_place_herbivores(num_steps=200, printing=True)
