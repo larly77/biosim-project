@@ -31,8 +31,8 @@ class Jungle:
         self.fodder = copy.deepcopy(self.parameters['f_max'])
         self.herbivores = []
         self.carnivores = []
-        self.herbivores_newborn = []
-        self.carnivores_newborn = []
+        self.herbivores_new = []
+        self.carnivores_new = []
 
     def add_herbivore(self, age, weight):
         """Method for adding a herbivore into the landscape-cell"""
@@ -88,10 +88,10 @@ class Jungle:
             animal.procreation(landscape_instance=self,
                                number_of_adults=number_adult_carnivores)
 
-        self.herbivores += self.herbivores_newborn
-        self.herbivores_newborn = []
-        self.carnivores += self.carnivores_newborn
-        self.carnivores_newborn = []
+        self.herbivores += self.herbivores_new
+        self.herbivores_new = []
+        self.carnivores += self.carnivores_new
+        self.carnivores_new = []
 
     def migration(self):
         """Method that makes all animals in the cell try to migrate"""

@@ -90,7 +90,7 @@ class TestLandscape:
         s1.herbivores = [Herbivore(age=3, weight=1000) for _ in range(3)]
         s1.procreation()
         Herbivore.set_parameters({'gamma': 0.2})  # default value
-        assert len(s1.herbivores_newborn) == 0
+        assert len(s1.herbivores_new) == 0
         assert len(s1.get_herbivores()) == 6
 
     def test_aging(self):
