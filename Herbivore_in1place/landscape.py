@@ -69,7 +69,12 @@ class Jungle:
         for animal in self.herbivores:
             animal.feeding(landscape_instance=self)
 
-        # Carnivorene må spise her. Eller noe.
+        self.carnivores.sort(key=lambda x: x.fitness, reverse=True)
+        self.herbivores.sort(key=lambda x: x.fitness, reverse=False)
+        for animal in self.carnivores:
+            eaten_bool = animal.feeding(landscape_instance=self)
+            self.herbivores = [animal for index, animal in
+                               enumerate(self.herbivores) if eaten_bool[index]]
 
     def procreation(self):
         """Method that makes all animals in the cell try to procreate"""
