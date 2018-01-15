@@ -136,6 +136,38 @@ class Carnivore(Herbivore):
 
     def feeding(self, landscape_instance):
         """"""
+        appetite = copy.deepcopy(self.parameters['F'])
+        herbivores = sorted(landscape_instance.get_herbivores(),
+                            key=lambda x: x.fitness, reverse=False)
+        eaten_bool = [True]*len(herbivores)
+
+
+        for index, prey in enumerate(herbivores):
+            while appetite > 0:
+                if self.fitness <= prey.fitness:
+                    pass
+                    #nothing
+
+                elif 0 < self.fitness - prey.fitness < \
+                        self.parameters['DeltaPhiMax']:
+
+                    probability = (self.fitness - prey.fitness)/self.parameters['DeltaPhiMax']
+                    if random.random() < probability:
+                        eaten_bool[index] = False
+                        appetite -= prey.weight
+                        self.weight += self.parameters['beta'] * prey.weight
+                        self.update_fitness()
+                else:
+                    eaten_bool[index] = False
+                    appetite -= prey.weight
+                    self.weight += self.parameters['beta'] * prey.weight
+                    self.update_fitness()
+        return eaten_bool
+
+
+
+
+
 
 # Følgende angir hvordan en docstring bør se ut.
 # Med det formatet blir dokumentasjons-porsessen meget grei,
