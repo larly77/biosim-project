@@ -25,27 +25,12 @@ class Island:
         """Converts the string-input for the map into an array"""
 
         temp_map = copy.deepcopy(self.map.replace(" ", ""))
-        a = list(temp_map)
-        line_length = 0
 
-        # Removes the line-shifts and calculate the lengths
-        # of the rows in the new array
-        a2 = [e for e in a if '\n' not in e]
-        for element in a:
-            if element == '\n':
-                line_length = len(a[0:a.index(element)])
-                break
-
-        # divide the lhe list into equal chunks,
-        # that fits with the row-lengths found earlier
-        a3 = []
-        for i in range(0, len(a2), line_length):
-            af = a2[i:i + line_length]
-            a3.append(af)
-
-        # lager en array av det
-        a4 = np.array(a3)
-        return a4
+        # ny versjon
+        kart_list = [[a for a in row] for row in temp_map.splitlines()]
+        kart_arr = np.array(kart_list)
+        
+        return kart_arr
 
     def array_to_island(self):
         array_map = self.string_to_array()

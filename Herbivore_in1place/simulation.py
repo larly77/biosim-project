@@ -44,7 +44,7 @@ if __name__ == '__main__':
 #   from landscape import Jungle, Savannah
     isle_map = """\
             OOO
-            ODO
+            OJO
             OOO"""
 
     ini_herb = [{'loc': (2, 2),
