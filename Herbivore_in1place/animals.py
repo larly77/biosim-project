@@ -106,7 +106,6 @@ class Herbivore:
 
     def death(self):
         """Dummy"""
-
         probability_of_death = self.parameters['omega'] * (1-self.fitness)
         return random.random() < probability_of_death
 
@@ -132,6 +131,11 @@ class Carnivore(Herbivore):
                                     'DeltaPhiMax': 10.0}
     parameters = copy.deepcopy(DEFAULT_CARNIVORE_PARAMETERS)
 
+    def __init__(self):
+        super().__init__()
+
+    def feeding(self, landscape_instance):
+        """"""
 
 # Følgende angir hvordan en docstring bør se ut.
 # Med det formatet blir dokumentasjons-porsessen meget grei,

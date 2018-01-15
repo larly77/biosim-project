@@ -29,7 +29,7 @@ class Island:
         # ny versjon
         kart_list = [[a for a in row] for row in temp_map.splitlines()]
         kart_arr = np.array(kart_list)
-        
+
         return kart_arr
 
     def array_to_island(self):
