@@ -70,8 +70,8 @@ class TestLandscape:
                          Herbivore(3, 30), Herbivore(3, 25)]
         j1.feeding()
         assert j1.get_fodder() == 760
-        assert j1.herbivores[0].weight == 39
-        assert j1.herbivores[3].weight == 24
+        assert j1.herbivores[0].weight == 24    # j1.feeding sorts by 'weakness'
+        assert j1.herbivores[3].weight == 39
 
     def test_feeding_savannah(self):
         """Test that all animals in the cell feed: the method feeding"""
@@ -80,8 +80,8 @@ class TestLandscape:
                          Herbivore(3, 30), Herbivore(3, 25)]
         s1.feeding()
         assert s1.get_fodder() == 260
-        assert s1.herbivores[0].weight == 39
-        assert s1.herbivores[3].weight == 24
+        assert s1.herbivores[0].weight == 24
+        assert s1.herbivores[3].weight == 39
 
     def test_procreation(self):
         """Test that all animals in cell procreate: the method procreation"""

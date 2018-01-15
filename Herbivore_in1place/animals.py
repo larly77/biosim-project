@@ -131,8 +131,8 @@ class Carnivore(Herbivore):
                                     'DeltaPhiMax': 10.0}
     parameters = copy.deepcopy(DEFAULT_CARNIVORE_PARAMETERS)
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, age, weight):
+        super().__init__(age, weight)
 
     def feeding(self, landscape_instance):
         """"""
