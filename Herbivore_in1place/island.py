@@ -7,7 +7,7 @@ __author__ = 'Jon-Fredrik Blakstad Cappelen'
 __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
 
-from landscape import Jungle, Savannah, Mountain, Ocean
+from landscape import Jungle, Savannah, Desert, Mountain, Ocean
 import copy
 import numpy as np
 
@@ -61,6 +61,8 @@ class Island:
                     nested[i][j] = Jungle()
                 if array_map[i, j] == 'S':
                     nested[i][j] = Savannah()
+                if array_map[i, j] == 'D':
+                    nested[i][j] = Desert()
                 if array_map[i, j] == 'O':
                     nested[i][j] = Ocean()
                 if array_map[i, j] == 'M':
@@ -84,7 +86,8 @@ class Island:
         for i in range(cells_shape[0]):
             for j in range(cells_shape[1]):
                 if isinstance(self.cells[i, j], Jungle) or \
-                        isinstance(self.cells[i, j], Savannah):
+                        isinstance(self.cells[i, j], Savannah) or \
+                        isinstance(self.cells[i, j], Desert):
                     self.cells[i, j].feeding()
                     self.cells[i, j].procreation()
                     self.cells[i, j].migration()

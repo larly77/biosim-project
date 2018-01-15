@@ -125,6 +125,16 @@ class Savannah(Jungle):
             (self.parameters['f_max'] - self.fodder)
 
 
+class Desert(Jungle):
+    """"""
+
+    def __init__(self):
+        super().__init__()
+
+    def feeding(self):
+        """Replaces the method Jungle.feeding. It does nothing."""
+
+
 class Ocean:
     """Class for ocean-landscape"""
     def __init__(self):
