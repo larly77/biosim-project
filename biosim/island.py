@@ -24,19 +24,20 @@ class Island:
         self.cells = None
         self.array_to_island()
 
-    def string_to_array(self):
-        """Converts the string-input for the map into an array"""
-
-        temp_map = copy.deepcopy(self.map.replace(" ", ""))
-
-        # ny versjon
-        kart_list = [[a for a in row] for row in temp_map.splitlines()]
-        kart_arr = np.array(kart_list)
-
-        return kart_arr
-
     def array_to_island(self):
-        array_map = self.string_to_array()
+
+        def string_to_array():
+            """Converts the string-input for the map into an array"""
+
+            temp_map = copy.deepcopy(self.map.replace(" ", ""))
+
+            # ny versjon
+            kart_list = [[a for a in row] for row in temp_map.splitlines()]
+            kart_arr = np.array(kart_list)
+
+            return kart_arr
+
+        array_map = string_to_array()
         array_shape = np.shape(array_map)   # type: tuple
 
         nested = list(np.zeros(array_shape))
@@ -83,43 +84,6 @@ class Island:
             random.shuffle(points_on_island)
             return points_on_island
 
-        def get_pi_values_carnivores(coordinate):
-            """returns propensity-values for carnivores for given cell """
-
-            right = (coordinate[0], coordinate[1] + 1)
-            if isinstance(self.cells[right], (Mountain, Ocean)):
-                pi_right = 0
-            else:
-                pi_right = math.exp(
-                    Carnivore.parameters['lambda'] * self.cells[
-                        right].get_abundance_carnivore())
-
-            up = (coordinate[0] - 1, coordinate[1])
-            if isinstance(self.cells[up], (Mountain, Ocean)):
-                pi_up = 0
-            else:
-                pi_up = math.exp(
-                    Carnivore.parameters['lambda'] * self.cells[
-                        up].get_abundance_carnivore())
-
-            left = (coordinate[0], coordinate[1] - 1)
-            if isinstance(self.cells[left], (Mountain, Ocean)):
-                pi_left = 0
-            else:
-                pi_left = math.exp(
-                    Carnivore.parameters['lambda'] * self.cells[
-                        left].get_abundance_carnivore())
-
-            down = (coordinate[0] + 1, coordinate[1])
-            if isinstance(self.cells[down], (Mountain, Ocean)):
-                pi_down = 0
-            else:
-                pi_down = math.exp(
-                    Carnivore.parameters['lambda'] * self.cells[
-                        down].get_abundance_carnivore())
-
-            return pi_right, pi_up, pi_left, pi_down
-
         def get_pi_values_herbivores(coordinate):
             """Returns propensity-values for herbivores given cell"""
 
@@ -157,6 +121,43 @@ class Island:
 
             return pi_right, pi_up, pi_left, pi_down
 
+        def get_pi_values_carnivores(coordinate):
+            """returns propensity-values for carnivores for given cell """
+
+            right = (coordinate[0], coordinate[1] + 1)
+            if isinstance(self.cells[right], (Mountain, Ocean)):
+                pi_right = 0
+            else:
+                pi_right = math.exp(
+                    Carnivore.parameters['lambda'] * self.cells[
+                        right].get_abundance_carnivore())
+
+            up = (coordinate[0] - 1, coordinate[1])
+            if isinstance(self.cells[up], (Mountain, Ocean)):
+                pi_up = 0
+            else:
+                pi_up = math.exp(
+                    Carnivore.parameters['lambda'] * self.cells[
+                        up].get_abundance_carnivore())
+
+            left = (coordinate[0], coordinate[1] - 1)
+            if isinstance(self.cells[left], (Mountain, Ocean)):
+                pi_left = 0
+            else:
+                pi_left = math.exp(
+                    Carnivore.parameters['lambda'] * self.cells[
+                        left].get_abundance_carnivore())
+
+            down = (coordinate[0] + 1, coordinate[1])
+            if isinstance(self.cells[down], (Mountain, Ocean)):
+                pi_down = 0
+            else:
+                pi_down = math.exp(
+                    Carnivore.parameters['lambda'] * self.cells[
+                        down].get_abundance_carnivore())
+
+            return pi_right, pi_up, pi_left, pi_down
+
         def get_direction(pi_values):
             """"""
             pi_right, pi_up, pi_left, pi_down = pi_values
@@ -170,6 +171,30 @@ class Island:
             return np.random.choice(
                 ('right', 'up', 'left', 'down'),
                 p=[p_right, p_up, p_left, p_down])
+
+        def cell_move_herbivores(coordinate):
+            """Moves the herbivores that should move in given cell"""
+
+            right = (coordinate[0], coordinate[1] + 1)
+            up = (coordinate[0] - 1, coordinate[1])
+            left = (coordinate[0], coordinate[1] - 1)
+            down = (coordinate[0] + 1, coordinate[1])
+
+            for _ in range(len(self.cells[coordinate].herbivores)):
+                herbivore = self.cells[coordinate].herbivores.pop(0)
+
+                if herbivore.migration():
+                    move_direction = get_direction(get_pi_values_herbivores(coordinate))
+                    if move_direction == 'right':
+                        self.cells[right].herbivores_new.append(herbivore)
+                    if move_direction == 'up':
+                        self.cells[up].herbivores_new.append(herbivore)
+                    if move_direction == 'left':
+                        self.cells[left].herbivores_new.append(herbivore)
+                    if move_direction == 'down':
+                        self.cells[down].herbivores_new.append(herbivore)
+                else:
+                    self.cells[coordinate].herbivores.append(herbivore)
 
         def cell_move_carnivores(coordinate):
             right = (coordinate[0], coordinate[1] + 1)
@@ -201,33 +226,10 @@ class Island:
             for coordinate in coordinates:
                 self.cells[coordinate].move_new_animals()
 
-        def cell_move_herbivores(coordinate):
-            """Moves the herbivores that should move in given cell"""
-
-            right = (coordinate[0], coordinate[1] + 1)
-            up = (coordinate[0] - 1, coordinate[1])
-            left = (coordinate[0], coordinate[1] - 1)
-            down = (coordinate[0] + 1, coordinate[1])
-
-            for _ in range(len(self.cells[coordinate].herbivores)):
-                herbivore = self.cells[coordinate].herbivores.pop(0)
-
-                if herbivore.migration():
-                    move_direction = get_direction(get_pi_values_herbivores(coordinate))
-                    if move_direction == 'right':
-                        self.cells[right].herbivores_new.append(herbivore)
-                    if move_direction == 'up':
-                        self.cells[up].herbivores_new.append(herbivore)
-                    if move_direction == 'left':
-                        self.cells[left].herbivores_new.append(herbivore)
-                    if move_direction == 'down':
-                        self.cells[down].herbivores_new.append(herbivore)
-                else:
-                    self.cells[coordinate].herbivores.append(herbivore)
-
         coordinates = get_random_coordinates()
         for coordinate in coordinates:
             cell_move_herbivores(coordinate)
+            cell_move_carnivores(coordinate)
 
         for coordinate in coordinates:
             self.cells[coordinate].move_new_animals()

@@ -111,7 +111,7 @@ class Jungle:
         self.move_new_animals()
 
     def migration(self):
-        """Dummy. Is this method needed?"""
+        """Dummy. Migration is handled by the class Island"""
 
     def aging(self):
         """Method that makes all animals in the cell age"""
