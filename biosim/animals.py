@@ -97,8 +97,7 @@ class Herbivore:
     def migration(self):
         """Dummy"""
         probability_move = self.parameters['mu'] * self.fitness
-        if random.random() < probability_move:
-            return True
+        return random.random() < probability_move
 
     def aging(self):
         """Method that increases the age of the animal by one year"""

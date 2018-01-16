@@ -71,9 +71,10 @@ class Island:
                 self.cells[coordinates].add_carnivore(animal['age'],
                                                       animal['weight'])
 
-
     def get_direction(self, pi_values):
             """"""
+            if pi_values == (0, 0, 0, 0):
+                return 'Do not move'
             pi_right, pi_up, pi_left, pi_down = pi_values
             pi_sum = sum((pi_right, pi_up, pi_left, pi_down))
 
@@ -187,12 +188,14 @@ class Island:
                     self.get_pi_values_herbivores(coordinate))
                 if move_direction == 'right':
                     self.cells[right].herbivores_new.append(herbivore)
-                if move_direction == 'up':
+                elif move_direction == 'up':
                     self.cells[up].herbivores_new.append(herbivore)
-                if move_direction == 'left':
+                elif move_direction == 'left':
                     self.cells[left].herbivores_new.append(herbivore)
-                if move_direction == 'down':
+                elif move_direction == 'down':
                     self.cells[down].herbivores_new.append(herbivore)
+                else:
+                    self.cells[coordinate].herbivores.append(herbivore)
             else:
                 self.cells[coordinate].herbivores.append(herbivore)
 
@@ -210,12 +213,14 @@ class Island:
                     self.get_pi_values_carnivores(coordinate))
                 if move_direction == 'right':
                     self.cells[right].carnivores_new.append(carnivore)
-                if move_direction == 'up':
+                elif move_direction == 'up':
                     self.cells[up].carnivores_new.append(carnivore)
-                if move_direction == 'left':
+                elif move_direction == 'left':
                     self.cells[left].carnivores_new.append(carnivore)
-                if move_direction == 'down':
+                elif move_direction == 'down':
                     self.cells[down].carnivores_new.append(carnivore)
+                else:
+                    self.cells[coordinate].carnivores.append(carnivore)
             else:
                 self.cells[coordinate].carnivores.append(carnivore)
 
