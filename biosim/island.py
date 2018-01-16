@@ -130,6 +130,8 @@ class Island:
 
             self.cells[coordinate].herbivores = [a for i, a in enumerate(self.cells[coordinate].herbivores) if stay[i]]
 
+        for coordinate in coordinates:
+            # flytte fra liste til liste_new.
 
     def cycle(self):
         cells_shape = np.shape(self.cells)   # type: tuple
