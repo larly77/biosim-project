@@ -101,6 +101,10 @@ class Jungle:
                 liste[index] = True
         return liste
 
+    def get_abundance_herbivore(self):
+        Ek = (self.get_fodder())/((len(self.herbivores) + 1) * Herbivore.parameters['F'] )
+        return Ek
+
 
 
     def aging(self):
