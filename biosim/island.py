@@ -219,14 +219,6 @@ class Island:
             else:
                 self.cells[coordinate].carnivores.append(carnivore)
 
-        coordinates = self.get_random_coordinates()
-        for coordinate in coordinates:
-            self.cell_move_carnivores(coordinate)
-
-        for coordinate in coordinates:
-            self.cells[coordinate].move_new_animals()
-
-
     def migration(self):
         """"""
 

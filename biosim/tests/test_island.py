@@ -78,5 +78,6 @@ class TestIsland:
         assert [len(a) == 2 for a in i1.get_random_coordinates()]
 
     def test_get_pi_values_herbivores(self):
+        pass
 
 
