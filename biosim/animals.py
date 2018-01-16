@@ -154,7 +154,8 @@ class Carnivore(Herbivore):
                 elif 0 < self.fitness - prey.fitness < \
                         self.parameters['DeltaPhiMax']:
 
-                    probability = (self.fitness - prey.fitness)/self.parameters['DeltaPhiMax']
+                    probability = (self.fitness - prey.fitness) /\
+                                  self.parameters['DeltaPhiMax']
                     if random.random() < probability:
                         eaten_bool[index] = False
                         self.weight += self.parameters['beta'] * prey.weight
@@ -172,7 +173,8 @@ class Carnivore(Herbivore):
                 elif 0 < self.fitness - prey.fitness < \
                         self.parameters['DeltaPhiMax']:
 
-                    probability = (self.fitness - prey.fitness)/self.parameters['DeltaPhiMax']
+                    probability = (self.fitness - prey.fitness) /\
+                                  self.parameters['DeltaPhiMax']
                     if random.random() < probability:
                         eaten_bool[index] = False
                         self.weight += self.parameters['beta'] * appetite
@@ -183,18 +185,16 @@ class Carnivore(Herbivore):
                     self.weight += self.parameters['beta'] * appetite
                     appetite = 0
                     self.update_fitness()
-            else: pass
+            else:
+                pass
 
         return eaten_bool
-
-
-
-
-
 
 # Følgende angir hvordan en docstring bør se ut.
 # Med det formatet blir dokumentasjons-porsessen meget grei,
 # når vi lærer Sphinx-programmet.
+
+
 def f(x):
     """
     one line description
@@ -216,6 +216,7 @@ def f(x):
     ValueError
         If x is not numeric
     """
+    print(x)
 
 
 if __name__ == '__main__':

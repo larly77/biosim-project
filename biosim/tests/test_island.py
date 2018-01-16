@@ -97,7 +97,5 @@ class TestIsland:
         correct_pi_up = 0
         correct_pi_left = math.exp(1*eleft)
         correct_pi_down = math.exp(1*edown)
-        assert i1.get_pi_values_herbivores(coordinate) == pytest.approx((correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
-
-
-
+        assert i1.get_pi_values_herbivores(coordinate) == pytest.approx(
+            (correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))

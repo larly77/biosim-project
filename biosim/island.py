@@ -71,7 +71,8 @@ class Island:
                 self.cells[coordinates].add_carnivore(animal['age'],
                                                       animal['weight'])
 
-    def get_direction(self, pi_values):
+    @staticmethod
+    def get_direction(pi_values):
             """"""
             if pi_values == (0, 0, 0, 0):
                 return 'Do not move'

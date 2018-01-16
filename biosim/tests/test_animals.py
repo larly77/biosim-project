@@ -83,5 +83,3 @@ class TestAnimal:
         assert h1.weight < 20
         assert h1.weight == (1-0.05)*20
         assert fit_1 < fit_0
-
-
