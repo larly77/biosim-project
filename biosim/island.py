@@ -81,10 +81,9 @@ class Island:
 
         random.shuffle(coordinates)
         for coordinate in coordinates:
-            stay = [True] * len(self.cells[coordinate].herbivores)
-            for index, herbivore in enumerate(self.cells[coordinate].herbivores):
+            for _ in len(self.cells[coordinate].herbivores):
+                herbivore = self.cells[coordinate].herbivores.pop(0)
                 if herbivore.migration():
-                    stay[index] = False
                     right = (coordinate[0], coordinate[1]+1)
                     if isinstance(self.cells[right], (Mountain, Ocean)):
                         pi_right = 0
@@ -128,10 +127,11 @@ class Island:
                     if move_direction == 'down':
                         self.cells(down).herbivores_new.append(herbivore)
 
-            self.cells[coordinate].herbivores = [a for i, a in enumerate(self.cells[coordinate].herbivores) if stay[i]]
+                else:
+                    self.cells[coordinate].herbivores.append(herbivore)
 
         for coordinate in coordinates:
-            # flytte fra liste til liste_new.
+            self.cells[coordinate].move_new_animals()
 
     def cycle(self):
         cells_shape = np.shape(self.cells)   # type: tuple
