@@ -68,6 +68,20 @@ class Jungle:
         """"""
         return self.carnivores
 
+    def get_abundance_herbivore(self):
+        ek = (self.get_fodder())/((len(self.herbivores + self.herbivores_new)
+                                   + 1) * Herbivore.parameters['F'])
+        return ek
+
+    def get_abundance_carnivore(self):
+        herbivores_weight = 0
+        for animal in self.herbivores + self.herbivores_new:
+            herbivores_weight += animal.get_weight()
+
+        ek = herbivores_weight / ((len(self.carnivores + self.carnivores_new)
+                                   + 1) * Carnivore.parameters['F'])
+        return ek
+
     def feeding(self):
         """Method that makes all animals in the cell feed"""
         self.reset_fodder()
@@ -97,19 +111,7 @@ class Jungle:
         self.move_new_animals()
 
     def migration(self):
-        """Method that makes all animals in the cell try to migrate"""
-        liste = [0] * len(self.herbivores + self.carnivores)
-        for index, animal in enumerate(self.herbivores + self.carnivores):
-            if animal.migration():
-                liste[index] = True
-        return liste
-
-    def get_abundance_herbivore(self):
-        Ek = (self.get_fodder())/((len(self.herbivores + self.herbivores_new) + 1) * Herbivore.parameters['F'] )
-        return Ek
-
-
-
+        """Dummy. Is this method needed?"""
 
     def aging(self):
         """Method that makes all animals in the cell age"""
@@ -159,6 +161,7 @@ class Ocean:
     """Class for ocean-landscape"""
     def __init__(self):
         """"""
+
 
 class Mountain:
     """Class for mountain-landscape"""

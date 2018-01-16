@@ -59,6 +59,10 @@ class Herbivore:
 
         self.fitness = q_plus * q_minus
 
+    def get_weight(self):
+        """Returns the weight of the animal"""
+        return self.weight
+
     def feeding(self, landscape_instance):
         """Dummy"""
 
