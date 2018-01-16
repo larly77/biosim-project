@@ -42,7 +42,6 @@ class BioSim:
                       len(self.island.cells[1, 1].carnivores))
 
 
-
 if __name__ == '__main__':
 
     isle_map = """\

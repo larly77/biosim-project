@@ -201,7 +201,6 @@ class Island:
             for coordinate in coordinates:
                 self.cells[coordinate].move_new_animals()
 
-
         def cell_move_herbivores(coordinate):
             """Moves the herbivores that should move in given cell"""
 
