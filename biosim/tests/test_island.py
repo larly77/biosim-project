@@ -65,3 +65,18 @@ class TestIsland:
 
         for animal in i1.cells[1, 1].carnivores:
             assert isinstance(animal, Carnivore)
+
+    def test_get_random_coordinates(self):
+        ISLE_MAP2 = """\
+                JSSJJSS
+                SSJJSSJ
+                SSSJJSJ
+                JJJSSSS
+                JJJSSSJ"""
+        i1 = Island(ISLE_MAP2)
+        assert [type(a) == tuple for a in i1.get_random_coordinates()]
+        assert [len(a) == 2 for a in i1.get_random_coordinates()]
+
+    def test_get_pi_values_herbivores(self):
+
+
