@@ -69,8 +69,8 @@ class TestIsland:
     def test_get_random_coordinates(self):
         ISLE_MAP2 = """\
                 JSSJJSS
-                SSJJSSJ
-                SSSJJSJ
+                SSJMSSJ
+                SSSJOSJ
                 JJJSSSS
                 JJJSSSJ"""
         i1 = Island(ISLE_MAP2)
@@ -78,6 +78,26 @@ class TestIsland:
         assert [len(a) == 2 for a in i1.get_random_coordinates()]
 
     def test_get_pi_values_herbivores(self):
-        pass
+        import math
+        import pytest
+        ISLE_MAP2 = """\
+                        JSSJJSS
+                        SSJMSSJ
+                        SSSJOSJ
+                        JJJSSSS
+                        JJJSSSJ"""
+        i1 = Island(ISLE_MAP2)
+        coordinate = (2, 3)
+        eup = 0
+        edown = 300/10
+        eright = 0
+        eleft = 300/10
+        eself = 800/10
+        correct_pi_right = 0
+        correct_pi_up = 0
+        correct_pi_left = math.exp(1*eleft)
+        correct_pi_down = math.exp(1*edown)
+        assert i1.get_pi_values_herbivores(coordinate) == pytest.approx((correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
+
 
 
