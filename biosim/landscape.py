@@ -53,6 +53,12 @@ class Jungle:
     def get_fodder(self):
         """"""
         return self.fodder
+    
+    def move_new_animals(self):
+        self.herbivores += self.herbivores_new
+        self.herbivores_new = []
+        self.carnivores += self.carnivores_new
+        self.carnivores_new = []
 
     def get_herbivores(self):
         """"""
@@ -88,10 +94,7 @@ class Jungle:
             animal.procreation(landscape_instance=self,
                                number_of_adults=number_adult_carnivores)
 
-        self.herbivores += self.herbivores_new
-        self.herbivores_new = []
-        self.carnivores += self.carnivores_new
-        self.carnivores_new = []
+        self.move_new_animals()
 
     def migration(self):
         """Method that makes all animals in the cell try to migrate"""
@@ -104,6 +107,7 @@ class Jungle:
     def get_abundance_herbivore(self):
         Ek = (self.get_fodder())/((len(self.herbivores + self.herbivores_new) + 1) * Herbivore.parameters['F'] )
         return Ek
+
 
 
 
