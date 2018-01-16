@@ -22,11 +22,12 @@ class BioSim:
 
     def add_population(self, population):
         """dum"""
-        # Må fikse så den ser på alle listene i population, ikke bare [0]
-        coordinates = population[0]['loc']
-        coordinates = (coordinates[0] - 1, coordinates[1] - 1)
-        animals = population[0]['pop']
-        self.island.add_animal_island(coordinates, animals)
+
+        for index in range(len(population)):
+            coordinates = population[index]['loc']
+            coordinates = (coordinates[0] - 1, coordinates[1] - 1)
+            animals = population[index]['pop']
+            self.island.add_animal_island(coordinates, animals)
 
     def simulate_in_one_place_herbivores(self, num_steps, printing):
 
@@ -61,8 +62,8 @@ if __name__ == '__main__':
                           'weight': 20}
                          for _ in range(5)]}]
 
-    sim = BioSim(island_map=isle_map, ini_pop=ini_herb, seed=12345)
-    sim.add_population(ini_carn)
+    sim = BioSim(island_map=isle_map, ini_pop=ini_herb + ini_carn, seed=12345)
+
 #    Savannah.set_parameters({'f_max': 800})
 
     sim.simulate_in_one_place_herbivores(num_steps=200, printing=True)
