@@ -149,25 +149,43 @@ class Carnivore(Herbivore):
         eaten_bool = [True]*len(herbivores)
 
         for index, prey in enumerate(herbivores):
-            if appetite > 0:
+            if appetite > prey.get_weight():
                 if self.fitness <= prey.fitness:
                     pass
-                    #nothing
-
                 elif 0 < self.fitness - prey.fitness < \
                         self.parameters['DeltaPhiMax']:
 
                     probability = (self.fitness - prey.fitness)/self.parameters['DeltaPhiMax']
                     if random.random() < probability:
                         eaten_bool[index] = False
-                        appetite -= prey.weight
                         self.weight += self.parameters['beta'] * prey.weight
+                        appetite -= prey.weight
                         self.update_fitness()
                 else:
                     eaten_bool[index] = False
-                    appetite -= prey.weight
                     self.weight += self.parameters['beta'] * prey.weight
+                    appetite -= prey.weight
                     self.update_fitness()
+
+            elif 0 < appetite < prey.get_weight():
+                if self.fitness <= prey.fitness:
+                    pass
+                elif 0 < self.fitness - prey.fitness < \
+                        self.parameters['DeltaPhiMax']:
+
+                    probability = (self.fitness - prey.fitness)/self.parameters['DeltaPhiMax']
+                    if random.random() < probability:
+                        eaten_bool[index] = False
+                        self.weight += self.parameters['beta'] * appetite
+                        appetite = 0
+                        self.update_fitness()
+                else:
+                    eaten_bool[index] = False
+                    self.weight += self.parameters['beta'] * appetite
+                    appetite = 0
+                    self.update_fitness()
+            else: pass
+
         return eaten_bool
 
 
