@@ -102,7 +102,7 @@ class Jungle:
         return liste
 
     def get_abundance_herbivore(self):
-        Ek = (self.get_fodder())/((len(self.herbivores) + 1) * Herbivore.parameters['F'] )
+        Ek = (self.get_fodder())/((len(self.herbivores + self.herbivores_new) + 1) * Herbivore.parameters['F'] )
         return Ek
 
 
@@ -156,7 +156,6 @@ class Ocean:
     def __init__(self):
         """"""
 
-
 class Mountain:
     """Class for mountain-landscape"""
     def __init__(self):
@@ -169,8 +168,13 @@ if __name__ == '__main__':
     s1 = Savannah()
     j2 = Jungle()
     s2 = Savannah()
+    m1 = Mountain()
 
     print(j1.parameters['f_max'])
     print(s1.parameters['f_max'])
     print(j2.parameters['f_max'])
     print(s2.parameters['f_max'], s2.fodder)
+
+    # isinstanse
+
+    print(isinstance(s1, (Jungle, Savannah, Desert)))

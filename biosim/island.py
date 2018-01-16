@@ -8,8 +8,11 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
 
 from landscape import Jungle, Savannah, Desert, Mountain, Ocean
+from animals import Herbivore, Carnivore
 import copy
 import numpy as np
+import random
+import math
 
 
 class Island:
@@ -66,6 +69,68 @@ class Island:
                 self.cells[coordinates].add_carnivore(animal['age'],
                                                       animal['weight'])
 
+    def migration(self):
+        """Makes migration happens at random across the island.
+        Excludes the Oceans at the edge of island"""
+
+        array_shape = np.shape(self.cells)   # type: tuple
+        coordinates = []
+        for i in range(1, array_shape[0]-1):
+            for j in range(1, array_shape[1]-1):
+                coordinates.append((i, j))
+
+        random.shuffle(coordinates)
+        for coordinate in coordinates:
+            stay = [True] * len(self.cells[coordinate].herbivores)
+            for index, herbivore in enumerate(self.cells[coordinate].herbivores):
+                if herbivore.migration():
+                    stay[index] = False
+                    right = (coordinate[0], coordinate[1]+1)
+                    if isinstance(self.cells[right], (Mountain, Ocean)):
+                        pi_right = 0
+                    else:
+                        pi_right = math.exp(Herbivore.parameters['lambda'] * self.cells[right].get_abundance_herbivore())
+
+                    up = (coordinate[0]-1, coordinate[1])
+                    if isinstance(self.cells[up], (Mountain, Ocean)):
+                        pi_up = 0
+                    else:
+                        pi_up = math.exp(Herbivore.parameters['lambda'] * self.cells[up].get_abundance_herbivore())
+
+                    left = (coordinate[0], coordinate[1]-1)
+                    if isinstance(self.cells[left], (Mountain, Ocean)):
+                        pi_left = 0
+                    else:
+                        pi_left = math.exp(Herbivore.parameters['lambda'] * self.cells[left].get_abundance_herbivore())
+
+                    down = (coordinate[0]+1, coordinate[1])
+                    if isinstance(self.cells[down], (Mountain, Ocean)):
+                        pi_down = 0
+                    else:
+                        pi_down = math.exp(Herbivore.parameters['lambda'] * self.cells[down].get_abundance_herbivore())
+
+                    pi_sum = sum((pi_right, pi_up, pi_left, pi_down))
+                    p_right = pi_right / pi_sum
+                    p_up = pi_up / pi_sum
+                    p_left = pi_left / pi_sum
+                    p_down = pi_down / pi_sum
+
+                    move_direction = np.random.choice(
+                        ('right', 'up', 'left', 'down'),
+                        p=[p_right, p_up, p_left, p_down])
+
+                    if move_direction == 'right':
+                        self.cells(right).herbivores_new.append(herbivore)
+                    if move_direction == 'up':
+                        self.cells(up).herbivores_new.append(herbivore)
+                    if move_direction == 'left':
+                        self.cells(left).herbivores_new.append(herbivore)
+                    if move_direction == 'down':
+                        self.cells(down).herbivores_new.append(herbivore)
+
+            self.cells[coordinate].herbivores = [a for i, a in enumerate(self.cells[coordinate].herbivores) if stay[i]]
+
+
     def cycle(self):
         cells_shape = np.shape(self.cells)   # type: tuple
         for i in range(cells_shape[0]):
@@ -75,7 +140,7 @@ class Island:
                         isinstance(self.cells[i, j], Desert):
                     self.cells[i, j].feeding()
                     self.cells[i, j].procreation()
-                    self.cells[i, j].migration()
+#                   self.cells[i, j].migration()
                     self.cells[i, j].aging()
                     self.cells[i, j].loss_of_weight()
                     self.cells[i, j].death()
