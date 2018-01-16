@@ -95,6 +95,13 @@ class Jungle:
 
     def migration(self):
         """Method that makes all animals in the cell try to migrate"""
+        liste = [0] * len(self.herbivores + self.carnivores)
+        for index, animal in enumerate(self.herbivores + self.carnivores):
+            if animal.migration():
+                liste[index] = True
+        return liste
+
+
 
     def aging(self):
         """Method that makes all animals in the cell age"""
