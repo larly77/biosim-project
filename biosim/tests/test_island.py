@@ -12,7 +12,6 @@ from biosim.landscape import Jungle, Savannah
 from biosim.animals import Carnivore, Herbivore
 import math
 import pytest
-import random
 
 ISLE_MAP = """\
         JSS
@@ -35,6 +34,8 @@ ISLE_MAP2 = """\
                         SSSJOSJ
                         JJJSSSS
                         JJJSSSJ"""
+
+
 class TestIsland:
     """Class for testing island"""
 
@@ -48,6 +49,7 @@ class TestIsland:
         assert np.array_equal(arry, correct_arry)
 
     def test_array_to_island(self):
+        """test for converting the array into a map"""
         i1 = Island(ISLE_MAP)
         correct_island = np.array([[Jungle(), Savannah(), Savannah()],
                                    [Savannah(), Savannah(), Jungle()],
@@ -58,7 +60,7 @@ class TestIsland:
                 assert type(i1.cells[i, j]) == type(correct_island[i, j])
 
     def test_add_animal_island(self):
-
+        """test for adding animals to map"""
         i1 = Island(ISLE_MAP)
         assert len(i1.cells[1, 1].herbivores) == 0
         i1.add_animal_island((1, 1), INI_HERB[0]['pop'])
@@ -75,11 +77,8 @@ class TestIsland:
             assert isinstance(animal, Carnivore)
 
     def test_get_direction(self):
+        """test for getting direction to move"""
         pis = (20, 30, 10, 40)
-        p_right = pis[0] / sum(pis)
-        p_up = pis[1] / sum(pis)
-        p_left = pis[2] / sum(pis)
-        p_down = pis[3] / sum(pis)
         options = ['right', 'up', 'left', 'down']
         direction = Island.get_direction(pis)
         assert direction in options
@@ -88,32 +87,22 @@ class TestIsland:
         assert Island.get_direction(pis) == option
 
     def test_get_random_coordinates(self):
-        ISLE_MAP2 = """\
-                JSSJJSS
-                SSJMSSJ
-                SSSJOSJ
-                JJJSSSS
-                JJJSSSJ"""
+        """test for getting random coordinates, for type and length """
+
         i1 = Island(ISLE_MAP2)
         assert [type(a) == tuple for a in i1.get_random_coordinates()]
         assert [len(a) == 2 for a in i1.get_random_coordinates()]
 
     def test_get_pi_values_herbivores(self):
+        """test for getting pi-values for hebivores"""
         import math
         import pytest
-        ISLE_MAP2 = """\
-                        JSSJJSS
-                        SSJMSSJ
-                        SSSJOSJ
-                        JJJSSSS
-                        JJJSSSJ"""
+
         i1 = Island(ISLE_MAP2)
         coordinate = (2, 3)
-        eup = 0
         edown = 300/10
-        eright = 0
         eleft = 300/10
-        eself = 800/10
+
         correct_pi_right = 0
         correct_pi_up = 0
         correct_pi_left = math.exp(1*eleft)
@@ -122,18 +111,12 @@ class TestIsland:
             (correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
 
     def test_get_pi_values_carnivores_no_herb(self):
+        """test for getting pi_values for carns without any herbivores"""
 
-        ISLE_MAP2 = """\
-                        JSSJJSS
-                        SSJMSSJ
-                        SSSJOSJ
-                        JJJSSSS
-                        JJJSSSJ"""
         i1 = Island(ISLE_MAP2)
         coordinate = (2, 3)
-        eup = 0
+
         edown = 0
-        eright = 0
         eleft = 0
         correct_pi_right = 0
         correct_pi_up = 0
@@ -164,6 +147,7 @@ class TestIsland:
             (correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
 
     def test_cell_move_herbivore_and_carnivore(self):
+        """test for movin herbivore and carnivore"""
         i1 = Island(ISLE_MAP2)
         Herbivore.set_parameters({'mu': 1.0})
         Carnivore.set_parameters({'mu': 1.0})
@@ -184,16 +168,18 @@ class TestIsland:
         assert len(i1.cells[2, 3].herbivores) == 0
         assert len(i1.cells[2, 3].carnivores) == 0
 
-        #can only move left or down
+        # can only move left or down
         len_left_herb = len(i1.cells[2, 2].herbivores_new)
         len_down_herb = len(i1.cells[3, 3].herbivores_new)
 
         len_left_carn = len(i1.cells[2, 2].carnivores_new)
         len_down_carn = len(i1.cells[3, 3].carnivores_new)
 
-        assert (len_down_herb + len_left_herb, len_left_carn + len_down_carn) == (20, 20)
+        assert (len_down_herb + len_left_herb,
+                len_left_carn + len_down_carn) == (20, 20)
 
     def test_migration(self):
+        """test for migration"""
         i1 = Island(ISLE_MAP2)
         Herbivore.set_parameters({'mu': 1.0})
         Carnivore.set_parameters({'mu': 1.0})
@@ -215,9 +201,5 @@ class TestIsland:
         len_left_carn = len(i1.cells[2, 2].carnivores)
         len_down_carn = len(i1.cells[3, 3].carnivores)
 
-        assert (len_down_herb + len_left_herb, len_left_carn + len_down_carn) == (20, 20)
-
-
-
-
-
+        assert (len_down_herb + len_left_herb,
+                len_left_carn + len_down_carn) == (20, 20)
