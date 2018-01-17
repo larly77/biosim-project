@@ -151,14 +151,24 @@ class TestIsland:
 
     def test_cell_move_herbivore(self):
         i1 = Island(ISLE_MAP2)
+        Herbivore.set_parameters({'mu': 1.0})
         coordinate = (2, 3)
         i1.add_animal_island(coordinate, INI_HERB[0]['pop'])
-        for herbivore in i1.cells[2, 3].get_herbivores():
-            herbivore.set_parameters({'mu' : 1.0})
+        for herbivore in i1.cells[2, 3].herbivores:
             herbivore.fitness = 1
-
+        assert len(i1.cells[2, 3].herbivores) == 20
         i1.cell_move_herbivores(coordinate)
-        assert len(i1.cells[2, 3].get_herbivores()) == 0
+        assert len(i1.cells[2, 3].herbivores) == 0
+
+        #can only move left or down
+        len_left = len(i1.cells[2, 2].herbivores_new)
+        len_down = len(i1.cells[3, 3].herbivores_new)
+        print(i1.cells[2, 2].herbivores_new)
+        print(i1.cells[3, 3].herbivores_new)
+
+
+
+        assert len_down + len_left == 20
 
 
 
