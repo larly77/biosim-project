@@ -51,13 +51,13 @@ class TestIsland:
     def test_array_to_island(self):
         """test for converting the array into a map"""
         i1 = Island(ISLE_MAP)
-        correct_island = np.array([[Jungle(), Savannah(), Savannah()],
-                                   [Savannah(), Savannah(), Jungle()],
-                                   [Savannah(), Savannah(), Savannah()]])
+        correct_island = np.array([[Jungle, Savannah, Savannah],
+                                   [Savannah, Savannah, Jungle],
+                                   [Savannah, Savannah, Savannah]])
         island_shape = np.shape(correct_island)   # type: tuple
         for i in range(island_shape[0]):
             for j in range(island_shape[1]):
-                assert type(i1.cells[i, j]) == type(correct_island[i, j])
+                assert isinstance(i1.cells[i, j], correct_island[i, j])
 
     def test_add_animal_island(self):
         """test for adding animals to map"""
