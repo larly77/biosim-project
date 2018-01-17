@@ -8,7 +8,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
             'lars.martin.boe.lied@nmbu.no'
 
 
-from biosim.animals import Herbivore
+from biosim.animals import Herbivore, Carnivore
 from biosim.landscape import Jungle
 
 
@@ -84,6 +84,46 @@ class TestAnimal:
         assert h1.weight == (1-0.05)*20
         assert fit_1 < fit_0
 
-    def test_feeding_carnivore(self):
-        """Test for carnivore feeding method"""
+    def test_feeding_carnivore_fit(self):
+        """Test for carnivore feeding method, with fit carnivore"""
+        c1 = Carnivore(1, 3000) # fitness ~= 1
+        c1.set_parameters({'DeltaPhiMax': 1.00001})
+        j1 = Jungle()
+        j1.add_herbivore(5,10)
+        j1.herbivores[0].fitness = 0
 
+        boolean = c1.feeding(j1)
+
+        c1.set_parameters({'DeltaPhiMax': 10.0}) # default-value
+        assert c1.weight == 3007.5
+        assert boolean == [False]
+
+    def test_feeding_carnivore_unfit(self):
+        """Test for carnivore feeding method, with unfit carnivore"""
+        c1 = Carnivore(1, 20)
+        c1.fitness = 0.0001
+        c1.set_parameters({'DeltaPhiMax': 1.00001})
+        j1 = Jungle()
+        j1.add_herbivore(5,10)
+        j1.herbivores[0].fitness = 1
+
+        boolean = c1.feeding(j1)
+
+        c1.set_parameters({'DeltaPhiMax': 10.0}) # default-value
+        assert c1.weight == 20
+        assert boolean == [True]
+
+    def test_feeding_carnivore_appetite(self):
+        """Test for a fit carnivore's feeding method, with low appetite"""
+        c1 = Carnivore(1, 20)
+        c1.fitness = 1
+        c1.set_parameters({'DeltaPhiMax': 1.00001, 'F': 10.0})
+        j1 = Jungle()
+        j1.add_herbivore(5,20)
+        j1.herbivores[0].fitness = 0
+
+        boolean = c1.feeding(j1)
+
+        c1.set_parameters({'DeltaPhiMax': 10.0, 'F': 50.0}) # default-value
+        assert c1.weight == 27.5
+        assert boolean == [False]
