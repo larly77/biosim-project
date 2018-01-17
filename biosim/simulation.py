@@ -31,7 +31,7 @@ class BioSim:
 
     def simulate_in_one_place_herbivores(self, num_steps, printing):
 
-        # Run thru num_steps years
+        # Run through num_steps years
         for year in range(num_steps):
             self.island.cycle()
 
@@ -41,6 +41,24 @@ class BioSim:
                       len(self.island.cells[1, 1].herbivores))
                 print('Number of Carnivores: ',
                       len(self.island.cells[1, 1].carnivores))
+
+    def simulate(self, num_steps, vis_steps, img_steps):
+        """"""
+
+        print(vis_steps)
+        print(img_steps)
+
+        # Run through num_steps years
+        for year in range(num_steps):
+            self.island.cycle()
+
+            print('Year over:', year)
+            print('Number of Herbivores: ',
+                  len(self.island.cells[9, 9].herbivores),
+                  len(self.island.cells[8, 8].herbivores))
+            print('Number of Carnivores: ',
+                  len(self.island.cells[9, 9].carnivores),
+                  len(self.island.cells[8, 8].carnivores))
 
 
 if __name__ == '__main__':

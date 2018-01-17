@@ -232,25 +232,55 @@ class Island:
 
         coordinates = self.get_random_coordinates()
         for coordinate in coordinates:
-            self.cell_move_herbivores(coordinate)
-            self.cell_move_carnivores(coordinate)
+            if isinstance(self.cells[coordinate], (Jungle, Savannah, Desert)):
+                self.cell_move_herbivores(coordinate)
+                self.cell_move_carnivores(coordinate)
 
         for coordinate in coordinates:
-            self.cells[coordinate].move_new_animals()
+            if isinstance(self.cells[coordinate], (Jungle, Savannah, Desert)):
+                self.cells[coordinate].move_new_animals()
 
     def cycle(self):
-        cells_shape = np.shape(self.cells)   # type: tuple
-        for i in range(cells_shape[0]):
-            for j in range(cells_shape[1]):
-                if isinstance(self.cells[i, j], Jungle) or \
-                        isinstance(self.cells[i, j], Savannah) or \
-                        isinstance(self.cells[i, j], Desert):
-                    self.cells[i, j].feeding()
-                    self.cells[i, j].procreation()
-#                   self.cells[i, j].migration()
-                    self.cells[i, j].aging()
-                    self.cells[i, j].loss_of_weight()
-                    self.cells[i, j].death()
+        """"""
+
+        coordinates = self.get_random_coordinates()
+
+        for coord in coordinates:
+            if isinstance(self.cells[coord], (Jungle, Savannah, Desert)):
+                self.cells[coord].feeding()
+
+        for coord in coordinates:
+            if isinstance(self.cells[coord], (Jungle, Savannah, Desert)):
+                self.cells[coord].procreation()
+
+        self.migration()
+
+        for coord in coordinates:
+            if isinstance(self.cells[coord], (Jungle, Savannah, Desert)):
+                self.cells[coord].aging()
+
+        for coord in coordinates:
+            if isinstance(self.cells[coord], (Jungle, Savannah, Desert)):
+                self.cells[coord].loss_of_weight()
+
+        for coord in coordinates:
+            if isinstance(self.cells[coord], (Jungle, Savannah, Desert)):
+                self.cells[coord].death()
+
+""" def cycle(self):
+    cells_shape = np.shape(self.cells)   # type: tuple
+    for i in range(cells_shape[0]):
+        for j in range(cells_shape[1]):
+            if isinstance(self.cells[i, j], Jungle) or \
+                    isinstance(self.cells[i, j], Savannah) or \
+                    isinstance(self.cells[i, j], Desert):
+                self.cells[i, j].feeding()
+                self.cells[i, j].procreation()
+                self.cells[i, j].migration()
+                self.cells[i, j].aging()
+                self.cells[i, j].loss_of_weight()
+                self.cells[i, j].death()
+"""
 
 
 if __name__ == '__main__':
