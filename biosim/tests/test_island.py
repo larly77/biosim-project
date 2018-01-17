@@ -149,6 +149,17 @@ class TestIsland:
         assert i1.get_pi_values_carnivores(coordinate) == pytest.approx(
             (correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
 
+    def test_cell_move_herbivore(self):
+        i1 = Island(ISLE_MAP2)
+        coordinate = (2, 3)
+        i1.add_animal_island(coordinate, INI_HERB[0]['pop'])
+        for herbivore in i1.cells[2, 3].get_herbivores():
+            herbivore.set_parameters({'mu' : 1.0})
+            herbivore.fitness = 1
+
+        i1.cell_move_herbivores(coordinate)
+        assert len(i1.cells[2, 3].get_herbivores()) == 0
+
 
 
 
