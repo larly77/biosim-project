@@ -130,7 +130,7 @@ class TestAnimal:
         j1.add_herbivore(5,10)
         j1.herbivores[0].fitness = 0
 
-        boolean = c1.feeding(j1)
+        boolean = c1.feeding(j1.herbivores)
 
         c1.set_parameters({'DeltaPhiMax': 10.0}) # default-value
         assert c1.weight == 3007.5
@@ -146,7 +146,7 @@ class TestAnimal:
         j1.add_herbivore(5,10)
         j1.herbivores[0].fitness = 1
 
-        boolean = c1.feeding(j1)
+        boolean = c1.feeding(j1.herbivores)
 
         c1.set_parameters({'DeltaPhiMax': 10.0}) # default-value
         assert c1.weight == 20
@@ -161,7 +161,7 @@ class TestAnimal:
         j1.add_herbivore(5,20)
         j1.herbivores[0].fitness = 0
 
-        boolean = c1.feeding(j1)
+        boolean = c1.feeding(j1.herbivores)
 
         c1.set_parameters({'DeltaPhiMax': 10.0, 'F': 50.0}) # default-value
         assert c1.weight == 27.5

@@ -147,7 +147,7 @@ class Carnivore(Herbivore):
     def feeding(self, preys):
         """"""
         appetite = copy.deepcopy(self.parameters['F'])
-        eaten_bool = [True]*len(preys)
+        eaten_bool = [True] * len(preys)
         for index, prey in enumerate(preys):
             if appetite > prey.get_weight():
                 if self.fitness <= prey.fitness:
