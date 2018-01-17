@@ -75,7 +75,7 @@ class Island:
     def get_direction(pi_values):
             """"""
             if pi_values == (0, 0, 0, 0):
-                return 'Do not move'
+                return 'do not move'
             pi_right, pi_up, pi_left, pi_down = pi_values
             pi_sum = sum((pi_right, pi_up, pi_left, pi_down))
 

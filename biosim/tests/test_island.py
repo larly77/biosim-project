@@ -12,6 +12,7 @@ from biosim.landscape import Jungle, Savannah
 from biosim.animals import Carnivore, Herbivore
 import math
 import pytest
+import random
 
 ISLE_MAP = """\
         JSS
@@ -72,6 +73,19 @@ class TestIsland:
 
         for animal in i1.cells[1, 1].carnivores:
             assert isinstance(animal, Carnivore)
+
+    def test_get_direction(self):
+        pis = (20, 30, 10, 40)
+        p_right = pis[0] / sum(pis)
+        p_up = pis[1] / sum(pis)
+        p_left = pis[2] / sum(pis)
+        p_down = pis[3] / sum(pis)
+        options = ['right', 'up', 'left', 'down']
+        direction = Island.get_direction(pis)
+        assert direction in options
+        pis = (0, 0, 0, 0)
+        option = 'do not move'
+        assert Island.get_direction(pis) == option
 
     def test_get_random_coordinates(self):
         ISLE_MAP2 = """\
