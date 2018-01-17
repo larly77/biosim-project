@@ -181,7 +181,8 @@ class Island:
         left = (coordinate[0], coordinate[1] - 1)
         down = (coordinate[0] + 1, coordinate[1])
 
-        for _ in range(len(self.cells[coordinate].herbivores)):
+        length = len(self.cells[coordinate].herbivores)
+        for _ in range(length):
             herbivore = self.cells[coordinate].herbivores.pop(0)
 
             if herbivore.migration():
@@ -206,7 +207,8 @@ class Island:
         left = (coordinate[0], coordinate[1] - 1)
         down = (coordinate[0] + 1, coordinate[1])
 
-        for _ in range(len(self.cells[coordinate].carnivores)):
+        length = len(self.cells[coordinate].carnivores)
+        for _ in range(length):
             carnivore = self.cells[coordinate].carnivores.pop(0)
 
             if carnivore.migration():
