@@ -152,23 +152,56 @@ class TestIsland:
     def test_cell_move_herbivore(self):
         i1 = Island(ISLE_MAP2)
         Herbivore.set_parameters({'mu': 1.0})
+        Carnivore.set_parameters({'mu': 1.0})
+
         coordinate = (2, 3)
         i1.add_animal_island(coordinate, INI_HERB[0]['pop'])
+        i1.add_animal_island(coordinate, INI_CARN[0]['pop'])
         for herbivore in i1.cells[2, 3].herbivores:
             herbivore.fitness = 1
+        for carnivore in i1.cells[2, 3].carnivores:
+            carnivore.fitness = 1
+
         assert len(i1.cells[2, 3].herbivores) == 20
+        assert len(i1.cells[2, 3].carnivores) == 20
         i1.cell_move_herbivores(coordinate)
+        i1.cell_move_carnivores(coordinate)
+
         assert len(i1.cells[2, 3].herbivores) == 0
+        assert len(i1.cells[2, 3].carnivores) == 0
 
         #can only move left or down
-        len_left = len(i1.cells[2, 2].herbivores_new)
-        len_down = len(i1.cells[3, 3].herbivores_new)
-        print(i1.cells[2, 2].herbivores_new)
-        print(i1.cells[3, 3].herbivores_new)
+        len_left_herb = len(i1.cells[2, 2].herbivores_new)
+        len_down_herb = len(i1.cells[3, 3].herbivores_new)
 
+        len_left_carn = len(i1.cells[2, 2].carnivores_new)
+        len_down_carn = len(i1.cells[3, 3].carnivores_new)
 
+        assert (len_down_herb + len_left_herb, len_left_carn + len_down_carn) == (20, 20)
 
-        assert len_down + len_left == 20
+    def test_migration(self):
+        i1 = Island(ISLE_MAP2)
+        Herbivore.set_parameters({'mu': 1.0})
+        Carnivore.set_parameters({'mu': 1.0})
+
+        coordinate = (2, 3)
+        i1.add_animal_island(coordinate, INI_HERB[0]['pop'])
+        i1.add_animal_island(coordinate, INI_CARN[0]['pop'])
+
+        for herbivore in i1.cells[2, 3].herbivores:
+            herbivore.fitness = 1
+        for carnivore in i1.cells[2, 3].carnivores:
+            carnivore.fitness = 1
+
+        i1.migration()
+
+        # can only move left or down
+        len_left_herb = len(i1.cells[2, 2].herbivores)
+        len_down_herb = len(i1.cells[3, 3].herbivores)
+        len_left_carn = len(i1.cells[2, 2].carnivores)
+        len_down_carn = len(i1.cells[3, 3].carnivores)
+
+        assert (len_down_herb + len_left_herb, len_left_carn + len_down_carn) == (20, 20)
 
 
 
