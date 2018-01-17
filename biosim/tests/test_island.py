@@ -149,7 +149,7 @@ class TestIsland:
         assert i1.get_pi_values_carnivores(coordinate) == pytest.approx(
             (correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
 
-    def test_cell_move_herbivore(self):
+    def test_cell_move_herbivore_and_carnivore(self):
         i1 = Island(ISLE_MAP2)
         Herbivore.set_parameters({'mu': 1.0})
         Carnivore.set_parameters({'mu': 1.0})
