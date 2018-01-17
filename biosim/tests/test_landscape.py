@@ -64,7 +64,7 @@ class TestLandscape:
         assert s1.fodder == 195
 
     def test_feeding_jungle(self):
-        """Test that all animals in the cell feed: the method feeding"""
+        """Test that all herbivores in the cell feed: the method feeding"""
         j1 = Jungle()
         j1.herbivores = [Herbivore(3, 15), Herbivore(3, 20),
                          Herbivore(3, 30), Herbivore(3, 25)]
@@ -74,7 +74,7 @@ class TestLandscape:
         assert j1.herbivores[3].weight == 39
 
     def test_feeding_savannah(self):
-        """Test that all animals in the cell feed: the method feeding"""
+        """Test that all herbivores in the cell feed: the method feeding"""
         s1 = Savannah()
         s1.herbivores = [Herbivore(3, 15), Herbivore(3, 20),
                          Herbivore(3, 30), Herbivore(3, 25)]
@@ -122,3 +122,6 @@ class TestLandscape:
         j1.death()
         Herbivore.set_parameters({'omega': 0.4})  # default value
         assert len(j1.herbivores) == 0
+
+    def test_feeding_carnivores(self):
+        """Test that all carnivores in the cell feeds: the method feeding"""
