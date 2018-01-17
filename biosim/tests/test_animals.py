@@ -33,7 +33,7 @@ class TestAnimal:
         assert h1.parameters['w_half'] == 20
 
     def test_feeding_plenty(self):
-        """Test for feeding method with plenty of fodder"""
+        """Test for herbivore feeding method with plenty of fodder"""
         h1 = Herbivore(age=5, weight=20)
         j1 = Jungle()
         h1.feeding(j1)
@@ -41,7 +41,7 @@ class TestAnimal:
         assert j1.get_fodder() == 790
 
     def test_feeding_little(self):
-        """Test for feeding method with little fodder"""
+        """Test for herbivore feeding method with little fodder"""
         h1 = Herbivore(age=5, weight=20)
         j1 = Jungle()
         j1.fodder = 5
@@ -50,7 +50,7 @@ class TestAnimal:
         assert j1.get_fodder() == 0
 
     def test_feeding_none(self):
-        """Test for feeding method with no fodder"""
+        """Test for herbivore feeding method with no fodder"""
         h1 = Herbivore(age=5, weight=20)
         j1 = Jungle()
         j1.fodder = 0
@@ -83,3 +83,7 @@ class TestAnimal:
         assert h1.weight < 20
         assert h1.weight == (1-0.05)*20
         assert fit_1 < fit_0
+
+    def test_feeding_carnivore(self):
+        """Test for carnivore feeding method"""
+
