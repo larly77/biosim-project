@@ -10,6 +10,8 @@ import numpy as np
 from biosim.island  import Island
 from biosim.landscape import Jungle, Savannah
 from biosim.animals import Carnivore, Herbivore
+import math
+import pytest
 
 ISLE_MAP = """\
         JSS
@@ -26,7 +28,12 @@ INI_CARN = [{'loc': (1, 1),
                       'weight': 40}
                      for _ in range(20)]}]
 
-
+ISLE_MAP2 = """\
+                        JSSJJSS
+                        SSJMSSJ
+                        SSSJOSJ
+                        JJJSSSS
+                        JJJSSSJ"""
 class TestIsland:
     """Class for testing island"""
 
@@ -99,3 +106,50 @@ class TestIsland:
         correct_pi_down = math.exp(1*edown)
         assert i1.get_pi_values_herbivores(coordinate) == pytest.approx(
             (correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
+
+    def test_get_pi_values_carnivores_no_herb(self):
+
+        ISLE_MAP2 = """\
+                        JSSJJSS
+                        SSJMSSJ
+                        SSSJOSJ
+                        JJJSSSS
+                        JJJSSSJ"""
+        i1 = Island(ISLE_MAP2)
+        coordinate = (2, 3)
+        eup = 0
+        edown = 0
+        eright = 0
+        eleft = 0
+        correct_pi_right = 0
+        correct_pi_up = 0
+        correct_pi_left = math.exp(1*eleft)
+        correct_pi_down = math.exp(1*edown)
+        assert i1.get_pi_values_carnivores(coordinate) == pytest.approx(
+            (correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
+
+    def test_get_pi_values_carnivores_with_herbs_and_carns(self):
+        """test for get_pi_values_carnivores with herbivores and
+        ekstra carnivores in adjacent cells"""
+        i1 = Island(ISLE_MAP2)
+        coordinate = (2, 3)
+        i1.add_animal_island((2, 2), INI_HERB[0]['pop'])
+        i1.add_animal_island((3, 3), INI_HERB[0]['pop'])
+        i1.add_animal_island((3, 3), INI_CARN[0]['pop'])
+
+        correct_weight_left = 400
+        correct_weight_right = 400
+        eleft = correct_weight_left/50
+        edown = correct_weight_right/((20+1)*50)
+
+        correct_pi_left = math.exp(1*eleft)
+        correct_pi_up = 0
+        correct_pi_right = 0
+        correct_pi_down = math.exp(1*edown)
+        assert i1.get_pi_values_carnivores(coordinate) == pytest.approx(
+            (correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
+
+
+
+
+
