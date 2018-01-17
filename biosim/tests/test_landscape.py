@@ -8,7 +8,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
             'lars.martin.boe.lied@nmbu.no'
 
 from biosim.landscape import Jungle, Savannah
-from biosim.animals import Herbivore
+from biosim.animals import Herbivore, Carnivore
 
 
 class TestLandscape:
@@ -125,3 +125,24 @@ class TestLandscape:
 
     def test_feeding_carnivores(self):
         """Test that all carnivores in the cell feeds: the method feeding"""
+        Carnivore.set_parameters({'DeltaPhiMax': 1.000001})
+        Jungle.set_parameters({'f_max': 0.0})
+        j1 = Jungle()
+        j1.fodder = 0
+        j1.herbivores = [Herbivore(1, 50), Herbivore(1, 60)]
+        j1.carnivores = [Carnivore(1, 20), Carnivore(1, 20)]
+        for i in range(2):
+            j1.herbivores[i].fitness = 0
+            j1.carnivores[i].fitness = 1
+
+        j1.feeding()
+
+        Carnivore.set_parameters({'DeltaPhiMax': 10.0})  # default value
+        Jungle.set_parameters({'f_max': 800.0})
+        assert j1.carnivores[0].weight, j1.carnivores[1].weight == (57.5, 57.5)
+        assert len(j1.herbivores) == 0
+        assert j1.herbivores == []
+
+
+
+
