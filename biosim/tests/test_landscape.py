@@ -136,6 +136,13 @@ class TestLandscape:
             j1.carnivores[i].fitness = 1
 
         j1.feeding()
+        j1.feeding()
+        j1.feeding()
+        j1.feeding()
+        j1.feeding()
+        print(j1.herbivores[0].fitness)
+        print(j1.carnivores[0].fitness)
+        print(j1.carnivores[1].fitness)
 
         Carnivore.set_parameters({'DeltaPhiMax': 10.0})  # default value
         Jungle.set_parameters({'f_max': 800.0})

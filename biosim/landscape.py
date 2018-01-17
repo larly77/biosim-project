@@ -92,7 +92,7 @@ class Jungle:
         self.carnivores.sort(key=lambda x: x.fitness, reverse=True)
         self.herbivores.sort(key=lambda x: x.fitness, reverse=False)
         for animal in self.carnivores:
-            eaten_bool = animal.feeding(landscape_instance=self)
+            eaten_bool = animal.feeding(self.herbivores)
             self.herbivores = [animal for index, animal in
                                enumerate(self.herbivores) if eaten_bool[index]]
 

@@ -144,14 +144,11 @@ class Carnivore(Herbivore):
     def __init__(self, age, weight):
         super().__init__(age, weight)
 
-    def feeding(self, landscape_instance):
+    def feeding(self, preys):
         """"""
         appetite = copy.deepcopy(self.parameters['F'])
-        herbivores = sorted(landscape_instance.get_herbivores(),
-                            key=lambda x: x.fitness, reverse=False)
-        eaten_bool = [True]*len(herbivores)
-
-        for index, prey in enumerate(herbivores):
+        eaten_bool = [True]*len(preys)
+        for index, prey in enumerate(preys):
             if appetite > prey.get_weight():
                 if self.fitness <= prey.fitness:
                     pass
