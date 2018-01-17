@@ -8,7 +8,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
 
 import random
-from island import Island
+from biosim.island import Island
 
 
 class BioSim:

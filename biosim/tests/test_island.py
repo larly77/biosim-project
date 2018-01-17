@@ -7,9 +7,9 @@ __author__ = 'Jon-Fredrik Blakstad Cappelen'
 __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
 import numpy as np
-from island import Island
-from landscape import Jungle, Savannah
-from animals import Carnivore, Herbivore
+from biosim.island  import Island
+from biosim.landscape import Jungle, Savannah
+from biosim.animals import Carnivore, Herbivore
 
 ISLE_MAP = """\
         JSS

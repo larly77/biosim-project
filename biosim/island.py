@@ -7,8 +7,8 @@ __author__ = 'Jon-Fredrik Blakstad Cappelen'
 __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
 
-from landscape import Jungle, Savannah, Desert, Mountain, Ocean
-from animals import Herbivore, Carnivore
+from biosim.landscape import Jungle, Savannah, Desert, Mountain, Ocean
+from biosim.animals import Herbivore, Carnivore
 import copy
 import numpy as np
 import random

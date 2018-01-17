@@ -8,8 +8,8 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
             'lars.martin.boe.lied@nmbu.no'
 
 
-from animals import Herbivore
-from landscape import Jungle
+from biosim.animals import Herbivore
+from biosim.landscape import Jungle
 
 
 class TestAnimal:

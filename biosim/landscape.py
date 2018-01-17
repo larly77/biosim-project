@@ -9,7 +9,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
 
 
 import copy
-from animals import Herbivore, Carnivore
+from biosim.animals import Herbivore, Carnivore
 
 
 class Jungle:

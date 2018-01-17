@@ -7,8 +7,8 @@ __author__ = 'Jon-Fredrik Blakstad Cappelen', 'Lars Martin Boe Lied'
 __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
             'lars.martin.boe.lied@nmbu.no'
 
-from landscape import Jungle, Savannah
-from animals import Herbivore
+from biosim.landscape import Jungle, Savannah
+from biosim.animals import Herbivore
 
 
 class TestLandscape:
