@@ -149,9 +149,9 @@ class Carnivore(Herbivore):
         appetite = copy.deepcopy(self.parameters['F'])
         eaten_bool = [True] * len(preys)
         for index, prey in enumerate(preys):
-            if appetite > prey.get_weight():
+            if appetite >= prey.get_weight():
                 if self.fitness <= prey.fitness:
-                    pass
+                    continue
                 elif 0 < self.fitness - prey.fitness < \
                         self.parameters['DeltaPhiMax']:
 
@@ -170,7 +170,7 @@ class Carnivore(Herbivore):
 
             elif 0 < appetite < prey.get_weight():
                 if self.fitness <= prey.fitness:
-                    pass
+                    continue
                 elif 0 < self.fitness - prey.fitness < \
                         self.parameters['DeltaPhiMax']:
 
@@ -187,7 +187,7 @@ class Carnivore(Herbivore):
                     appetite = 0
                     self.update_fitness()
             else:
-                pass
+                continue
 
         return eaten_bool
 
