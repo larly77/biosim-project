@@ -79,10 +79,10 @@ class Island:
         self.carnivores_on_island = carnivore_matrix
 
     def number_of_carnivores_island(self):
-        return np.sum(self.animals_on_island()[1])
+        return np.sum(self.herbivores_on_island)
 
     def number_of_herbivores_island(self):
-        return np.sum(self.animals_on_island()[0])
+        return np.sum(self.carnivores_on_island)
 
     def add_animal_island(self, coordinates, animals_list):
         """dummy"""
@@ -94,6 +94,7 @@ class Island:
             if animal['species'] == 'Carnivore':
                 self.cells[coordinates].add_carnivore(animal['age'],
                                                       animal['weight'])
+        self.animals_on_island()
 
     @staticmethod
     def get_direction(pi_values):

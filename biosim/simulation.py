@@ -33,10 +33,6 @@ class BioSim:
             animals = population[index]['pop']
             self.island.add_animal_island(coordinates, animals)
 
-    def visualization(self):
-        """"""
-        pass
-
     def make_rgb_map(self, show=False):
         """Function to make RGB map from island-string.
         Source: Plesser's Repository:
@@ -71,6 +67,28 @@ class BioSim:
 
         if show:
             plt.show()
+
+    def herbivore_density_map(self, show=False):
+        """
+        Source: Plesser's Repository:
+        NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)"""
+
+        fig = plt.figure('Herbivore density map')
+        animals = self.island.herbivores_on_island
+
+        axim = fig.add_axes([0.1, 0.1, 0.7, 0.8])  # llx, lly, w, h
+        axim.imshow(animals, interpolation='nearest')
+        axim.set_xticks(range(len(animals[0])))
+        axim.set_xticklabels(range(1, 1 + len(animals[0])))
+        axim.set_yticks(range(len(animals)))
+        axim.set_yticklabels(range(1, 1 + len(animals)))
+
+        if show:
+            plt.show()
+
+    def visualization(self):
+        """"""
+        pass
 
     def simulate_in_one_place_herbivores(self, num_steps, printing):
 
@@ -107,9 +125,9 @@ class BioSim:
 if __name__ == '__main__':
 
     isle_map = """\
-            OOO
-            OJO
-            OOO"""
+            OOOO
+            OJDO
+            OOOO"""
     isle_map = textwrap.dedent(isle_map)
     ini_herb = [{'loc': (2, 2),
                  'pop': [{'species': 'Herbivore',
@@ -125,6 +143,13 @@ if __name__ == '__main__':
 
     sim = BioSim(island_map=isle_map, ini_pop=ini_herb + ini_carn, seed=12345)
 
-    sim.make_rgb_map(show=True)
+    sim.add_population([{'loc': (2, 3),
+                         'pop': [{'species': 'Herbivore',
+                                  'age': 5,
+                                  'weight': 20}
+                                 for _ in range(100)]}])
+    sim.herbivore_density_map(show=True)
+
+    #sim.make_rgb_map(show=True)
 
     #sim.simulate_in_one_place_herbivores(num_steps=200, printing=True)
