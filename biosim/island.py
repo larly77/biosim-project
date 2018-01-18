@@ -23,6 +23,8 @@ class Island:
         self.map = island_map
         self.cells = None
         self.array_to_island()
+        self.herbivores_on_island = None
+        self.carnivores_on_island = None
 
     def string_to_array(self):
         """Converts the string-input for the map into an array"""
@@ -59,6 +61,22 @@ class Island:
                     nested[i][j] = Mountain()
 
         self.cells = np.array(nested)
+
+    def animals_on_island(self):
+        shape = np.shape(self.string_to_array())  # type: tuple
+        herbivore_matrix = np.zeros(shape=shape)
+        carnivore_matrix = np.zeros(shape=shape)
+
+        for i in range(1, shape[0] - 1):
+            for j in range(1, shape[1] - 1):
+                if isinstance(self.cells[i, j], (Jungle, Savannah, Desert)):
+                    herbivore_matrix[i, j] = \
+                        len(self.cells[i, j].get_herbivores())
+                    carnivore_matrix[i, j] = \
+                        len(self.cells[i, j].get_carnivores())
+
+        self.herbivores_on_island = herbivore_matrix
+        self.carnivores_on_island = carnivore_matrix
 
     def add_animal_island(self, coordinates, animals_list):
         """dummy"""
