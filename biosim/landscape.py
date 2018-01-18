@@ -152,6 +152,10 @@ class Desert(Jungle):
 
     def __init__(self):
         super().__init__()
+        self.fodder = 0
+
+    def reset_fodder(self):
+        """Replaces the method Jungle.reset_fodder. It does nothing"""
 
     def feeding(self):
         """Replaces the method Jungle.feeding. It does nothing."""
