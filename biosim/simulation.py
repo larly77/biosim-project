@@ -86,6 +86,24 @@ class BioSim:
         if show:
             plt.show()
 
+    def carnivore_density_map(self, show=False):
+        """
+        Source: Plesser's Repository:
+        NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)"""
+
+        fig = plt.figure('Carnivore density map')
+        animals = self.island.carnivores_on_island
+
+        axim = fig.add_axes([0.1, 0.1, 0.7, 0.8])  # llx, lly, w, h
+        axim.imshow(animals, interpolation='nearest')
+        axim.set_xticks(range(len(animals[0])))
+        axim.set_xticklabels(range(1, 1 + len(animals[0])))
+        axim.set_yticks(range(len(animals)))
+        axim.set_yticklabels(range(1, 1 + len(animals)))
+
+        if show:
+            plt.show()
+
     def visualization(self):
         """"""
         pass
@@ -148,7 +166,14 @@ if __name__ == '__main__':
                                   'age': 5,
                                   'weight': 20}
                                  for _ in range(100)]}])
+    sim.add_population([{'loc': (2, 3),
+                         'pop': [{'species': 'Carnivore',
+                                  'age': 5,
+                                  'weight': 20}
+                                 for _ in range(2)]}])
+
     sim.herbivore_density_map(show=True)
+    sim.carnivore_density_map(show=True)
 
     #sim.make_rgb_map(show=True)
 

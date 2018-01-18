@@ -292,6 +292,8 @@ class Island:
             if isinstance(self.cells[coord], (Jungle, Savannah, Desert)):
                 self.cells[coord].death()
 
+        self.animals_on_island()
+
 """ def cycle(self):
     cells_shape = np.shape(self.cells)   # type: tuple
     for i in range(cells_shape[0]):
