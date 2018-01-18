@@ -13,6 +13,7 @@ from biosim.animals import Carnivore, Herbivore
 import math
 import pytest
 
+
 DEFAULT_HERBIVORE_PARAMETERS = {'w_birth': 8.0,
                                     'sigma_birth': 1.5,
                                     'beta': 0.9,
@@ -132,9 +133,7 @@ class TestIsland:
         assert [len(a) == 2 for a in i1.get_random_coordinates()]
 
     def test_get_pi_values_herbivores(self):
-        """test for getting pi-values for hebivores"""
-        import math
-        import pytest
+        """test for getting pi-values for herbivores"""
 
         i1 = Island(ISLE_MAP2)
         coordinate = (2, 3)
@@ -149,7 +148,7 @@ class TestIsland:
             (correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
 
     def test_get_pi_values_carnivores_no_herb(self):
-        """test for getting pi_values for carns without any herbivores"""
+        """test for getting pi_values for carnivores without any herbivores"""
 
         i1 = Island(ISLE_MAP2)
         coordinate = (2, 3)
@@ -165,7 +164,7 @@ class TestIsland:
 
     def test_get_pi_values_carnivores_with_herbs_and_carns(self):
         """test for get_pi_values_carnivores with herbivores and
-        ekstra carnivores in adjacent cells"""
+        extra carnivores in adjacent cells"""
         i1 = Island(ISLE_MAP2)
         coordinate = (2, 3)
         i1.add_animal_island((2, 2), INI_HERB[0]['pop'])
@@ -185,7 +184,7 @@ class TestIsland:
             (correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
 
     def test_cell_move_herbivore_and_carnivore(self):
-        """test for movin herbivore and carnivore"""
+        """test for moving herbivore and carnivore"""
         i1 = Island(ISLE_MAP2)
         Herbivore.set_parameters({'mu': 1.0})
         Carnivore.set_parameters({'mu': 1.0})
