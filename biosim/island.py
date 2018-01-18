@@ -78,6 +78,12 @@ class Island:
         self.herbivores_on_island = herbivore_matrix
         self.carnivores_on_island = carnivore_matrix
 
+    def number_of_carnivores_island(self):
+        return np.sum(self.animals_on_island()[1])
+
+    def number_of_herbivores_island(self):
+        return np.sum(self.animals_on_island()[0])
+
     def add_animal_island(self, coordinates, animals_list):
         """dummy"""
         for animal in animals_list:
