@@ -8,6 +8,8 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
 
 import random
+import matplotlib.pyplot as plt
+import textwrap
 from biosim.island import Island
 
 
@@ -16,9 +18,11 @@ class BioSim:
 
     def __init__(self, island_map, ini_pop=None, seed=12345):
         random.seed(seed)
+        self.island_map = island_map
         self.island = Island(island_map)
         if ini_pop is not None:
             self.add_population(ini_pop)
+        self.island.animals_on_island()
 
     def add_population(self, population):
         """dum"""
@@ -28,6 +32,45 @@ class BioSim:
             coordinates = (coordinates[0] - 1, coordinates[1] - 1)
             animals = population[index]['pop']
             self.island.add_animal_island(coordinates, animals)
+
+    def visualization(self):
+        """"""
+        pass
+
+    def make_rgb_map(self, show=False):
+        """Function to make RGB map from island-string.
+        Source: Plesser's Repository:
+        NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)"""
+
+        rgb_value = {'O': (0.0, 0.0, 1.0),  # blue
+                     'M': (0.5, 0.5, 0.5),  # grey
+                     'J': (0.0, 0.6, 0.0),  # dark green
+                     'S': (0.5, 1.0, 0.5),  # light green
+                     'D': (1.0, 1.0, 0.5)}  # light yellow
+
+        map_rgb = [[rgb_value[column] for column in row]
+                   for row in self.island_map.splitlines()]
+
+        fig = plt.figure('RGB Map')
+
+        axim = fig.add_axes([0.1, 0.1, 0.7, 0.8])  # llx, lly, w, h
+        axim.imshow(map_rgb, interpolation='nearest')
+        axim.set_xticks(range(len(map_rgb[0])))
+        axim.set_xticklabels(range(1, 1 + len(map_rgb[0])))
+        axim.set_yticks(range(len(map_rgb)))
+        axim.set_yticklabels(range(1, 1 + len(map_rgb)))
+
+        axlg = fig.add_axes([0.85, 0.1, 0.1, 0.8])  # llx, lly, w, h
+        axlg.axis('off')
+        for ix, name in enumerate(('Ocean', 'Mountain', 'Jungle',
+                                   'Savannah', 'Desert')):
+            axlg.add_patch(plt.Rectangle((0., ix * 0.2), 0.3, 0.1,
+                                         edgecolor='none',
+                                         facecolor=rgb_value[name[0]]))
+            axlg.text(0.35, ix * 0.2, name, transform=axlg.transAxes)
+
+        if show:
+            plt.show()
 
     def simulate_in_one_place_herbivores(self, num_steps, printing):
 
@@ -67,7 +110,7 @@ if __name__ == '__main__':
             OOO
             OJO
             OOO"""
-
+    isle_map = textwrap.dedent(isle_map)
     ini_herb = [{'loc': (2, 2),
                  'pop': [{'species': 'Herbivore',
                           'age': 5,
@@ -82,6 +125,6 @@ if __name__ == '__main__':
 
     sim = BioSim(island_map=isle_map, ini_pop=ini_herb + ini_carn, seed=12345)
 
-#    Savannah.set_parameters({'f_max': 800})
+    sim.make_rgb_map(show=True)
 
-    sim.simulate_in_one_place_herbivores(num_steps=200, printing=True)
+    #sim.simulate_in_one_place_herbivores(num_steps=200, printing=True)
