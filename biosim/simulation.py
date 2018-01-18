@@ -23,6 +23,7 @@ class BioSim:
         if ini_pop is not None:
             self.add_population(ini_pop)
         self.island.animals_on_island()
+        self.fig = None
 
     def add_population(self, population):
         """dum"""
@@ -104,9 +105,22 @@ class BioSim:
         if show:
             plt.show()
 
-    def visualization(self):
+    def make_visualization(self):
         """"""
-        pass
+        fig = plt.figure()
+
+        # normal subplots
+        ax1 = fig.add_subplot(2, 2, 1)
+        ax2 = fig.add_subplot(2, 2, 2)
+        ax3 = fig.add_subplot(2, 2, 3)
+        ax4 = fig.add_subplot(2, 2, 4)
+
+        (self.herbivore_density_map())
+
+        self.fig = fig
+
+    def update_visualization(self):
+        """"""
 
     def simulate_in_one_place_herbivores(self, num_steps, printing):
 
