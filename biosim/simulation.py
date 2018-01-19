@@ -34,6 +34,8 @@ class BioSim:
         self.line_carnivore = None
         self.herbivore_density = None
         self.carnivore_density = None
+        self.year_ax = None
+        self.year_txt = None
         self.year = 0
 
     def add_population(self, population):
@@ -44,6 +46,22 @@ class BioSim:
             coordinates = (coordinates[0] - 1, coordinates[1] - 1)
             animals = population[index]['pop']
             self.island.add_animal_island(coordinates, animals)
+
+    def year_counter(self):
+        """
+        Source: Plesser's Repository:
+        NMBU_INF200_H17 / Lectures / J05 / Plotting / time_counter.py (18.01.2018)"""
+
+        if self.year_ax is None:
+            self.year_ax = self.fig.add_axes([0.4, 0.83, 0.2, 0.2])  # llx, lly, w, h
+            self.year_ax.axis('off')  # turn off coordinate system
+
+            self.year_txt = self.year_ax.text(0.5, 0.5, 'Year: {:5}'.format(self.year),
+                                              horizontalalignment='center',
+                                              verticalalignment='center',
+                                              transform=self.year_ax.transAxes, fontsize=16)
+
+        self.year_txt.set_text('Year: {:5}'.format(self.year))
 
     def make_rgb_map(self):
         """Function to make RGB map from island-string.
@@ -109,7 +127,7 @@ class BioSim:
 
         self.herbivore_density = self.ax3.imshow(animals,
             interpolation='nearest',
-            vmin=0, vmax=400)
+            vmin=0, vmax=300)
         self.ax3.set_xticks(range(len(animals[0])))
         self.ax3.set_xticklabels(range(1, 1 + len(animals[0])))
         self.ax3.set_yticks(range(len(animals)))
@@ -154,12 +172,14 @@ class BioSim:
         self.make_line_plot()
         self.make_herbivore_density_map()
         self.make_carnivore_density_map()
+        self.year_counter()
 
     def update_visualization(self):
         """"""
         self.update_line_plot()
         self.update_herbivore_density_map()
         self.update_carnivore_density_map()
+        self.year_counter()
 
     def simulate_in_one_place_herbivores(self, num_steps, printing):
 
