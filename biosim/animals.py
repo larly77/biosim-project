@@ -34,13 +34,36 @@ class Herbivore:
     parameters = copy.deepcopy(DEFAULT_HERBIVORE_PARAMETERS)
 
     @classmethod
-    def set_parameters(cls, dictionary_changes):
+    def set_parameters(cls, parameter_changes):
         """Method that allows the user to set parameter values for the animal.
         This replaces the default values."""
+        """
+        Method that allows the user to set parameter values for the animal.
+
+        Method that allows the user to set parameter values for the animal.
+        This replaces the default values.
+
+        Parameters
+        ----------
+        parameter_changes : dictionary
+            A dictionary with one or more keys to set new parameters for the
+            animal. The items should be numeric.
+
+        Returns
+        -------
+        None
+
+        Raises
+        ------
+        ValueError
+            If parameter_changes contain contain keys not already in the
+            dictionary. 
+        """
+
         #       Idiotsikring her?
 
-        for key in dictionary_changes:
-            cls.parameters[key] = dictionary_changes[key]
+        for key in parameter_changes:
+            cls.parameters[key] = parameter_changes[key]
 
     def __init__(self, age, weight):
         self.age = age
