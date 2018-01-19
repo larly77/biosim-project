@@ -21,7 +21,8 @@ __email__ = "hans.ekkehard.plesser@nmbu.no"
 if __name__ == '__main__':
     plt.ion()
 
-    geogr = """OOOOOOOOOOOOOOOOOOOOO
+    geogr = """\
+               OOOOOOOOOOOOOOOOOOOOO
                OOOOOOOOSMMMMJJJJJJJO
                OSSSSSJJJJMMJJJJJJJOO
                OSSSSSSSSSMMJJJJJJOOO

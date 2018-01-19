@@ -9,6 +9,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
 import random
 import matplotlib.pyplot as plt
+import numpy as np
 import textwrap
 from biosim.island import Island
 
@@ -28,6 +29,9 @@ class BioSim:
         self.ax2 = None
         self.ax3 = None
         self.ax4 = None
+        self.line_herbivore = None
+        self.line_carnivore = None
+        self.year = 0
 
     def add_population(self, population):
         """dum"""
@@ -38,7 +42,7 @@ class BioSim:
             animals = population[index]['pop']
             self.island.add_animal_island(coordinates, animals)
 
-    def make_rgb_map(self, show=False):
+    def make_rgb_map(self):
         """Function to make RGB map from island-string.
         Source: Plesser's Repository:
         NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)"""
@@ -69,7 +73,30 @@ class BioSim:
                                          facecolor=rgb_value[name[0]]))
             axlg.text(0.35, ix * 0.2, name, transform=axlg.transAxes)
 
-    def herbivore_density_map(self, show=False):
+    def make_line_plot(self):
+        """"""
+
+        self.ax2.set_xlim(0,100)
+        self.ax2.set_ylim(0, 15000)
+
+        years_max = 10000
+        self.line_herbivore = self.ax2.plot(np.arange(years_max),
+                                  np.nan * np.ones(years_max), 'b-')[0]
+        self.line_carnivore = self.ax2.plot(np.arange(years_max),
+                                  np.nan * np.ones(years_max), 'r-')[0]
+
+    def update_line_plot(self):
+        """"""
+        ydata = self.line_herbivore.get_ydata()
+        ydata[self.year] = self.island.number_of_herbivores_island()
+        self.line_herbivore.set_ydata(ydata)
+
+        ydata = self.line_carnivore.get_ydata()
+        ydata[self.year] = self.island.number_of_carnivores_island()
+        self.line_carnivore.set_ydata(ydata)
+        plt.pause(1e-6)
+
+    def herbivore_density_map(self):
         """
         Source: Plesser's Repository:
         NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)"""
@@ -84,10 +111,7 @@ class BioSim:
         axim.set_yticks(range(len(animals)))
         axim.set_yticklabels(range(1, 1 + len(animals)))
 
-        if show:
-            plt.show()
-
-    def carnivore_density_map(self, show=False):
+    def carnivore_density_map(self):
         """
         Source: Plesser's Repository:
         NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)"""
@@ -102,9 +126,6 @@ class BioSim:
         axim.set_yticks(range(len(animals)))
         axim.set_yticklabels(range(1, 1 + len(animals)))
 
-        if show:
-            plt.show()
-
     def make_visualization(self):
         """"""
         self.fig = plt.figure()
@@ -116,10 +137,13 @@ class BioSim:
         self.ax4 = self.fig.add_subplot(2, 2, 4)
 
         self.make_rgb_map()
-        plt.show()
+        self.make_line_plot()
+
+
 
     def update_visualization(self):
         """"""
+        self.update_line_plot()
 
     def simulate_in_one_place_herbivores(self, num_steps, printing):
 
@@ -136,7 +160,8 @@ class BioSim:
 
     def simulate(self, num_steps, vis_steps, img_steps):
         """"""
-
+        plt.ion()
+        self.make_visualization()
         print(vis_steps)
         print(img_steps)
 
@@ -144,14 +169,13 @@ class BioSim:
         for year in range(num_steps):
             self.island.cycle()
 
-            print('Year over:', year)
-            print('Number of Herbivores: ',
-                  len(self.island.cells[9, 9].herbivores),
-                  len(self.island.cells[8, 8].herbivores))
-            print('Number of Carnivores: ',
-                  len(self.island.cells[9, 9].carnivores),
-                  len(self.island.cells[8, 8].carnivores))
+            self.update_visualization()
 
+            print('Year over:', self.year)
+            print('Number of animals: ',
+                  self.island.number_of_herbivores_island(),
+                  self.island.number_of_carnivores_island())
+            self.year += 1
 
 if __name__ == '__main__':
 
@@ -170,13 +194,12 @@ if __name__ == '__main__':
                OOOSSSSJJJJJJJOOOOOOO
                OOOOOOOOOOOOOOOOOOOOO"""
     isle_map = textwrap.dedent(isle_map)
-    ini_herb = [{'loc': (2, 2),
+    ini_herb = [{'loc': (10, 10),
                  'pop': [{'species': 'Herbivore',
                           'age': 5,
                           'weight': 20}
                          for _ in range(40)]}]
-
-    ini_carn = [{'loc': (3, 3),
+    ini_carn = [{'loc': (10, 3),
                  'pop': [{'species': 'Carnivore',
                           'age': 5,
                           'weight': 20}
@@ -195,8 +218,12 @@ if __name__ == '__main__':
                                   'weight': 20}
                                  for _ in range(2)]}])
 
-    sim.make_visualization()
+    sim.simulate(50, 1, 2000)
+    #sim.make_visualization()
 
-    #sim.make_rgb_map(show=True)
+    #sim.make_rgb_map()
 
     #sim.simulate_in_one_place_herbivores(num_steps=200, printing=True)
+
+    input('Press ENTER')
+
