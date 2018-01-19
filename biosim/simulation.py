@@ -24,6 +24,10 @@ class BioSim:
             self.add_population(ini_pop)
         self.island.animals_on_island()
         self.fig = None
+        self.ax1 = None
+        self.ax2 = None
+        self.ax3 = None
+        self.ax4 = None
 
     def add_population(self, population):
         """dum"""
@@ -48,16 +52,15 @@ class BioSim:
         map_rgb = [[rgb_value[column] for column in row]
                    for row in self.island_map.splitlines()]
 
-        fig = plt.figure('RGB Map')
+#        self.ax1 = self.fig.add_axes([0.1, 0.1, 0.7, 0.8])  # llx, lly, w, h
+        self.ax1.imshow(map_rgb, interpolation='nearest')
+        self.ax1.set_xticks(range(len(map_rgb[0])))
+        self.ax1.set_xticklabels(range(1, 1 + len(map_rgb[0])))
+        self.ax1.set_yticks(range(len(map_rgb)))
+        self.ax1.set_yticklabels(range(1, 1 + len(map_rgb)))
+        self.ax1.set_title('Map of Rossumøya')
 
-        axim = fig.add_axes([0.1, 0.1, 0.7, 0.8])  # llx, lly, w, h
-        axim.imshow(map_rgb, interpolation='nearest')
-        axim.set_xticks(range(len(map_rgb[0])))
-        axim.set_xticklabels(range(1, 1 + len(map_rgb[0])))
-        axim.set_yticks(range(len(map_rgb)))
-        axim.set_yticklabels(range(1, 1 + len(map_rgb)))
-
-        axlg = fig.add_axes([0.85, 0.1, 0.1, 0.8])  # llx, lly, w, h
+        axlg = self.fig.add_axes([0.44, 0.525, 0.1, 0.4])  # llx, lly, w, h
         axlg.axis('off')
         for ix, name in enumerate(('Ocean', 'Mountain', 'Jungle',
                                    'Savannah', 'Desert')):
@@ -65,9 +68,6 @@ class BioSim:
                                          edgecolor='none',
                                          facecolor=rgb_value[name[0]]))
             axlg.text(0.35, ix * 0.2, name, transform=axlg.transAxes)
-
-        if show:
-            plt.show()
 
     def herbivore_density_map(self, show=False):
         """
@@ -107,17 +107,16 @@ class BioSim:
 
     def make_visualization(self):
         """"""
-        fig = plt.figure()
+        self.fig = plt.figure()
 
         # normal subplots
-        ax1 = fig.add_subplot(2, 2, 1)
-        ax2 = fig.add_subplot(2, 2, 2)
-        ax3 = fig.add_subplot(2, 2, 3)
-        ax4 = fig.add_subplot(2, 2, 4)
+        self.ax1 = self.fig.add_subplot(2, 2, 1)
+        self.ax2 = self.fig.add_subplot(2, 2, 2)
+        self.ax3 = self.fig.add_subplot(2, 2, 3)
+        self.ax4 = self.fig.add_subplot(2, 2, 4)
 
-        (self.herbivore_density_map())
-
-        self.fig = fig
+        self.make_rgb_map()
+        plt.show()
 
     def update_visualization(self):
         """"""
@@ -157,9 +156,19 @@ class BioSim:
 if __name__ == '__main__':
 
     isle_map = """\
-            OOOO
-            OJDO
-            OOOO"""
+               OOOOOOOOOOOOOOOOOOOOO
+               OOOOOOOOSMMMMJJJJJJJO
+               OSSSSSJJJJMMJJJJJJJOO
+               OSSSSSSSSSMMJJJJJJOOO
+               OSSSSSJJJJJJJJJJJJOOO
+               OSSSSSJJJDDJJJSJJJOOO
+               OSSJJJJJDDDJJJSSSSOOO
+               OOSSSSJJJDDJJJSOOOOOO
+               OSSSJJJJJDDJJJJJJJOOO
+               OSSSSJJJJDDJJJJOOOOOO
+               OOSSSSJJJJJJJJOOOOOOO
+               OOOSSSSJJJJJJJOOOOOOO
+               OOOOOOOOOOOOOOOOOOOOO"""
     isle_map = textwrap.dedent(isle_map)
     ini_herb = [{'loc': (2, 2),
                  'pop': [{'species': 'Herbivore',
@@ -167,7 +176,7 @@ if __name__ == '__main__':
                           'weight': 20}
                          for _ in range(40)]}]
 
-    ini_carn = [{'loc': (2, 2),
+    ini_carn = [{'loc': (3, 3),
                  'pop': [{'species': 'Carnivore',
                           'age': 5,
                           'weight': 20}
@@ -175,19 +184,18 @@ if __name__ == '__main__':
 
     sim = BioSim(island_map=isle_map, ini_pop=ini_herb + ini_carn, seed=12345)
 
-    sim.add_population([{'loc': (2, 3),
+    sim.add_population([{'loc': (3, 3),
                          'pop': [{'species': 'Herbivore',
                                   'age': 5,
                                   'weight': 20}
                                  for _ in range(100)]}])
-    sim.add_population([{'loc': (2, 3),
+    sim.add_population([{'loc': (3, 3),
                          'pop': [{'species': 'Carnivore',
                                   'age': 5,
                                   'weight': 20}
                                  for _ in range(2)]}])
 
-    sim.herbivore_density_map(show=True)
-    sim.carnivore_density_map(show=True)
+    sim.make_visualization()
 
     #sim.make_rgb_map(show=True)
 

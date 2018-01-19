@@ -86,14 +86,17 @@ class Island:
 
     def add_animal_island(self, coordinates, animals_list):
         """dummy"""
-        for animal in animals_list:
-            if animal['species'] == 'Herbivore':
-                self.cells[coordinates].add_herbivore(animal['age'],
-                                                      animal['weight'])
+        if isinstance(self.cells[coordinates], (Jungle, Savannah, Desert)):
+            for animal in animals_list:
+                if animal['species'] == 'Herbivore':
+                    self.cells[coordinates].add_herbivore(animal['age'],
+                                                          animal['weight'])
 
-            if animal['species'] == 'Carnivore':
-                self.cells[coordinates].add_carnivore(animal['age'],
-                                                      animal['weight'])
+                if animal['species'] == 'Carnivore':
+                    self.cells[coordinates].add_carnivore(animal['age'],
+                                                          animal['weight'])
+        else:
+            raise ValueError('Coordinates must be Jungle, Savannah, or Desert')
         self.animals_on_island()
 
     @staticmethod
