@@ -78,16 +78,16 @@ class BioSim:
     def make_line_plot(self):
         """"""
 
-        self.ax2.set_xlim(0,200)
+        self.ax2.set_xlim(0, 200)
         self.ax2.set_ylim(0, 15000)
         self.ax2.set_title('Populations')
-        self.ax2.legend(['Herbivores', 'Carnivores'])
 
         years_max = 10000
         self.line_herbivore = self.ax2.plot(np.arange(years_max),
                                   np.nan * np.ones(years_max), 'b-')[0]
         self.line_carnivore = self.ax2.plot(np.arange(years_max),
                                   np.nan * np.ones(years_max), 'r-')[0]
+        self.ax2.legend(['Herbivores', 'Carnivores'])
 
     def update_line_plot(self):
         """"""
@@ -107,6 +107,9 @@ class BioSim:
 
         animals = self.island.herbivores_on_island
 
+        self.herbivore_density = self.ax3.imshow(animals,
+            interpolation='nearest',
+            vmin=0, vmax=400)
         self.ax3.set_xticks(range(len(animals[0])))
         self.ax3.set_xticklabels(range(1, 1 + len(animals[0])))
         self.ax3.set_yticks(range(len(animals)))
@@ -115,6 +118,7 @@ class BioSim:
 
     def update_herbivore_density_map(self):
         """"""
+        self.herbivore_density.set_data(self.island.herbivores_on_island)
 
     def make_carnivore_density_map(self):
         """
@@ -123,6 +127,9 @@ class BioSim:
 
         animals = self.island.carnivores_on_island
 
+        self.carnivore_density = self.ax4.imshow(animals,
+            interpolation='nearest',
+            vmin=0, vmax=100)
         self.ax4.set_xticks(range(len(animals[0])))
         self.ax4.set_xticklabels(range(1, 1 + len(animals[0])))
         self.ax4.set_yticks(range(len(animals)))
@@ -131,8 +138,7 @@ class BioSim:
 
     def update_carnivore_density_map(self):
         """"""
-
-        self.ax4.imshow(self.island.carnivores_on_island, interpolation='nearest')
+        self.carnivore_density.set_data(self.island.carnivores_on_island)
 
     def make_visualization(self):
         """"""
@@ -152,8 +158,8 @@ class BioSim:
     def update_visualization(self):
         """"""
         self.update_line_plot()
-#        self.update_herbivore_density_map()
-#        self.update_carnivore_density_map()
+        self.update_herbivore_density_map()
+        self.update_carnivore_density_map()
 
     def simulate_in_one_place_herbivores(self, num_steps, printing):
 

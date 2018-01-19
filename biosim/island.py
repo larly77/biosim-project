@@ -78,10 +78,10 @@ class Island:
         self.herbivores_on_island = herbivore_matrix
         self.carnivores_on_island = carnivore_matrix
 
-    def number_of_carnivores_island(self):
+    def number_of_herbivores_island(self):
         return np.sum(self.herbivores_on_island)
 
-    def number_of_herbivores_island(self):
+    def number_of_carnivores_island(self):
         return np.sum(self.carnivores_on_island)
 
     def add_animal_island(self, coordinates, animals_list):
