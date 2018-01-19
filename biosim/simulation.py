@@ -19,6 +19,7 @@ class BioSim:
 
     def __init__(self, island_map, ini_pop=None, seed=12345):
         random.seed(seed)
+        np.random.seed(seed)
         self.island_map = island_map
         self.island = Island(island_map)
         if ini_pop is not None:
@@ -31,6 +32,8 @@ class BioSim:
         self.ax4 = None
         self.line_herbivore = None
         self.line_carnivore = None
+        self.herbivore_density = None
+        self.carnivore_density = None
         self.year = 0
 
     def add_population(self, population):
@@ -96,20 +99,23 @@ class BioSim:
         self.line_carnivore.set_ydata(ydata)
         plt.pause(1e-6)
 
-    def herbivore_density_map(self):
+    def make_herbivore_density_map(self):
         """
         Source: Plesser's Repository:
         NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)"""
 
-        fig = plt.figure('Herbivore density map')
         animals = self.island.herbivores_on_island
 
-        axim = fig.add_axes([0.1, 0.1, 0.7, 0.8])  # llx, lly, w, h
-        axim.imshow(animals, interpolation='nearest')
-        axim.set_xticks(range(len(animals[0])))
-        axim.set_xticklabels(range(1, 1 + len(animals[0])))
-        axim.set_yticks(range(len(animals)))
-        axim.set_yticklabels(range(1, 1 + len(animals)))
+        
+
+        self.ax3.set_xticks(range(len(animals[0])))
+        self.ax3.set_xticklabels(range(1, 1 + len(animals[0])))
+        self.ax3.set_yticks(range(len(animals)))
+        self.ax3.set_yticklabels(range(1, 1 + len(animals)))
+        self.ax3.set_title('Herbivore pop-density')
+
+    def update_herbivore_density_map(self):
+
 
     def carnivore_density_map(self):
         """
