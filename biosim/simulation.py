@@ -59,7 +59,6 @@ class BioSim:
         map_rgb = [[rgb_value[column] for column in row]
                    for row in self.island_map.splitlines()]
 
-#        self.ax1 = self.fig.add_axes([0.1, 0.1, 0.7, 0.8])  # llx, lly, w, h
         self.ax1.imshow(map_rgb, interpolation='nearest')
         self.ax1.set_xticks(range(len(map_rgb[0])))
         self.ax1.set_xticklabels(range(1, 1 + len(map_rgb[0])))
@@ -79,8 +78,10 @@ class BioSim:
     def make_line_plot(self):
         """"""
 
-        self.ax2.set_xlim(0,100)
+        self.ax2.set_xlim(0,200)
         self.ax2.set_ylim(0, 15000)
+        self.ax2.set_title('Populations')
+        self.ax2.legend(['Herbivores', 'Carnivores'])
 
         years_max = 10000
         self.line_herbivore = self.ax2.plot(np.arange(years_max),
@@ -106,31 +107,32 @@ class BioSim:
 
         animals = self.island.herbivores_on_island
 
-        
-
         self.ax3.set_xticks(range(len(animals[0])))
         self.ax3.set_xticklabels(range(1, 1 + len(animals[0])))
         self.ax3.set_yticks(range(len(animals)))
         self.ax3.set_yticklabels(range(1, 1 + len(animals)))
-        self.ax3.set_title('Herbivore pop-density')
+        self.ax3.set_title('Herbivore population density')
 
     def update_herbivore_density_map(self):
+        """"""
 
-
-    def carnivore_density_map(self):
+    def make_carnivore_density_map(self):
         """
         Source: Plesser's Repository:
         NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)"""
 
-        fig = plt.figure('Carnivore density map')
         animals = self.island.carnivores_on_island
 
-        axim = fig.add_axes([0.1, 0.1, 0.7, 0.8])  # llx, lly, w, h
-        axim.imshow(animals, interpolation='nearest')
-        axim.set_xticks(range(len(animals[0])))
-        axim.set_xticklabels(range(1, 1 + len(animals[0])))
-        axim.set_yticks(range(len(animals)))
-        axim.set_yticklabels(range(1, 1 + len(animals)))
+        self.ax4.set_xticks(range(len(animals[0])))
+        self.ax4.set_xticklabels(range(1, 1 + len(animals[0])))
+        self.ax4.set_yticks(range(len(animals)))
+        self.ax4.set_yticklabels(range(1, 1 + len(animals)))
+        self.ax4.set_title('Carnivore population density')
+
+    def update_carnivore_density_map(self):
+        """"""
+
+        self.ax4.imshow(self.island.carnivores_on_island, interpolation='nearest')
 
     def make_visualization(self):
         """"""
@@ -144,12 +146,14 @@ class BioSim:
 
         self.make_rgb_map()
         self.make_line_plot()
-
-
+        self.make_herbivore_density_map()
+        self.make_carnivore_density_map()
 
     def update_visualization(self):
         """"""
         self.update_line_plot()
+#        self.update_herbivore_density_map()
+#        self.update_carnivore_density_map()
 
     def simulate_in_one_place_herbivores(self, num_steps, printing):
 
@@ -167,7 +171,8 @@ class BioSim:
     def simulate(self, num_steps, vis_steps, img_steps):
         """"""
         plt.ion()
-        self.make_visualization()
+        if self.fig is None:
+            self.make_visualization()
         print(vis_steps)
         print(img_steps)
 
