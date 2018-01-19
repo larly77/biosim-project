@@ -93,7 +93,7 @@ class BioSim:
                                          facecolor=rgb_value[name[0]]))
             axlg.text(0.35, ix * 0.2, name, transform=axlg.transAxes)
 
-    def make_line_plot(self):
+    def make_line_plot(self, vis_steps):
         """"""
 
         self.ax2.set_xlim(0, 200)
@@ -101,10 +101,10 @@ class BioSim:
         self.ax2.set_title('Populations')
 
         years_max = 10000
-        self.line_herbivore = self.ax2.plot(np.arange(years_max),
-                                  np.nan * np.ones(years_max), 'b-')[0]
-        self.line_carnivore = self.ax2.plot(np.arange(years_max),
-                                  np.nan * np.ones(years_max), 'r-')[0]
+        self.line_herbivore = self.ax2.plot(np.arange(0, years_max + 1, vis_steps),
+                                  np.nan * np.ones(len(np.arange(0, years_max + 1, vis_steps))), 'b-*')[0]
+        self.line_carnivore = self.ax2.plot(np.arange(0, years_max + 1, vis_steps),
+                                  np.nan * np.ones(len(np.arange(0, years_max + 1, vis_steps))), 'r-*')[0]
         self.ax2.legend(['Herbivores', 'Carnivores'])
 
     def update_line_plot(self):
@@ -147,7 +147,7 @@ class BioSim:
 
         self.carnivore_density = self.ax4.imshow(animals,
             interpolation='nearest',
-            vmin=0, vmax=100)
+            vmin=0, vmax=300)
         self.ax4.set_xticks(range(len(animals[0])))
         self.ax4.set_xticklabels(range(1, 1 + len(animals[0])))
         self.ax4.set_yticks(range(len(animals)))
@@ -194,19 +194,18 @@ class BioSim:
                 print('Number of Carnivores: ',
                       len(self.island.cells[1, 1].carnivores))
 
-    def simulate(self, num_steps, vis_steps, img_steps):
+    def simulate(self, num_steps, vis_steps=1, img_steps=2000):
         """"""
         plt.ion()
         if self.fig is None:
             self.make_visualization()
-        print(vis_steps)
-        print(img_steps)
 
         # Run through num_steps years
         for year in range(num_steps):
             self.island.cycle()
 
-            self.update_visualization()
+            if (self.year % vis_steps) == 0:
+                self.update_visualization()
 
             print('Year over:', self.year)
             print('Number of animals: ',
