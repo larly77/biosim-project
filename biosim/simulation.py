@@ -39,8 +39,9 @@ class BioSim:
         self.vis_index = 0
         self.last_step = 0
         self.year = 0
-        self.x_lim = (0, 100)  # line graph ordinate limits
-        self.y_lim = (0, 15000)  # line graph abscissa limits
+        self.x_lim = (0, 100)  # line graph ordinate limits, default values
+        self.y_lim = (0, 15000)  # line graph abscissa limits, default values
+        self.user_limits = False
 
     def add_population(self, population):
         """dum"""
@@ -61,6 +62,11 @@ class BioSim:
             self.y_lim = y_limits
         else:
             raise TypeError('y_limits must be a tuple or list of 2 numbers')
+        self.user_limits = True
+
+    def reset_axis_limits(self):
+        self.user_limits = False
+        self.y_lim = (0, 15000) # default values
 
     def year_counter(self):
         """
@@ -110,15 +116,34 @@ class BioSim:
 
     def make_line_plot(self, vis_steps):
         """"""
-        self.ax2.set_xlim(self.x_lim[0], self.x_lim[1])
-        self.ax2.set_ylim(self.y_lim[0], self.y_lim[1])
+        if self.user_limits:
+            self.ax2.set_xlim(self.x_lim[0], self.x_lim[1])
+            self.ax2.set_ylim(self.y_lim[0], self.y_lim[1])
+        else:
+            self.ax2.set_xlim(0, self.last_step + 1)
+            self.ax2.set_ylim(self.y_lim[0], self.y_lim[1])
+
         self.ax2.set_title('Populations')
 
-        self.line_herbivore = self.ax2.plot(np.arange(0, self.last_step + 1, vis_steps),
-                                  np.nan * np.ones(len(np.arange(0, self.last_step + 1, vis_steps))), 'b-')[0]
-        self.line_carnivore = self.ax2.plot(np.arange(0, self.last_step + 1, vis_steps),
-                                  np.nan * np.ones(len(np.arange(0, self.last_step + 1, vis_steps))), 'r-')[0]
-        self.ax2.legend(['Herbivores', 'Carnivores'])
+        if self.line_herbivore is None:
+            self.line_herbivore = self.ax2.plot(np.arange(0, self.last_step + 1, vis_steps),
+                                      np.nan * np.ones(len(np.arange(0, self.last_step + 1, vis_steps))), 'b-')[0]
+            self.line_carnivore = self.ax2.plot(np.arange(0, self.last_step + 1, vis_steps),
+                                      np.nan * np.ones(len(np.arange(0, self.last_step + 1, vis_steps))), 'r-')[0]
+            self.ax2.legend(['Herbivores', 'Carnivores'])
+        else:
+            xdata, ydata = self.line_herbivore.get_data()
+            xnew = np.arange(xdata[-1] + 1, self.last_step, vis_steps)
+            if len(xnew) > 0:
+                ynew = np.nan * np.ones_like(xnew)
+                self.line_herbivore.set_data(np.hstack((xdata, xnew)),
+                                         np.hstack((ydata, ynew)))
+            xdata, ydata = self.line_carnivore.get_data()
+            xnew = np.arange(xdata[-1] + 1, self.last_step, vis_steps)
+            if len(xnew) > 0:
+                ynew = np.nan * np.ones_like(xnew)
+                self.line_carnivore.set_data(np.hstack((xdata, xnew)),
+                                         np.hstack((ydata, ynew)))
 
     def update_line_plot(self):
         """"""
@@ -217,7 +242,7 @@ class BioSim:
         self.make_visualization(vis_steps)
 
         # Run through num_steps years
-        while self.year <= self.last_step:
+        while self.year < self.last_step:
             self.island.cycle()
 
             if (self.year % vis_steps) == 0:
