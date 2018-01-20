@@ -12,9 +12,16 @@ from biosim.animals import Herbivore, Carnivore
 
 
 class TestLandscape:
-    """Class for testing landscape"""
-
+    """
+    Class for testing landscape
+    """
     def test_add_herbivore(self):
+        """
+        method for testing add_herbivore
+        Returns
+        -------
+
+        """
         j1 = Jungle()
         assert len(j1.herbivores) == 0
         j1.add_herbivore(5, 20)
@@ -25,6 +32,12 @@ class TestLandscape:
         assert len(j1.herbivores) == 6
 
     def test_add_carnivores(self):
+        """
+        method for testing add carnivore
+        Returns
+        -------
+
+        """
         j1 = Jungle()
         assert len(j1.carnivores) == 0
         j1.add_carnivore(5, 20)
@@ -36,19 +49,23 @@ class TestLandscape:
 
     def test_reset_fodder_jungle(self):
         """
-
+        test for reset fodder in Jungle
         Returns
         -------
 
         """
-        """Test for the method Jungle.reset_fodder"""
         j1 = Jungle()
         j1.fodder = 500.0
         j1.reset_fodder()
         assert j1.fodder == 800.0
 
     def test_reduce_fodder(self):
-        """Test for method reduce_fodder"""
+        """
+        Test for method reduce_fodder
+        Returns
+        -------
+
+        """
         j1 = Jungle()
         j1.reduce_fodder(100.0)
         assert j1.fodder == 700.0
@@ -56,13 +73,24 @@ class TestLandscape:
         assert j1.fodder == 600
 
     def test_get_fodder(self):
-        """Test for method get_fodder"""
+        """
+        Test for method get_fodder
+        Returns
+        -------
+
+        """
         j1 = Jungle()
         assert j1.get_fodder() == 800.0
         j1.reduce_fodder(100)
         assert j1.get_fodder() == 700
 
     def test_reset_fodder_savannah(self):
+        """
+        Test for the method reset_fodder i Savannah
+        Returns
+        -------
+
+        """
         """Test for the method Savannah.reset_fodder"""
         s1 = Savannah()
         s1.fodder = 150.0
@@ -70,6 +98,12 @@ class TestLandscape:
         assert s1.fodder == 195
 
     def test_feeding_jungle(self):
+        """
+        Test that all herbivores in the cell feed: the method feeding
+        Returns
+        -------
+
+        """
         """Test that all herbivores in the cell feed: the method feeding"""
         j1 = Jungle()
         j1.herbivores = [Herbivore(3, 15), Herbivore(3, 20),
@@ -80,7 +114,12 @@ class TestLandscape:
         assert j1.herbivores[3].weight == 39
 
     def test_feeding_savannah(self):
-        """Test that all herbivores in the cell feed: the method feeding"""
+        """
+        Test that all herbivores in the cell feed: the method feeding
+        Returns
+        -------
+
+        """
         s1 = Savannah()
         s1.herbivores = [Herbivore(3, 15), Herbivore(3, 20),
                          Herbivore(3, 30), Herbivore(3, 25)]
@@ -90,7 +129,14 @@ class TestLandscape:
         assert s1.herbivores[3].weight == 39
 
     def test_procreation(self):
-        """Test that all animals in cell procreate: the method procreation"""
+        """
+        Test that all animals in cell procreate: the method procreation
+
+        Do this by manipulating the parameter gamma
+        Returns
+        -------
+
+        """
         s1 = Savannah()
         Herbivore.set_parameters({'gamma': 1})
         s1.herbivores = [Herbivore(age=3, weight=1000) for _ in range(3)]
@@ -100,7 +146,12 @@ class TestLandscape:
         assert len(s1.get_herbivores()) == 6
 
     def test_aging(self):
-        """Test that all animals in the cell age: the method aging"""
+        """
+        Test that all animals in the cell age: the method aging
+        Returns
+        -------
+
+        """
         j1 = Jungle()
         j1.herbivores = [Herbivore(age=3, weight=20) for _ in range(5)]
         j1.aging()
@@ -111,7 +162,12 @@ class TestLandscape:
             assert animal.age == 5
 
     def test_loss_of_weight(self):
-        """Test that all animal in cell lose weight:the method loss_of_weight"""
+        """
+        Test that all animal in cell lose weight:the method loss_of_weight
+        Returns
+        -------
+
+        """
         j1 = Jungle()
         j1.herbivores = [Herbivore(age=3, weight=20) for _ in range(5)]
         j1.loss_of_weight()
@@ -119,7 +175,14 @@ class TestLandscape:
             assert animal.weight == 19
 
     def test_death(self):
-        """Test that some animals in the cell die: the method death"""
+        """
+        Test that some animals in the cell die: the method death
+
+        do this by maniplating omega
+        Returns
+        -------
+
+        """
         j1 = Jungle()
         Herbivore.set_parameters({'omega': 1})
         j1.herbivores = [Herbivore(age=3, weight=20) for _ in range(50)]
@@ -130,8 +193,14 @@ class TestLandscape:
         assert len(j1.herbivores) == 0
 
     def test_feeding_carnivores(self):
-        """Test that all carnivores in the cell feeds: the method feeding"""
+        """
+        Test that all carnivores in the cell feeds: the method feeding
 
+        do this by manipulating parameter DeltaPhiMax and the food
+        Returns
+        -------
+
+        """
         Carnivore.set_parameters({'DeltaPhiMax': 1.000001})
         Jungle.set_parameters({'f_max': 0.0})
         j1 = Jungle()
