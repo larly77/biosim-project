@@ -42,6 +42,8 @@ class BioSim:
         self.x_lim = (0, 100)  # line graph ordinate limits, default values
         self.y_lim = (0, 15000)  # line graph abscissa limits, default values
         self.user_limits = False
+        self.herbivore_color_code = (0, 300)  # population map color code limits
+        self.carnivore_color_code = (0, 300)  # population map color code limits
 
     def add_population(self, population):
         """dum"""
@@ -66,21 +68,38 @@ class BioSim:
 
     def reset_axis_limits(self):
         self.user_limits = False
-        self.y_lim = (0, 15000) # default values
+        self.y_lim = (0, 15000)  # default values
+
+    def set_color_code_limits(self, herbivore_colors, carnivore_colors):
+        """"""
+        if type(herbivore_colors) is tuple or type(herbivore_colors) is list:
+            self.herbivore_color_code = herbivore_colors
+        else:
+            raise TypeError('herbivore_colors must be a tuple or list of 2 int')
+        if type(carnivore_colors) is tuple or type(carnivore_colors) is list:
+            self.carnivore_color_code = carnivore_colors
+        else:
+            raise TypeError('carnivore_colors must be a tuple or list of 2 int')
+
+    def reset_color_code_limits(self):
+        """"""
+        self.herbivore_color_code = (0, 300)  # default values
+        self.carnivore_color_code = (0, 300)  # default values
 
     def year_counter(self):
         """
-        Source: Plesser's Repository:
-        NMBU_INF200_H17 / Lectures / J05 / Plotting / time_counter.py (18.01.2018)"""
+        Source: Plesser's Repository: (18.01.2018)
+        NMBU_INF200_H17 / Lectures / J05 / Plotting / time_counter.py"""
 
         if self.year_ax is None:
-            self.year_ax = self.fig.add_axes([0.4, 0.83, 0.2, 0.2])  # llx, lly, w, h
-            self.year_ax.axis('off')  # turn off coordinate system
+            self.year_ax = self.fig.add_axes([0.4, 0.83, 0.2, 0.2])
+            self.year_ax.axis('off')
 
-            self.year_txt = self.year_ax.text(0.5, 0.5, 'Year: {:5}'.format(self.year),
-                                              horizontalalignment='center',
-                                              verticalalignment='center',
-                                              transform=self.year_ax.transAxes, fontsize=16)
+            self.year_txt = \
+                self.year_ax.text(0.5, 0.5, 'Year: {:5}'.format(self.year),
+                                  horizontalalignment='center',
+                                  verticalalignment='center',
+                                  transform=self.year_ax.transAxes, fontsize=16)
 
         self.year_txt.set_text('Year: {:5}'.format(self.year))
 
@@ -126,10 +145,16 @@ class BioSim:
         self.ax2.set_title('Populations')
 
         if self.line_herbivore is None:
-            self.line_herbivore = self.ax2.plot(np.arange(0, self.last_step + 1, vis_steps),
-                                      np.nan * np.ones(len(np.arange(0, self.last_step + 1, vis_steps))), 'b-')[0]
-            self.line_carnivore = self.ax2.plot(np.arange(0, self.last_step + 1, vis_steps),
-                                      np.nan * np.ones(len(np.arange(0, self.last_step + 1, vis_steps))), 'r-')[0]
+            self.line_herbivore = \
+                self.ax2.plot(np.arange(0, self.last_step + 1, vis_steps),
+                              np.nan * np.ones(
+                              len(np.arange(0, self.last_step + 1, vis_steps))),
+                              'b-')[0]
+            self.line_carnivore = \
+                self.ax2.plot(np.arange(0, self.last_step + 1, vis_steps),
+                              np.nan * np.ones(
+                              len(np.arange(0, self.last_step + 1, vis_steps))),
+                              'r-')[0]
             self.ax2.legend(['Herbivores', 'Carnivores'])
         else:
             xdata, ydata = self.line_herbivore.get_data()
@@ -137,13 +162,13 @@ class BioSim:
             if len(xnew) > 0:
                 ynew = np.nan * np.ones_like(xnew)
                 self.line_herbivore.set_data(np.hstack((xdata, xnew)),
-                                         np.hstack((ydata, ynew)))
+                                             np.hstack((ydata, ynew)))
             xdata, ydata = self.line_carnivore.get_data()
             xnew = np.arange(xdata[-1] + 1, self.last_step, vis_steps)
             if len(xnew) > 0:
                 ynew = np.nan * np.ones_like(xnew)
                 self.line_carnivore.set_data(np.hstack((xdata, xnew)),
-                                         np.hstack((ydata, ynew)))
+                                             np.hstack((ydata, ynew)))
 
     def update_line_plot(self):
         """"""
@@ -164,9 +189,10 @@ class BioSim:
 
         animals = self.island.herbivores_on_island
 
-        self.herbivore_density = self.ax3.imshow(animals,
-            interpolation='nearest',
-            vmin=0, vmax=300)
+        self.herbivore_density = \
+            self.ax3.imshow(animals, interpolation='nearest',
+                            vmin=self.herbivore_color_code[0],
+                            vmax=self.herbivore_color_code[1])
         self.ax3.set_xticks(range(len(animals[0])))
         self.ax3.set_xticklabels(range(1, 1 + len(animals[0])))
         self.ax3.set_yticks(range(len(animals)))
@@ -184,9 +210,10 @@ class BioSim:
 
         animals = self.island.carnivores_on_island
 
-        self.carnivore_density = self.ax4.imshow(animals,
-            interpolation='nearest',
-            vmin=0, vmax=300)
+        self.carnivore_density = \
+            self.ax4.imshow(animals, interpolation='nearest',
+                            vmin=self.carnivore_color_code[0],
+                            vmax=self.carnivore_color_code[1])
         self.ax4.set_xticks(range(len(animals[0])))
         self.ax4.set_xticklabels(range(1, 1 + len(animals[0])))
         self.ax4.set_yticks(range(len(animals)))
@@ -234,9 +261,11 @@ class BioSim:
                 print('Number of Carnivores: ',
                       len(self.island.cells[1, 1].carnivores))
 
-    def simulate(self, num_steps, vis_steps=1, img_steps=2000):
+    def simulate(self, num_steps, vis_steps=1, img_steps=None):
         """"""
         plt.ion()
+        if img_steps is None:
+            img_steps = vis_steps
         self.last_step += num_steps
 
         self.make_visualization(vis_steps)
@@ -247,12 +276,15 @@ class BioSim:
 
             if (self.year % vis_steps) == 0:
                 self.update_visualization()
+            if self.year % img_steps == 0:
+                pass
 
-            print('Year over:', self.year)
+            self.year += 1
+            """            print('Year over:', self.year)
             print('Number of animals: ',
                   self.island.number_of_herbivores_island(),
-                  self.island.number_of_carnivores_island())
-            self.year += 1
+                  self.island.number_of_carnivores_island())"""
+
 
 if __name__ == '__main__':
 
@@ -303,4 +335,3 @@ if __name__ == '__main__':
     #sim.simulate_in_one_place_herbivores(num_steps=200, printing=True)
 
     input('Press ENTER')
-
