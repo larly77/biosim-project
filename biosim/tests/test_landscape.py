@@ -35,6 +35,12 @@ class TestLandscape:
         assert len(j1.carnivores) == 6
 
     def test_reset_fodder_jungle(self):
+        """
+
+        Returns
+        -------
+
+        """
         """Test for the method Jungle.reset_fodder"""
         j1 = Jungle()
         j1.fodder = 500.0

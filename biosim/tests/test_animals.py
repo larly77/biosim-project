@@ -46,15 +46,27 @@ DEFAULT_CARNIVORE_PARAMETERS = {'w_birth': 6.0,
                                 'DeltaPhiMax': 10.0}
 
 class TestAnimal:
-    """Class for testing animal"""
-
+    """
+    class for testing animal
+    """
     @pytest.fixture(autouse=True)
     def set_default_animal(self):
+        """
+        method for resetting to default parameters for herbivore and carnivore
+        Returns
+        -------
+
+        """
         Herbivore.set_parameters(DEFAULT_HERBIVORE_PARAMETERS)
         Carnivore.set_parameters(DEFAULT_CARNIVORE_PARAMETERS)
 
     def test_init_parameters(self):
-        """Test input values and some default parameters"""
+        """
+        test for init_parameters, that we can change parameters
+        Returns
+        -------
+
+        """
         h1 = Herbivore(age=5, weight=20)
 
         assert h1.age == 5
@@ -63,7 +75,12 @@ class TestAnimal:
         assert h1.parameters['xi'] == 1.2
 
     def test_set_parameters(self):
-        """Test for the method set_parameters"""
+        """
+        test for method set_parameters
+        Returns
+        -------
+
+        """
         h1 = Herbivore(age=5, weight=20)
         Herbivore.set_parameters({'xi': 1.3, 'w_half': 20})
 
@@ -71,7 +88,12 @@ class TestAnimal:
         assert h1.parameters['w_half'] == 20
 
     def test_feeding_plenty(self):
-        """Test for herbivore feeding method with plenty of fodder"""
+        """
+        Test for herbivore feeding method with plenty of fodder
+        Returns
+        -------
+
+        """
         h1 = Herbivore(age=5, weight=20)
         j1 = Jungle()
         h1.feeding(j1)
@@ -79,7 +101,12 @@ class TestAnimal:
         assert j1.get_fodder() == 790
 
     def test_feeding_little(self):
-        """Test for herbivore feeding method with little fodder"""
+        """
+        Test for herbivore feeding method with little fodder
+        Returns
+        -------
+
+        """
         h1 = Herbivore(age=5, weight=20)
         j1 = Jungle()
         j1.fodder = 5
@@ -88,7 +115,12 @@ class TestAnimal:
         assert j1.get_fodder() == 0
 
     def test_feeding_none(self):
-        """Test for herbivore feeding method with no fodder"""
+        """
+        Test for herbivore feeding method with no fodder
+        Returns
+        -------
+
+        """
         h1 = Herbivore(age=5, weight=20)
         j1 = Jungle()
         j1.fodder = 0
@@ -97,7 +129,12 @@ class TestAnimal:
         assert j1.get_fodder() == 0
 
     def test_aging(self):
-        """Tests that the animal's age increases properly, including fitness"""
+        """
+        Tests that the animal's age increases properly, including fitness
+        Returns
+        -------
+
+        """
         h1 = Herbivore(age=5, weight=20)
         fit_0 = h1.fitness
 
@@ -112,7 +149,12 @@ class TestAnimal:
         assert fit_2 < fit_1 and fit_2 < fit_0
 
     def test_loss_of_weight(self):
-        """Tests that the animal loses weight, including fitness update"""
+        """
+        Tests that the animal loses weight, including fitness update
+        Returns
+        -------
+
+        """
         h1 = Herbivore(age=5, weight=20)
         fit_0 = h1.fitness
         h1.loss_of_weight()
@@ -123,7 +165,12 @@ class TestAnimal:
         assert fit_1 < fit_0
 
     def test_feeding_carnivore_fit(self):
-        """Test for carnivore feeding method, with fit carnivore"""
+        """
+        Test for carnivore feeding method, with fit carnivore
+        Returns
+        -------
+
+        """
         c1 = Carnivore(1, 3000) # fitness ~= 1
         c1.set_parameters({'DeltaPhiMax': 1.00001})
         j1 = Jungle()
@@ -138,7 +185,12 @@ class TestAnimal:
 
 
     def test_feeding_carnivore_unfit(self):
-        """Test for carnivore feeding method, with unfit carnivore"""
+        """
+        Test for carnivore feeding method, with unfit carnivore
+        Returns
+        -------
+
+        """
         c1 = Carnivore(1, 20)
         c1.fitness = 0.0001
         c1.set_parameters({'DeltaPhiMax': 1.00001})
@@ -153,7 +205,12 @@ class TestAnimal:
         assert boolean == [True]
 
     def test_feeding_carnivore_appetite(self):
-        """Test for a fit carnivore's feeding method, with low appetite"""
+        """
+        Test for a fit carnivore's feeding method, with low appetite
+        Returns
+        -------
+
+        """
         c1 = Carnivore(1, 20)
         c1.fitness = 1
         c1.set_parameters({'DeltaPhiMax': 1.00001, 'F': 10.0})
