@@ -35,8 +35,6 @@ class Herbivore:
 
     @classmethod
     def set_parameters(cls, parameter_changes):
-        """Method that allows the user to set parameter values for the animal.
-        This replaces the default values."""
         """
         Method that allows the user to set parameter values for the animal.
 
