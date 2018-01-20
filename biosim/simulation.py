@@ -36,7 +36,11 @@ class BioSim:
         self.carnivore_density = None
         self.year_ax = None
         self.year_txt = None
+        self.vis_index = 0
+        self.last_step = 0
         self.year = 0
+        self.x_lim = (0, 100)  # line graph ordinate limits
+        self.y_lim = (0, 15000)  # line graph abscissa limits
 
     def add_population(self, population):
         """dum"""
@@ -46,6 +50,17 @@ class BioSim:
             coordinates = (coordinates[0] - 1, coordinates[1] - 1)
             animals = population[index]['pop']
             self.island.add_animal_island(coordinates, animals)
+
+    def set_axis_limits(self, x_limits, y_limits):
+        """"""
+        if type(x_limits) is tuple or type(x_limits) is list:
+            self.x_lim = x_limits
+        else:
+            raise TypeError('x_limits must be a tuple or list of 2 numbers')
+        if type(y_limits) is tuple or type(y_limits) is list:
+            self.y_lim = y_limits
+        else:
+            raise TypeError('y_limits must be a tuple or list of 2 numbers')
 
     def year_counter(self):
         """
@@ -95,28 +110,27 @@ class BioSim:
 
     def make_line_plot(self, vis_steps):
         """"""
-
-        self.ax2.set_xlim(0, 200)
-        self.ax2.set_ylim(0, 15000)
+        self.ax2.set_xlim(self.x_lim[0], self.x_lim[1])
+        self.ax2.set_ylim(self.y_lim[0], self.y_lim[1])
         self.ax2.set_title('Populations')
 
-        years_max = 10000
-        self.line_herbivore = self.ax2.plot(np.arange(0, years_max + 1, vis_steps),
-                                  np.nan * np.ones(len(np.arange(0, years_max + 1, vis_steps))), 'b-*')[0]
-        self.line_carnivore = self.ax2.plot(np.arange(0, years_max + 1, vis_steps),
-                                  np.nan * np.ones(len(np.arange(0, years_max + 1, vis_steps))), 'r-*')[0]
+        self.line_herbivore = self.ax2.plot(np.arange(0, self.last_step + 1, vis_steps),
+                                  np.nan * np.ones(len(np.arange(0, self.last_step + 1, vis_steps))), 'b-')[0]
+        self.line_carnivore = self.ax2.plot(np.arange(0, self.last_step + 1, vis_steps),
+                                  np.nan * np.ones(len(np.arange(0, self.last_step + 1, vis_steps))), 'r-')[0]
         self.ax2.legend(['Herbivores', 'Carnivores'])
 
     def update_line_plot(self):
         """"""
         ydata = self.line_herbivore.get_ydata()
-        ydata[self.year] = self.island.number_of_herbivores_island()
+        ydata[self.vis_index] = self.island.number_of_herbivores_island()
         self.line_herbivore.set_ydata(ydata)
 
         ydata = self.line_carnivore.get_ydata()
-        ydata[self.year] = self.island.number_of_carnivores_island()
+        ydata[self.vis_index] = self.island.number_of_carnivores_island()
         self.line_carnivore.set_ydata(ydata)
         plt.pause(1e-6)
+        self.vis_index += 1
 
     def make_herbivore_density_map(self):
         """
@@ -158,21 +172,22 @@ class BioSim:
         """"""
         self.carnivore_density.set_data(self.island.carnivores_on_island)
 
-    def make_visualization(self):
+    def make_visualization(self, vis_steps):
         """"""
-        self.fig = plt.figure()
+        if self.fig is None:
+            self.fig = plt.figure()
 
-        # normal subplots
-        self.ax1 = self.fig.add_subplot(2, 2, 1)
-        self.ax2 = self.fig.add_subplot(2, 2, 2)
-        self.ax3 = self.fig.add_subplot(2, 2, 3)
-        self.ax4 = self.fig.add_subplot(2, 2, 4)
+            self.ax1 = self.fig.add_subplot(2, 2, 1)
+            self.ax2 = self.fig.add_subplot(2, 2, 2)
+            self.ax3 = self.fig.add_subplot(2, 2, 3)
+            self.ax4 = self.fig.add_subplot(2, 2, 4)
 
-        self.make_rgb_map()
-        self.make_line_plot()
-        self.make_herbivore_density_map()
-        self.make_carnivore_density_map()
-        self.year_counter()
+            self.make_rgb_map()
+            self.make_herbivore_density_map()
+            self.make_carnivore_density_map()
+            self.year_counter()
+
+        self.make_line_plot(vis_steps)
 
     def update_visualization(self):
         """"""
@@ -197,11 +212,12 @@ class BioSim:
     def simulate(self, num_steps, vis_steps=1, img_steps=2000):
         """"""
         plt.ion()
-        if self.fig is None:
-            self.make_visualization()
+        self.last_step += num_steps
+
+        self.make_visualization(vis_steps)
 
         # Run through num_steps years
-        for year in range(num_steps):
+        while self.year <= self.last_step:
             self.island.cycle()
 
             if (self.year % vis_steps) == 0:
