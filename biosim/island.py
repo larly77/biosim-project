@@ -165,33 +165,45 @@ class Island:
 
     @staticmethod
     def get_direction(pi_values):
-            """
+        """
+        Method for getting the direction for the animal to move in
+        Parameters
+        ----------
+        pi_values : tuple
+            Values used to calculate the direction, found in the method;
+            get_pi_values_herbivores and get_pi_values_carnivores
 
-            Parameters
-            ----------
-            pi_values
+        Returns
+        -------
+        Direction as a string for example 'right' or 'left
 
-            Returns
-            -------
+        """
+        if pi_values == (0, 0, 0, 0):
+            return 'do not move'
+        pi_right, pi_up, pi_left, pi_down = pi_values
+        pi_sum = sum((pi_right, pi_up, pi_left, pi_down))
 
-            """
-            if pi_values == (0, 0, 0, 0):
-                return 'do not move'
-            pi_right, pi_up, pi_left, pi_down = pi_values
-            pi_sum = sum((pi_right, pi_up, pi_left, pi_down))
+        p_right = pi_right / pi_sum
+        p_up = pi_up / pi_sum
+        p_left = pi_left / pi_sum
+        p_down = pi_down / pi_sum
 
-            p_right = pi_right / pi_sum
-            p_up = pi_up / pi_sum
-            p_left = pi_left / pi_sum
-            p_down = pi_down / pi_sum
-
-            return np.random.choice(
-                ('right', 'up', 'left', 'down'),
-                p=[p_right, p_up, p_left, p_down])
+        return np.random.choice(
+            ('right', 'up', 'left', 'down'),
+            p=[p_right, p_up, p_left, p_down])
 
     def get_random_coordinates(self):
-        """Returns random coordinates from across the island.
-        Excludes the Oceans at the edge of island"""
+        """
+        Method for getting random coordinates from the island
+
+        Shuffles the coordinates on the island, for use in a different method
+        excludes the ocean at the edge of the island
+        Returns
+        -------
+        points_on_island : list
+            a randomly shuffled list of coordinates from the island
+
+        """
         array_shape = np.shape(self.cells)  # type: tuple
         points_on_island = []
         for i in range(1, array_shape[0] - 1):
@@ -201,8 +213,20 @@ class Island:
         return points_on_island
 
     def get_pi_values_herbivores(self, coordinate):
-        """Returns propensity-values for herbivores given cell"""
+        """
+        Method for calculating pi-values(propensity) for herbivores
+        Parameters
+        ----------
+        coordinate : tuple
+            Coordinates  from which to find the animals to calculate pi's for
 
+        Returns
+        -------
+        pi_right, pi_up, pi_left, pi_down : float
+            Different propensity-values for each direction in given cell
+
+
+        """
         right = (coordinate[0], coordinate[1] + 1)
         if isinstance(self.cells[right], (Mountain, Ocean)):
             pi_right = 0
@@ -238,8 +262,18 @@ class Island:
         return pi_right, pi_up, pi_left, pi_down
 
     def get_pi_values_carnivores(self, coordinate):
-        """returns propensity-values for carnivores for given cell """
+        """
+        Method for calculating pi-values(propensity) for carnivores
+        Parameters
+        ----------
+        coordinate : tuple
+            Coordinates  from which to find the animals to calculate pi's for
 
+        Returns
+        -------
+        pi_right, pi_up, pi_left, pi_down : float
+            Different propensity-values for each direction in given cell
+        """
         right = (coordinate[0], coordinate[1] + 1)
         if isinstance(self.cells[right], (Mountain, Ocean)):
             pi_right = 0
@@ -275,6 +309,17 @@ class Island:
         return pi_right, pi_up, pi_left, pi_down
 
     def cell_move_herbivores(self, coordinate):
+        """
+        method for moving herbivores in given cell, if they should move
+        Parameters
+        ----------
+        coordinate : tuple
+            coordinates in which to move herbivores
+
+        Returns
+        -------
+
+        """
         """Moves the herbivores that should move in given cell"""
 
         right = (coordinate[0], coordinate[1] + 1)
@@ -303,6 +348,18 @@ class Island:
                 self.cells[coordinate].herbivores.append(herbivore)
 
     def cell_move_carnivores(self, coordinate):
+        """
+        method for moving herbivores in given cell, if they should move
+        Parameters
+        ----------
+        coordinate : tuple
+            coordinates in which to move herbivores
+
+        Returns
+        -------
+
+        """
+
         right = (coordinate[0], coordinate[1] + 1)
         up = (coordinate[0] - 1, coordinate[1])
         left = (coordinate[0], coordinate[1] - 1)
@@ -329,7 +386,15 @@ class Island:
                 self.cells[coordinate].carnivores.append(carnivore)
 
     def migration(self):
-        """"""
+        """
+        Method for handling migration
+
+        Implements the previous move-methods for herbivores and carnivores,
+        including all new animals in that were appended in the move-methods
+        Returns
+        -------
+
+        """
 
         coordinates = self.get_random_coordinates()
         for coordinate in coordinates:
@@ -342,7 +407,14 @@ class Island:
                 self.cells[coordinate].move_new_animals()
 
     def cycle(self):
-        """"""
+        """
+        Simulates one cycle/year
+
+        Every method is done in the order specified in the assignment
+        Returns
+        -------
+
+        """
 
         coordinates = self.get_random_coordinates()
 
@@ -369,21 +441,6 @@ class Island:
                 self.cells[coord].death()
 
         self.animals_on_island()
-
-""" def cycle(self):
-    cells_shape = np.shape(self.cells)   # type: tuple
-    for i in range(cells_shape[0]):
-        for j in range(cells_shape[1]):
-            if isinstance(self.cells[i, j], Jungle) or \
-                    isinstance(self.cells[i, j], Savannah) or \
-                    isinstance(self.cells[i, j], Desert):
-                self.cells[i, j].feeding()
-                self.cells[i, j].procreation()
-                self.cells[i, j].migration()
-                self.cells[i, j].aging()
-                self.cells[i, j].loss_of_weight()
-                self.cells[i, j].death()
-"""
 
 
 if __name__ == '__main__':
