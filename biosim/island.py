@@ -19,7 +19,13 @@ class Island:
     """"""
 
     def __init__(self, island_map):
-        """"""
+        """
+        Init method for class Island
+        Parameters
+        ----------
+        island_map : Str
+            A string representing the map
+        """
         self.map = island_map
         self.cells = None
         self.array_to_island()
@@ -27,17 +33,34 @@ class Island:
         self.carnivores_on_island = None
 
     def string_to_array(self):
-        """Converts the string-input for the map into an array"""
+        """
+        A method for concerting thr given string into an array
+        Returns
+        -------
+        map_arr : arr
+            An array of the map, where each letter has a seperate place
 
+        """
         temp_map = copy.deepcopy(self.map.replace(" ", ""))
 
-        # ny versjon
-        kart_list = [[a for a in row] for row in temp_map.splitlines()]
-        kart_arr = np.array(kart_list)
+        # new version
+        map_list = [[a for a in row] for row in temp_map.splitlines()]
+        map_arr = np.array(map_list)
 
-        return kart_arr
+        return map_arr
 
     def array_to_island(self):
+        """
+        Converts the array from the method string_to_array into a map
+
+        changes the array consisting of strings into an array consisting of
+        instances of classes depedning on the letter that was previously in
+        the array, for example 'J' would turn into an instance of the
+        Jungle-class. These are stored in Island.cells
+        Returns
+        -------
+
+        """
         """converts the array into a map"""
 
         array_map = self.string_to_array()
@@ -63,6 +86,16 @@ class Island:
         self.cells = np.array(nested)
 
     def animals_on_island(self):
+        """
+        Method for getting the number of carnivores and herbivores on island
+
+        Makes one matrix for herbivores and one for carnivores, containing
+        the number of carnivores and herbivores on the tile on the island
+        matching the matrix.
+        Returns
+        -------
+
+        """
         shape = np.shape(self.string_to_array())  # type: tuple
         herbivore_matrix = np.zeros(shape=shape)
         carnivore_matrix = np.zeros(shape=shape)
@@ -79,13 +112,44 @@ class Island:
         self.carnivores_on_island = carnivore_matrix
 
     def number_of_herbivores_island(self):
+        """
+        Method for getting the total amount of herbivores on island
+        Returns
+        -------
+        Number of herbivores on island
+
+        """
         return np.sum(self.herbivores_on_island)
 
     def number_of_carnivores_island(self):
+        """
+        Method for getting the total amount of herbivores on island
+        Returns
+        -------
+        Number of carnivores on island
+        """
         return np.sum(self.carnivores_on_island)
 
     def add_animal_island(self, coordinates, animals_list):
-        """dummy"""
+        """
+        Method for adding animals to the island
+        Parameters
+        ----------
+        coordinates : tuple
+            Where to put the animals on the island
+        animals_list : list
+            The list of animals to put on the island
+
+        Returns
+        -------
+
+        Raises
+        -------
+        ValueError
+            If coordinates is not in jungle, savannah or desert
+
+        """
+        
         if isinstance(self.cells[coordinates], (Jungle, Savannah, Desert)):
             for animal in animals_list:
                 if animal['species'] == 'Herbivore':
