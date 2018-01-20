@@ -149,7 +149,7 @@ class Island:
             If coordinates is not in jungle, savannah or desert
 
         """
-        
+
         if isinstance(self.cells[coordinates], (Jungle, Savannah, Desert)):
             for animal in animals_list:
                 if animal['species'] == 'Herbivore':
@@ -165,7 +165,16 @@ class Island:
 
     @staticmethod
     def get_direction(pi_values):
-            """"""
+            """
+
+            Parameters
+            ----------
+            pi_values
+
+            Returns
+            -------
+
+            """
             if pi_values == (0, 0, 0, 0):
                 return 'do not move'
             pi_right, pi_up, pi_left, pi_down = pi_values
