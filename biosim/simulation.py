@@ -10,6 +10,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 import random
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import textwrap
 from biosim.island import Island
 
@@ -61,11 +62,21 @@ class BioSim:
 
     def status_number_of_animals_total(self):
         """"""
-        total_animals = self.island.number_of_herbivores_island() \
-            + self.island.number_of_carnivores_island()
+        total_animals = int(self.island.number_of_herbivores_island()
+                            + self.island.number_of_carnivores_island())
 
         print('Total number of animals: ', total_animals)
         return total_animals
+
+    def status_number_of_animals_by_species(self):
+        """"""
+        return {'herbivores': int(self.island.number_of_herbivores_island()),
+                'carnivores': int(self.island.number_of_carnivores_island())}
+
+    def status_per_cell_animal_count(self):
+        """"""
+        panda_dataframe = pd.Series('00')
+        return panda_dataframe
 
     def set_axis_limits(self, x_limits, y_limits):
         """"""
