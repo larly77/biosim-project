@@ -54,6 +54,19 @@ class BioSim:
             animals = population[index]['pop']
             self.island.add_animal_island(coordinates, animals)
 
+    def status_year(self):
+        """"""
+        print('Number of years simulated: ', self.year)
+        return self.year
+
+    def status_number_of_animals_total(self):
+        """"""
+        total_animals = self.island.number_of_herbivores_island() \
+            + self.island.number_of_carnivores_island()
+
+        print('Total number of animals: ', total_animals)
+        return total_animals
+
     def set_axis_limits(self, x_limits, y_limits):
         """"""
         if type(x_limits) is tuple or type(x_limits) is list:
