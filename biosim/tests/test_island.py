@@ -71,15 +71,28 @@ ISLE_MAP2 = """\
 
 
 class TestIsland:
-    """Class for testing island"""
+    """
+    class for testing island
+    """
 
     @pytest.fixture(autouse=True)
     def set_default_animal(self):
+        """
+        method for resetting parameters for herbivores and carnivores
+        Returns
+        -------
+
+        """
         Herbivore.set_parameters(DEFAULT_HERBIVORE_PARAMETERS)
         Carnivore.set_parameters(DEFAULT_CARNIVORE_PARAMETERS)
 
     def test_string_to_array(self):
-        """Test for the method Island.string_to_array"""
+        """
+        Test for the method Island.string_to_array
+        Returns
+        -------
+
+        """
         i1 = Island(ISLE_MAP)
         arry = i1.string_to_array()
         correct_arry = np.array([['J', 'S', 'S'],
@@ -88,7 +101,12 @@ class TestIsland:
         assert np.array_equal(arry, correct_arry)
 
     def test_array_to_island(self):
-        """test for converting the array into a map"""
+        """
+        test for converting the array into a map
+        Returns
+        -------
+
+        """
         i1 = Island(ISLE_MAP)
         correct_island = np.array([[Jungle, Savannah, Savannah],
                                    [Savannah, Savannah, Jungle],
@@ -99,7 +117,12 @@ class TestIsland:
                 assert isinstance(i1.cells[i, j], correct_island[i, j])
 
     def test_add_animal_island(self):
-        """test for adding animals to map"""
+        """
+        test for adding animals to map
+        Returns
+        -------
+
+        """
         i1 = Island(ISLE_MAP)
         assert len(i1.cells[1, 1].herbivores) == 0
         i1.add_animal_island((1, 1), INI_HERB[0]['pop'])
@@ -116,7 +139,12 @@ class TestIsland:
             assert isinstance(animal, Carnivore)
 
     def test_get_direction(self):
-        """test for getting direction to move"""
+        """
+        test for getting direction to move
+        Returns
+        -------
+
+        """
         pis = (20, 30, 10, 40)
         options = ['right', 'up', 'left', 'down']
         direction = Island.get_direction(pis)
@@ -126,13 +154,23 @@ class TestIsland:
         assert Island.get_direction(pis) == option
 
     def test_get_random_coordinates(self):
-        """test for getting random coordinates, for type and length """
+        """
+        test for getting random coordinates, for type and length
+        Returns
+        -------
 
+        """
         i1 = Island(ISLE_MAP2)
         assert [type(a) == tuple for a in i1.get_random_coordinates()]
         assert [len(a) == 2 for a in i1.get_random_coordinates()]
 
     def test_get_pi_values_herbivores(self):
+        """
+        test for getting pi-values for herbivores
+        Returns
+        -------
+
+        """
         """test for getting pi-values for herbivores"""
 
         i1 = Island(ISLE_MAP2)
@@ -148,8 +186,12 @@ class TestIsland:
             (correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
 
     def test_get_pi_values_carnivores_no_herb(self):
-        """test for getting pi_values for carnivores without any herbivores"""
+        """
+        test for getting pi_values for carnivores without any herbivores
+        Returns
+        -------
 
+        """
         i1 = Island(ISLE_MAP2)
         coordinate = (2, 3)
 
@@ -163,8 +205,14 @@ class TestIsland:
             (correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
 
     def test_get_pi_values_carnivores_with_herbs_and_carns(self):
-        """test for get_pi_values_carnivores with herbivores and
-        extra carnivores in adjacent cells"""
+        """
+        test for getting pi values
+
+        We also test with extra herbivores and carnivores in adjacent cells
+        Returns
+        -------
+
+        """
         i1 = Island(ISLE_MAP2)
         coordinate = (2, 3)
         i1.add_animal_island((2, 2), INI_HERB[0]['pop'])
@@ -184,7 +232,12 @@ class TestIsland:
             (correct_pi_right, correct_pi_up, correct_pi_left, correct_pi_down))
 
     def test_cell_move_herbivore_and_carnivore(self):
-        """test for moving herbivore and carnivore"""
+        """
+        test for moving herbivore and carnivore
+        Returns
+        -------
+
+        """
         i1 = Island(ISLE_MAP2)
         Herbivore.set_parameters({'mu': 1.0})
         Carnivore.set_parameters({'mu': 1.0})
@@ -216,7 +269,12 @@ class TestIsland:
                 len_left_carn + len_down_carn) == (20, 20)
 
     def test_migration(self):
-        """test for migration"""
+        """
+        test for migration
+        Returns
+        -------
+
+        """
         i1 = Island(ISLE_MAP2)
         Herbivore.set_parameters({'mu': 1.0})
         Carnivore.set_parameters({'mu': 1.0})
