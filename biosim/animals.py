@@ -14,7 +14,9 @@ import copy
 
 
 class Herbivore:
-    """"""
+    """
+
+    """
 
     DEFAULT_HERBIVORE_PARAMETERS = {'w_birth': 8.0,
                                     'sigma_birth': 1.5,
@@ -61,7 +63,38 @@ class Herbivore:
 
         for key in parameter_changes:
             if key in cls.parameters:
+
+
+
+                if key is 'w_birth':
+                    if parameter_changes[key] < 0:
+                        raise ValueError("'w_birth' must be positive")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
+
+                if key is 'sigma_birth':
+                    if parameter_changes[key] < 0:
+                        raise ValueError("'sigma_birth' must be positive")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
+
+                if key is 'beta':
+                    if 0 < parameter_changes[key] < 1:
+                        cls.parameters[key] = parameter_changes[key]
+                    else:
+                        raise ValueError("'beta' must be in interval (0, 1)")
+
+                if key is 'eta':
+                    if 0 < parameter_changes[key] < 1:
+                        cls.parameters[key] = parameter_changes[key]
+                    else:
+                        raise ValueError("'eta' must be in interval (0, 1)")
+
+
                 cls.parameters[key] = parameter_changes[key]
+
+
+
             else:
                 raise KeyError("You have entered an unknown parameter key:'{0}'"
                                ".Keys must be found in Table 2; Column: 'Name'."
@@ -72,6 +105,7 @@ class Herbivore:
     def __init__(self, age, weight):
         """
         init-function for setting age and weight to a herbivore
+
         Parameters
         ----------
         age : int
@@ -93,6 +127,7 @@ class Herbivore:
     def update_fitness(self):
         """
         Method for updating fitness
+
         Returns
         -------
         An updated value of fitness
@@ -119,6 +154,7 @@ class Herbivore:
     def feeding(self, landscape_instance):
         """
         Handles the feeding of  the animal
+
         Parameters
         ----------
         landscape_instance : The tile, that the given animal is in
@@ -143,6 +179,7 @@ class Herbivore:
     def procreation(self, landscape_instance, number_of_adults):
         """
         Handles the procreation of the animals
+        
         Parameters
         ----------
         landscape_instance : object
@@ -163,6 +200,7 @@ class Herbivore:
                 weight_birth = random.gauss(self.parameters['w_birth'],
                                             self.parameters['sigma_birth'])
                 self.weight -= self.parameters['xi'] * weight_birth
+                self.update_fitness()
 
                 if type(self).__name__ == 'Herbivore':
                     landscape_instance.herbivores_new.append(
@@ -197,15 +235,13 @@ class Herbivore:
         """
         Method for handling the loss of weight, by natural causes
 
-        A mathod for decreasing the weight of animal every year by a parameter
+        A method for decreasing the weight of animal every year by a parameter
         'eta' multiplied by the animals own weight, also updates fitness
         Returns
         -------
 
         """
-        """Method that decreases the weight of the animal by a percent-value"""
-        self.weight -= self.parameters['eta'] *\
-            self.weight
+        self.weight -= self.parameters['eta'] * self.weight
         self.update_fitness()
 
     def death(self):
@@ -322,38 +358,10 @@ class Carnivore(Herbivore):
 
         return eaten_bool
 
-# Følgende angir hvordan en docstring bør se ut.
-# Med det formatet blir dokumentasjons-porsessen meget grei,
-# når vi lærer Sphinx-programmet.
-
-
-def f(x):
-    """
-    one line description
-
-    many line description
-
-    Parameters
-    ----------
-    x : float
-        Description of x
-
-    Returns
-    -------
-    y : float
-        The bladibla
-
-    Raises
-    ------
-    ValueError
-        If x is not numeric
-    """
-    print(x)
-
 
 if __name__ == '__main__':
 
-    Herbivore.set_parameters({'F': 20})
+    Herbivore.set_parameters({'beta': 20})
     Carnivore.set_parameters({'F': 100})
     h1 = Herbivore(3, 40)
     c1 = Carnivore(2, 40)
