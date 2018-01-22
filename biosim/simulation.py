@@ -311,13 +311,13 @@ class BioSim:
             self.ax2.legend(['Herbivores', 'Carnivores'])
         else:
             xdata, ydata = self.line_herbivore.get_data()
-            xnew = np.arange(xdata[-1] + 1, self.last_step, vis_steps)
+            xnew = np.arange(xdata[-1] + 1, self.last_step + 1, vis_steps)
             if len(xnew) > 0:
                 ynew = np.nan * np.ones_like(xnew)
                 self.line_herbivore.set_data(np.hstack((xdata, xnew)),
                                              np.hstack((ydata, ynew)))
             xdata, ydata = self.line_carnivore.get_data()
-            xnew = np.arange(xdata[-1] + 1, self.last_step, vis_steps)
+            xnew = np.arange(xdata[-1] + 1, self.last_step + 1, vis_steps)
             if len(xnew) > 0:
                 ynew = np.nan * np.ones_like(xnew)
                 self.line_carnivore.set_data(np.hstack((xdata, xnew)),
@@ -466,7 +466,7 @@ class BioSim:
         self.make_visualization(vis_steps)
 
         # Run through num_steps years
-        while self.year < self.last_step:
+        while self.year <= self.last_step:
             self.island.cycle()
 
             if (self.year % vis_steps) == 0:
