@@ -45,12 +45,17 @@ class Island:
         map_arr : arr
             An array of the map, where each letter has a seperate place
 
+        Raises
+        ------
+        SyntaxError
+            If self.map have lines of unequal length.
+            If self.map have edges unequal to 'O'.
+
         """
         temp_map = copy.deepcopy(self.map.replace(" ", ""))
-
-        # new version
         map_list = [[a for a in row] for row in temp_map.splitlines()]
 
+        # Checks that all lines are of equal length
         for line in map_list:
             for index in range(len(map_list)):
                 if len(map_list[index]) == len(line):
@@ -58,9 +63,9 @@ class Island:
                 else:
                     raise SyntaxError("Island geography multi-line string "
                                       "must have lines of same length.")
-
         map_arr = np.array(map_list)
 
+        # Checks that there are only 'O's at the edges.
         edge = []
         edge += list(map_arr[0, :])
         edge += list(map_arr[-1, :])
@@ -86,6 +91,11 @@ class Island:
         Returns
         -------
 
+        Raises
+        ------
+        SyntaxError
+            If self.map contain other letters than 'J', 'S', 'D', 'O', 'M'.
+
         """
 
         array_map = self.string_to_array()
@@ -99,14 +109,18 @@ class Island:
             for j in range(array_shape[1]):
                 if array_map[i, j] == 'J':
                     nested[i][j] = Jungle()
-                if array_map[i, j] == 'S':
+                elif array_map[i, j] == 'S':
                     nested[i][j] = Savannah()
-                if array_map[i, j] == 'D':
+                elif array_map[i, j] == 'D':
                     nested[i][j] = Desert()
-                if array_map[i, j] == 'O':
+                elif array_map[i, j] == 'O':
                     nested[i][j] = Ocean()
-                if array_map[i, j] == 'M':
+                elif array_map[i, j] == 'M':
                     nested[i][j] = Mountain()
+                else:
+                    raise SyntaxError("Island geography multi-line string "
+                                      "must only have these letters: "
+                                      "'J', 'S', 'D', 'O', 'M'")
 
         self.cells = np.array(nested)
 
