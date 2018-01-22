@@ -35,9 +35,29 @@ class Jungle:
 
         """
 
-
         for key in parameter_changes:
-            cls.parameters[key] = parameter_changes[key]
+            if key in cls.parameters:
+
+                if key is 'f_max':
+                    if parameter_changes[key] < 0:
+                        raise ValueError("'f_max' must be positive")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
+
+                elif key is 'alpha':
+                    if 0 <= parameter_changes[key] <= 1:
+                        cls.parameters[key] = parameter_changes[key]
+                    else:
+                        raise ValueError("'alpha' must be in interval [0, 1].")
+                else:
+                    pass
+
+            else:
+                raise KeyError("You have entered an unknown parameter key:'{0}'"
+                               ".Keys must be found in Table 2; Column: 'Name'."
+                               " Table 2 can be found in the 'Modelling the "
+                               "Ecosystem of Rossumøya' project description".
+                               format(key))
 
     def __init__(self):
         """
@@ -343,17 +363,8 @@ class Mountain:
 
 if __name__ == '__main__':
 
-    j1 = Jungle()
+    Savannah.set_parameters({'f_max': 355414})
+
     s1 = Savannah()
-    j2 = Jungle()
-    s2 = Savannah()
-    m1 = Mountain()
 
-    print(j1.parameters['f_max'])
     print(s1.parameters['f_max'])
-    print(j2.parameters['f_max'])
-    print(s2.parameters['f_max'], s2.fodder)
-
-    # isinstanse
-
-    print(isinstance(s1, (Jungle, Savannah, Desert)))
