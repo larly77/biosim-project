@@ -63,8 +63,8 @@ class Herbivore:
             if key in cls.parameters:
                 cls.parameters[key] = parameter_changes[key]
             else:
-                raise KeyError("You have entered an unknown parameter key: Key "
-                               "'{0}' must be found in Table 2: Column: 'Name'."
+                raise KeyError("You have entered an unknown parameter key:'{0}'"
+                               ".Keys must be found in Table 2; Column: 'Name'."
                                " Table 2 can be found in the 'Modelling the "
                                "Ecosystem of Rossumøya' project description".
                                format(key))
@@ -355,15 +355,15 @@ if __name__ == '__main__':
 
     Herbivore.set_parameters({'F': 20})
     Carnivore.set_parameters({'F': 100})
-    h1 = Herbivore(3, 20)
+    h1 = Herbivore(3, 40)
     c1 = Carnivore(2, 40)
 
     print(h1.parameters['F'])
     print(c1.parameters['F'])
 
-    Carnivore.set_parameters({'F': 120})
+    Carnivore.set_parameters({'DeltaPhiMax': 120})
 
-    print(c1.parameters['F'])
+    print(c1.parameters['DeltaPhiMax'])
 
 
 
