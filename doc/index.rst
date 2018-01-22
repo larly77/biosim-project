@@ -13,7 +13,7 @@ This file is a simulation
    :maxdepth: 2
    :caption: Contents:
 
-
+   animals
 
 Indices and tables
 ==================
