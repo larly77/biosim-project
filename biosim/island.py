@@ -16,11 +16,14 @@ import math
 
 
 class Island:
-    """"""
+    """
+    Class for the island
+    """
 
     def __init__(self, island_map):
         """
         Init method for class Island
+
         Parameters
         ----------
         island_map : Str
@@ -35,6 +38,7 @@ class Island:
     def string_to_array(self):
         """
         A method for concerting thr given string into an array
+
         Returns
         -------
         map_arr : arr
@@ -57,6 +61,7 @@ class Island:
         instances of classes depedning on the letter that was previously in
         the array, for example 'J' would turn into an instance of the
         Jungle-class. These are stored in Island.cells
+
         Returns
         -------
 
@@ -92,6 +97,7 @@ class Island:
         Makes one matrix for herbivores and one for carnivores, containing
         the number of carnivores and herbivores on the tile on the island
         matching the matrix.
+
         Returns
         -------
 
@@ -114,6 +120,7 @@ class Island:
     def number_of_herbivores_island(self):
         """
         Method for getting the total amount of herbivores on island
+
         Returns
         -------
         Number of herbivores on island
@@ -124,6 +131,7 @@ class Island:
     def number_of_carnivores_island(self):
         """
         Method for getting the total amount of herbivores on island
+
         Returns
         -------
         Number of carnivores on island
@@ -133,6 +141,7 @@ class Island:
     def add_animal_island(self, coordinates, animals_list):
         """
         Method for adding animals to the island
+
         Parameters
         ----------
         coordinates : tuple
@@ -168,6 +177,7 @@ class Island:
     def get_direction(pi_values):
         """
         Method for getting the direction for the animal to move in
+
         Parameters
         ----------
         pi_values : tuple
@@ -199,6 +209,7 @@ class Island:
 
         Shuffles the coordinates on the island, for use in a different method
         excludes the ocean at the edge of the island
+
         Returns
         -------
         points_on_island : list
@@ -216,6 +227,7 @@ class Island:
     def get_pi_values_herbivores(self, coordinate):
         """
         Method for calculating pi-values(propensity) for herbivores
+
         Parameters
         ----------
         coordinate : tuple
@@ -265,6 +277,7 @@ class Island:
     def get_pi_values_carnivores(self, coordinate):
         """
         Method for calculating pi-values(propensity) for carnivores
+
         Parameters
         ----------
         coordinate : tuple
@@ -312,6 +325,7 @@ class Island:
     def cell_move_herbivores(self, coordinate):
         """
         method for moving herbivores in given cell, if they should move
+
         Parameters
         ----------
         coordinate : tuple
@@ -351,6 +365,7 @@ class Island:
     def cell_move_carnivores(self, coordinate):
         """
         method for moving herbivores in given cell, if they should move
+
         Parameters
         ----------
         coordinate : tuple
@@ -392,6 +407,7 @@ class Island:
 
         Implements the previous move-methods for herbivores and carnivores,
         including all new animals in that were appended in the move-methods
+
         Returns
         -------
 

@@ -13,7 +13,9 @@ from biosim.animals import Herbivore, Carnivore
 
 
 class Jungle:
-    """"""
+    """
+    class for jungle
+    """
 
     DEFAULT_JUNGLE_PARAMETERS = {'f_max': 800.0}
     parameters = copy.deepcopy(DEFAULT_JUNGLE_PARAMETERS)
@@ -49,6 +51,7 @@ class Jungle:
     def add_herbivore(self, age, weight):
         """
         Method for adding a herbivore into the landscape-cell
+
         Parameters
         ----------
         age : int
@@ -66,6 +69,7 @@ class Jungle:
     def add_carnivore(self, age, weight):
         """
         Method for adding a carnivore into the landscape-cell
+
         Parameters
         ----------
         age : int
@@ -82,6 +86,7 @@ class Jungle:
     def reset_fodder(self):
         """
         Method that set the amount of fodder in the jungle to f_max.
+
         Returns
         -------
 
@@ -91,6 +96,7 @@ class Jungle:
     def reduce_fodder(self, amount):
         """
         method for reducing the fodder by given amount
+
         Parameters
         ----------
         amount
@@ -104,6 +110,7 @@ class Jungle:
     def get_fodder(self):
         """
         Method for getting fodder in the landscape
+
         Returns
         -------
         self.fodder : int
@@ -115,6 +122,7 @@ class Jungle:
     def move_new_animals(self):
         """
         method for moving animals from the new-lists into the real one
+
         Returns
         -------
 
@@ -127,6 +135,7 @@ class Jungle:
     def get_herbivores(self):
         """
         method for getting a list of all herbivore in the landscape instance
+
         Returns
         -------
         self.hebivores : list
@@ -138,6 +147,7 @@ class Jungle:
     def get_carnivores(self):
         """
         method for getting a list of all carnivores in the landscape instance
+
         Returns
         -------
         self.carnivores : list
@@ -148,6 +158,7 @@ class Jungle:
     def get_abundance_herbivore(self):
         """
         method for calculating abundance of food for herbivore in instance
+
         Returns
         -------
         ek : float
@@ -161,6 +172,7 @@ class Jungle:
     def get_abundance_carnivore(self):
         """
         method for calculating abundance of food for carnivore in instance
+
         Returns
         -------
         ek : float
@@ -177,6 +189,7 @@ class Jungle:
     def feeding(self):
         """
         Method that makes all animals in the cell feed
+
         Returns
         -------
 
@@ -196,6 +209,7 @@ class Jungle:
     def procreation(self):
         """
         Method that makes all animals in the cell try to procreate
+
         Returns
         -------
 
@@ -219,6 +233,7 @@ class Jungle:
     def aging(self):
         """
         Method that makes all animals in the cell age
+
         Returns
         -------
 
@@ -229,6 +244,7 @@ class Jungle:
     def loss_of_weight(self):
         """
         Method that makes all animals in the cell lose weight
+
         Returns
         -------
 
@@ -240,6 +256,7 @@ class Jungle:
     def death(self):
         """
         Method that makes some animals in the cell die, and remove them
+
         Returns
         -------
 
@@ -264,6 +281,7 @@ class Savannah(Jungle):
     def reset_fodder(self):
         """
         Method that updates the fodder amount in the savannah each year
+
         Returns
         -------
 
@@ -284,6 +302,7 @@ class Desert(Jungle):
     def reset_fodder(self):
         """
         Replaces the method Jungle.reset_fodder. It does nothing
+
         Returns
         -------
 
@@ -292,6 +311,7 @@ class Desert(Jungle):
     def feeding(self):
         """
         Replaces the method Jungle.feeding. It does nothing
+
         Returns
         -------
 

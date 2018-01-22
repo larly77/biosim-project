@@ -14,6 +14,8 @@ This file is a simulation
    :caption: Contents:
 
    animals
+   island
+   landscape
 
 Indices and tables
 ==================
