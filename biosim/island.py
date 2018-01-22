@@ -160,7 +160,8 @@ class Island:
                     self.cells[coordinates].add_carnivore(animal['age'],
                                                           animal['weight'])
         else:
-            raise ValueError('Coordinates must be Jungle, Savannah, or Desert')
+            raise ValueError('Coordinates must be for cell with'
+                             ' Jungle, Savannah, or Desert')
         self.animals_on_island()
 
     @staticmethod
