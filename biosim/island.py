@@ -50,13 +50,24 @@ class Island:
 
         # new version
         map_list = [[a for a in row] for row in temp_map.splitlines()]
+
+        for line in map_list:
+            for index in range(len(map_list)):
+                if len(map_list[index]) == len(line):
+                    continue
+                else:
+                    raise SyntaxError("Island geography multi-line string "
+                                      "must have lines of same length.")
+        
         map_arr = np.array(map_list)
+
+
 
         return map_arr
 
     def array_to_island(self):
         """
-        Converts the array from the method string_to_array into a map
+        Converts the array from the method string_to_array into a island.
 
         changes the array consisting of strings into an array consisting of
         instances of classes depedning on the letter that was previously in
@@ -67,7 +78,6 @@ class Island:
         -------
 
         """
-        """converts the array into a map"""
 
         array_map = self.string_to_array()
         array_shape = np.shape(array_map)   # type: tuple
