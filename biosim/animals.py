@@ -51,9 +51,11 @@ class Herbivore:
 
         Raises
         ------
+        KeyError
+            If parameter_changes contain key(s) not already in the parameters.
         ValueError
-            If parameter_changes contain contain keys not already in the
-            dictionary. 
+            If parameter values that are to be set are not valid, such as
+            negative amounts of fodder/weight.
         """
 
         for key in parameter_changes:
@@ -169,14 +171,14 @@ class Herbivore:
 
     def __init__(self, age, weight):
         """
-        init-function for setting age and weight to a herbivore
+        Constructor-method for making an herbivore of set age and weight.
 
         Parameters
         ----------
         age : int
-            age of herbivore
+            Age of herbivore
         weight : float
-            weight of herbivore
+            Weight of herbivore
         """
         if age >= 0:
             self.age = int(age)
@@ -209,6 +211,7 @@ class Herbivore:
 
     def get_weight(self):
         """
+
         Returns
         -------
         returns the weight of the animal
@@ -277,9 +280,11 @@ class Herbivore:
     def migration(self):
         """
         Method for checking if the animal will migrate
+
         Returns
         -------
-        True or False value, wether the animal wil move or not
+        bool
+            True or False value; if the animal wil move or not
 
         """
         probability_move = self.parameters['mu'] * self.fitness
@@ -287,12 +292,12 @@ class Herbivore:
 
     def aging(self):
         """
-        Method for handling the aging of an animal, also update fitness
+        Method for handling the aging of an animal. Also updates fitness.
+
         Returns
         -------
-
         """
-        """Method that increases the age of the animal by one year"""
+
         self.age += 1
         self.update_fitness()
 
@@ -301,7 +306,8 @@ class Herbivore:
         Method for handling the loss of weight, by natural causes
 
         A method for decreasing the weight of animal every year by a parameter
-        'eta' multiplied by the animals own weight, also updates fitness
+        'eta' multiplied by the animals own weight. Also updates fitness.
+
         Returns
         -------
 
@@ -346,10 +352,11 @@ class Carnivore(Herbivore):
 
     def __init__(self, age, weight):
         """
-        Init function for carnivores
+        Constructor method for carnivore with entered age and weight.
 
         The carnivore class is a subclass of the Herbivore class, using most of
-        the methods from Herbivore except the feeding method
+        the methods from Herbivore except the feeding method.
+
         Parameters
         ----------
         age : int
@@ -363,20 +370,22 @@ class Carnivore(Herbivore):
         """
         Feeding method for carnivores
 
-        Goes though all the herbivores in the same tile as the carnivore
-        and checks if the carnivore eats it or not, depending on fitness of
-        both carnivore an herbivore, the parameters 'DeltaPhiMax' and 'beta and
-        the appetite of the carnivore and a bit of luck.
+        Goes though all the herbivores in the same cell as the carnivore
+        and checks if the carnivore eats it or not. This depends on fitness of
+        both carnivore an herbivore, the parameters 'DeltaPhiMax' and 'beta',
+        and the appetite of the carnivore.
         It also updates the weight and fitness of the carnivore.
+
         Parameters
         ----------
         preys : list
-            A list of all the herbivores on the same tile as the given carnovre
+            A list of all the herbivores on the same tile as the given carnivore
 
         Returns
         -------
         eaten_bool : list
-            Liste of true/false values for which herbivores to be eaten
+            A list of true/false values for which herbivores to be eaten.
+            False means it is to be eaten, and removed for the cell.
 
         """
         appetite = copy.deepcopy(self.parameters['F'])
