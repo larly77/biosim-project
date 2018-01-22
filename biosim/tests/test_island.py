@@ -10,7 +10,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
 
 import numpy as np
 from biosim.island import Island
-from biosim.landscape import Jungle, Savannah
+from biosim.landscape import Jungle, Savannah, Ocean
 from biosim.animals import Carnivore, Herbivore
 import math
 import pytest
@@ -50,9 +50,9 @@ DEFAULT_CARNIVORE_PARAMETERS = {'w_birth': 6.0,
                                 'DeltaPhiMax': 10.0}
 
 ISLE_MAP = """\
-        JSS
-        SSJ
-        SSS"""
+        OOO
+        OSO
+        OOO"""
 INI_HERB = [{'loc': (1, 1),
              'pop': [{'species': 'Herbivore',
                       'age': 5,
@@ -65,11 +65,11 @@ INI_CARN = [{'loc': (1, 1),
                      for _ in range(20)]}]
 
 ISLE_MAP2 = """\
-                        JSSJJSS
-                        SSJMSSJ
-                        SSSJOSJ
-                        JJJSSSS
-                        JJJSSSJ"""
+                        OOOOOOO
+                        OSJMSSO
+                        OSSJOSO
+                        OJJSSSO
+                        OOOOOOO"""
 
 
 class TestIsland:
@@ -97,9 +97,9 @@ class TestIsland:
         """
         i1 = Island(ISLE_MAP)
         arry = i1.string_to_array()
-        correct_arry = np.array([['J', 'S', 'S'],
-                                 ['S', 'S', 'J'],
-                                 ['S', 'S', 'S']])
+        correct_arry = np.array([['O', 'O', 'O'],
+                                 ['O', 'S', 'O'],
+                                 ['O', 'O', 'O']])
         assert np.array_equal(arry, correct_arry)
 
     def test_array_to_island(self):
@@ -110,9 +110,9 @@ class TestIsland:
 
         """
         i1 = Island(ISLE_MAP)
-        correct_island = np.array([[Jungle, Savannah, Savannah],
-                                   [Savannah, Savannah, Jungle],
-                                   [Savannah, Savannah, Savannah]])
+        correct_island = np.array([[Ocean, Ocean, Ocean],
+                                   [Ocean, Savannah, Ocean],
+                                   [Ocean, Ocean, Ocean]])
         island_shape = np.shape(correct_island)   # type: tuple
         for i in range(island_shape[0]):
             for j in range(island_shape[1]):

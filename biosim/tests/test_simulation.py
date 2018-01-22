@@ -12,9 +12,9 @@ from biosim.simulation import BioSim
 
 
 ISLE_MAP = """\
-        JSS
-        SSJ
-        DSS"""
+        OOO
+        OSO
+        OOO"""
 INI_HERB = [{'loc': (2, 2),
              'pop': [{'species': 'Herbivore',
                       'age': 5,

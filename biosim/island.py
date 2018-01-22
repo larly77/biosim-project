@@ -58,10 +58,19 @@ class Island:
                 else:
                     raise SyntaxError("Island geography multi-line string "
                                       "must have lines of same length.")
-        
+
         map_arr = np.array(map_list)
 
-
+        edge = []
+        edge += list(map_arr[0, :])
+        edge += list(map_arr[-1, :])
+        edge += list(map_arr[1:-1, 0])
+        edge += list(map_arr[1:-1, -1])
+        if set(edge) == {'O'}:
+            pass
+        else:
+            raise SyntaxError("Island geography multi-line string "
+                              "must have 'O' around the edges. ")
 
         return map_arr
 
