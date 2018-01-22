@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
+"""
+"""
 
-
-__author__ = 'Jon-Fredrik Blakstad Cappelen'
-__email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
+__author__ = 'Jon-Fredrik Blakstad Cappelen', 'Lars Martin Boe Lied'
+__email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
+            'lars.martin.boe.lied@nmbu.no'
 
 
 from biosim.landscape import Jungle, Savannah, Desert, Mountain, Ocean
