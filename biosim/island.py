@@ -27,7 +27,7 @@ class Island:
 
         Parameters
         ----------
-        island_map : Str
+        island_map : str
             A string representing the map
         """
         self.map = island_map
