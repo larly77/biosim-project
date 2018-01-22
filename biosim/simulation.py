@@ -49,7 +49,17 @@ class BioSim:
         self.carnivore_color_code = (0, 300)  # population map color code limits
 
     def add_population(self, population):
-        """dum"""
+        """
+        method for adding a population to the island
+        Parameters
+        ----------
+        population : list
+            A list of animals, containing dictionaries for each animal
+
+        Returns
+        -------
+
+        """
 
         for index in range(len(population)):
             coordinates = population[index]['loc']
@@ -58,12 +68,24 @@ class BioSim:
             self.island.add_animal_island(coordinates, animals)
 
     def status_year(self):
-        """"""
+        """
+        method for getting the current year on screen
+        Returns
+        -------
+        self.year : int
+            the current year
+
+        """
         print('Number of years simulated: ', self.year)
         return self.year
 
     def status_number_of_animals_total(self):
-        """"""
+        """
+        method for getting the total amount of animals on screen
+        Returns
+        -------
+
+        """
         total_animals = int(self.island.number_of_herbivores_island()
                             + self.island.number_of_carnivores_island())
 
@@ -71,12 +93,27 @@ class BioSim:
         return total_animals
 
     def status_number_of_animals_by_species(self):
-        """"""
+        """
+        method for getting number of herbivores and carnivores on screen
+        Returns
+        -------
+        dictionary : dict
+            A dictionary containing number herbivores and carnivores on island
+
+        """
         return {'herbivores': int(self.island.number_of_herbivores_island()),
                 'carnivores': int(self.island.number_of_carnivores_island())}
 
     def status_per_cell_animal_count(self):
-        """"""
+        """
+        Method for getting number of each species in each cell, using pandas
+        Returns
+        -------
+        df : pandas.DataFrame
+            A table containing each cell and the number of each species on
+            each cell
+
+        """
 
         shape = np.shape(self.island.herbivores_on_island)  # type: tuple
         coordinates = []
@@ -96,7 +133,22 @@ class BioSim:
         return df
 
     def set_axis_limits(self, x_limits, y_limits):
-        """"""
+        """
+        Method for setting the x and y-limits on the line graph
+        Parameters
+        ----------
+        x_limits : tuple, list
+            tuple or list containing the lower and upper boundaries for the
+            x axis
+
+        y_limits : tuple, list
+            tuple or list containing the lower and upper boundaries for the
+            y axis
+
+        Returns
+        -------
+
+        """
         if type(x_limits) is tuple or type(x_limits) is list:
             self.x_lim = x_limits
         else:
@@ -108,11 +160,30 @@ class BioSim:
         self.user_limits = True
 
     def reset_axis_limits(self):
+        """
+        Method for resetting the axis limits for both x and y axis
+        Returns
+        -------
+
+        """
         self.user_limits = False
         self.y_lim = (0, 15000)  # default values
 
     def set_color_code_limits(self, herbivore_colors, carnivore_colors):
-        """"""
+        """
+        Method for setting the color code limits for each species
+        Parameters
+        ----------
+        herbivore_colors : tuple
+            boundaries for the color representation for number of herbivores
+        carnivore_colors : tuple
+            boundaries for the color representation for number of herbivores
+
+
+        Returns
+        -------
+
+        """
         if type(herbivore_colors) is tuple or type(herbivore_colors) is list:
             self.herbivore_color_code = herbivore_colors
         else:
@@ -123,11 +194,22 @@ class BioSim:
             raise TypeError('carnivore_colors must be a tuple or list of 2 int')
 
     def reset_color_code_limits(self):
-        """"""
+        """
+        Method for resetting the color code to default values
+        Returns
+        -------
+
+        """
         self.herbivore_color_code = (0, 300)  # default values
         self.carnivore_color_code = (0, 300)  # default values
 
     def year_counter(self):
+        """
+        Method for updating the counter on screen
+        Returns
+        -------
+
+        """
         """
         Source: Plesser's Repository: (18.01.2018)
         NMBU_INF200_H17 / Lectures / J05 / Plotting / time_counter.py"""
@@ -145,7 +227,13 @@ class BioSim:
         self.year_txt.set_text('Year: {:5}'.format(self.year))
 
     def make_rgb_map(self):
-        """Function to make RGB map from island-string.
+        """
+        Function to make RGB map from island-string
+        Returns
+        -------
+
+        """
+        """
         Source: Plesser's Repository:
         NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)"""
 
@@ -175,7 +263,16 @@ class BioSim:
             axlg.text(0.35, ix * 0.2, name, transform=axlg.transAxes)
 
     def make_line_plot(self, vis_steps):
-        """"""
+        """
+        Method for making the line plot
+        Parameters
+        ----------
+        vis_steps
+
+        Returns
+        -------
+
+        """
         if self.user_limits:
             self.ax2.set_xlim(self.x_lim[0], self.x_lim[1])
             self.ax2.set_ylim(self.y_lim[0], self.y_lim[1])
@@ -212,7 +309,12 @@ class BioSim:
                                              np.hstack((ydata, ynew)))
 
     def update_line_plot(self):
-        """"""
+        """
+        Method for updating the line plot
+        Returns
+        -------
+
+        """
         ydata = self.line_herbivore.get_ydata()
         ydata[self.vis_index] = self.island.number_of_herbivores_island()
         self.line_herbivore.set_ydata(ydata)
@@ -224,6 +326,12 @@ class BioSim:
         self.vis_index += 1
 
     def make_herbivore_density_map(self):
+        """
+        Method for making the hebrivore density map
+        Returns
+        -------
+
+        """
         """
         Source: Plesser's Repository:
         NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)"""
@@ -241,10 +349,21 @@ class BioSim:
         self.ax3.set_title('Herbivore population density')
 
     def update_herbivore_density_map(self):
-        """"""
+        """
+        Method for updating the herbivore density map
+        Returns
+        -------
+
+        """
         self.herbivore_density.set_data(self.island.herbivores_on_island)
 
     def make_carnivore_density_map(self):
+        """
+        Method for making the carnivore density map
+        Returns
+        -------
+
+        """
         """
         Source: Plesser's Repository:
         NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)"""
@@ -262,11 +381,26 @@ class BioSim:
         self.ax4.set_title('Carnivore population density')
 
     def update_carnivore_density_map(self):
-        """"""
+        """
+        Method for updating the carnivore density map
+        Returns
+        -------
+
+        """
         self.carnivore_density.set_data(self.island.carnivores_on_island)
 
     def make_visualization(self, vis_steps):
-        """"""
+        """
+        Method for making the visualization
+        Parameters
+        ----------
+        vis_steps : int
+            How often the graphics should be updated, in years
+
+        Returns
+        -------
+
+        """
         if self.fig is None:
             self.fig = plt.figure()
 
@@ -283,27 +417,32 @@ class BioSim:
         self.make_line_plot(vis_steps)
 
     def update_visualization(self):
-        """"""
+        """
+        Method for updating the visualization
+        Returns
+        -------
+
+        """
         self.update_line_plot()
         self.update_herbivore_density_map()
         self.update_carnivore_density_map()
         self.year_counter()
 
-    def simulate_in_one_place_herbivores(self, num_steps, printing):
-
-        # Run through num_steps years
-        for year in range(num_steps):
-            self.island.cycle()
-
-            if printing:
-                print('Year over:', year)
-                print('Number of Herbivores: ',
-                      len(self.island.cells[1, 1].herbivores))
-                print('Number of Carnivores: ',
-                      len(self.island.cells[1, 1].carnivores))
-
     def simulate(self, num_steps, vis_steps=1, img_steps=None):
-        """"""
+        """
+        Method for simulating the entire island
+        Parameters
+        ----------
+        num_steps : int
+            Numbers of years to be simulated
+        vis_steps : int
+            How often the graphics should be updated, in years
+        img_steps : How often the graphic should be saved
+
+        Returns
+        -------
+
+        """
         plt.ion()
         if img_steps is None:
             img_steps = vis_steps
