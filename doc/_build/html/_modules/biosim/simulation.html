@@ -1,0 +1,627 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>biosim.simulation &#8212; BioSim G04 2018.01.22 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2018.01.22',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for biosim.simulation</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Jon-Fredrik Blakstad Cappelen&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;jon-fredrik.blakstad.cappelen@nmbu.no&#39;</span>
+
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;TkAgg&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">textwrap</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">biosim.island</span> <span class="k">import</span> <span class="n">Island</span>
+
+
+<div class="viewcode-block" id="BioSim"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim">[docs]</a><span class="k">class</span> <span class="nc">BioSim</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    class for the simulation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">island_map</span><span class="p">,</span> <span class="n">ini_pop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">):</span>
+        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">island_map</span> <span class="o">=</span> <span class="n">island_map</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">island</span> <span class="o">=</span> <span class="n">Island</span><span class="p">(</span><span class="n">island_map</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ini_pop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_population</span><span class="p">(</span><span class="n">ini_pop</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">animals_on_island</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax1</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax3</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax4</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_herbivore</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_carnivore</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">herbivore_density</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">carnivore_density</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">year_ax</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">year_txt</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vis_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_step</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_lim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># line graph ordinate limits, default values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15000</span><span class="p">)</span>  <span class="c1"># line graph abscissa limits, default values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_limits</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">herbivore_color_code</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>  <span class="c1"># population map color code limits</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">carnivore_color_code</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>  <span class="c1"># population map color code limits</span>
+
+<div class="viewcode-block" id="BioSim.add_population"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.add_population">[docs]</a>    <span class="k">def</span> <span class="nf">add_population</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        method for adding a population to the island</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        population : list</span>
+<span class="sd">            A list of animals, containing dictionaries for each animal</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">island_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">cells</span><span class="p">)</span>  <span class="c1"># type: tuple</span>
+        <span class="n">points_on_island</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">island_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">island_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">points_on_island</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">population</span><span class="p">)):</span>
+
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">population</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s1">&#39;loc&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">population</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s1">&#39;loc&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">points_on_island</span><span class="p">:</span>
+                    <span class="n">coordinates</span> <span class="o">=</span> <span class="n">population</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s1">&#39;loc&#39;</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">&#39;The coordinates must exist on the island&#39;</span>
+                                     <span class="s1">&#39;: (x, y). (1,1) is the upper left corner&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&#39;loc&#39; must be tuple with coordinates: (x, y)&quot;</span><span class="p">)</span>
+
+            <span class="n">coordinates</span> <span class="o">=</span> <span class="p">(</span><span class="n">coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">animals</span> <span class="o">=</span> <span class="n">population</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s1">&#39;pop&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">add_animal_island</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">animals</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BioSim.status_year"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.status_year">[docs]</a>    <span class="k">def</span> <span class="nf">status_year</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        method for getting the current year on screen</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self.year : int</span>
+<span class="sd">            the current year</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of years simulated: &#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span></div>
+
+<div class="viewcode-block" id="BioSim.status_number_of_animals_total"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.status_number_of_animals_total">[docs]</a>    <span class="k">def</span> <span class="nf">status_number_of_animals_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        method for getting the total amount of animals on screen</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">total_animals</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">number_of_herbivores_island</span><span class="p">()</span>
+                            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">number_of_carnivores_island</span><span class="p">())</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of animals: &#39;</span><span class="p">,</span> <span class="n">total_animals</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">total_animals</span></div>
+
+<div class="viewcode-block" id="BioSim.status_number_of_animals_by_species"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.status_number_of_animals_by_species">[docs]</a>    <span class="k">def</span> <span class="nf">status_number_of_animals_by_species</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        method for getting number of herbivores and carnivores on screen</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dictionary : dict</span>
+<span class="sd">            A dictionary containing number herbivores and carnivores on island</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;herbivores&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">number_of_herbivores_island</span><span class="p">()),</span>
+                <span class="s1">&#39;carnivores&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">number_of_carnivores_island</span><span class="p">())}</span></div>
+
+<div class="viewcode-block" id="BioSim.status_per_cell_animal_count"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.status_per_cell_animal_count">[docs]</a>    <span class="k">def</span> <span class="nf">status_per_cell_animal_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for getting number of each species in each cell, using pandas</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        df : pandas.DataFrame</span>
+<span class="sd">            A table containing each cell and the number of each species on</span>
+<span class="sd">            each cell</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">herbivores_on_island</span><span class="p">)</span>  <span class="c1"># type: tuple</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">coordinates</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span>
+
+        <span class="n">col1</span> <span class="o">=</span> <span class="n">coordinates</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">col2</span> <span class="o">=</span> <span class="n">coordinates</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">col3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">herbivores_on_island</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+        <span class="n">col4</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">carnivores_on_island</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span><span class="n">col1</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="n">col2</span><span class="p">,</span> <span class="s1">&#39;herbivores&#39;</span><span class="p">:</span> <span class="n">col3</span><span class="p">,</span>
+                           <span class="s1">&#39;carnivores&#39;</span><span class="p">:</span> <span class="n">col4</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="nb">zip</span><span class="p">(</span><span class="n">col1</span><span class="p">,</span> <span class="n">col2</span><span class="p">))</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;herbivores&#39;</span><span class="p">,</span> <span class="s1">&#39;carnivores&#39;</span><span class="p">]]</span>
+        <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="BioSim.set_axis_limits"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.set_axis_limits">[docs]</a>    <span class="k">def</span> <span class="nf">set_axis_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_limits</span><span class="p">,</span> <span class="n">y_limits</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for setting the x and y-limits on the line graph</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x_limits : tuple, list</span>
+<span class="sd">            tuple or list containing the lower and upper boundaries for the</span>
+<span class="sd">            x axis</span>
+
+<span class="sd">        y_limits : tuple, list</span>
+<span class="sd">            tuple or list containing the lower and upper boundaries for the</span>
+<span class="sd">            y axis</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x_limits</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">x_limits</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x_lim</span> <span class="o">=</span> <span class="n">x_limits</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;x_limits must be a tuple or list of 2 numbers&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">y_limits</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">y_limits</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span> <span class="o">=</span> <span class="n">y_limits</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;y_limits must be a tuple or list of 2 numbers&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_limits</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="BioSim.reset_axis_limits"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.reset_axis_limits">[docs]</a>    <span class="k">def</span> <span class="nf">reset_axis_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for resetting the axis limits for both x and y axis</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_limits</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15000</span><span class="p">)</span>  <span class="c1"># default values</span></div>
+
+<div class="viewcode-block" id="BioSim.set_color_code_limits"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.set_color_code_limits">[docs]</a>    <span class="k">def</span> <span class="nf">set_color_code_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">herbivore_colors</span><span class="p">,</span> <span class="n">carnivore_colors</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for setting the color code limits for each species</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        herbivore_colors : tuple</span>
+<span class="sd">            boundaries for the color representation for number of herbivores</span>
+<span class="sd">        carnivore_colors : tuple</span>
+<span class="sd">            boundaries for the color representation for number of herbivores</span>
+
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">herbivore_colors</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">herbivore_colors</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">herbivore_color_code</span> <span class="o">=</span> <span class="n">herbivore_colors</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;herbivore_colors must be a tuple or list of 2 int&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">carnivore_colors</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">carnivore_colors</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">carnivore_color_code</span> <span class="o">=</span> <span class="n">carnivore_colors</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;carnivore_colors must be a tuple or list of 2 int&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BioSim.reset_color_code_limits"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.reset_color_code_limits">[docs]</a>    <span class="k">def</span> <span class="nf">reset_color_code_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for resetting the color code to default values</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">herbivore_color_code</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>  <span class="c1"># default values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">carnivore_color_code</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>  <span class="c1"># default values</span></div>
+
+<div class="viewcode-block" id="BioSim.year_counter"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.year_counter">[docs]</a>    <span class="k">def</span> <span class="nf">year_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for updating the counter on screen</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Source: Plesser&#39;s Repository: (18.01.2018)</span>
+<span class="sd">        NMBU_INF200_H17 / Lectures / J05 / Plotting / time_counter.py&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">year_ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">year_ax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.83</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">year_ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">year_txt</span> <span class="o">=</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">year_ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;Year: </span><span class="si">{:5}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">),</span>
+                                  <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                                  <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                                  <span class="n">transform</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">year_ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">year_txt</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s1">&#39;Year: </span><span class="si">{:5}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="BioSim.make_rgb_map"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.make_rgb_map">[docs]</a>    <span class="k">def</span> <span class="nf">make_rgb_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to make RGB map from island-string</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Source: Plesser&#39;s Repository:</span>
+<span class="sd">        NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)&quot;&quot;&quot;</span>
+
+        <span class="n">rgb_value</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;O&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>  <span class="c1"># blue</span>
+                     <span class="s1">&#39;M&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>  <span class="c1"># grey</span>
+                     <span class="s1">&#39;J&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>  <span class="c1"># dark green</span>
+                     <span class="s1">&#39;S&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>  <span class="c1"># light green</span>
+                     <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)}</span>  <span class="c1"># light yellow</span>
+
+        <span class="n">map_rgb</span> <span class="o">=</span> <span class="p">[[</span><span class="n">rgb_value</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+                   <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">island_map</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">map_rgb</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">map_rgb</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax1</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">map_rgb</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax1</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">map_rgb</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax1</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">map_rgb</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Map of Rossumøya&#39;</span><span class="p">)</span>
+
+        <span class="n">axlg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.44</span><span class="p">,</span> <span class="mf">0.525</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span>  <span class="c1"># llx, lly, w, h</span>
+        <span class="n">axlg</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="s1">&#39;Ocean&#39;</span><span class="p">,</span> <span class="s1">&#39;Mountain&#39;</span><span class="p">,</span> <span class="s1">&#39;Jungle&#39;</span><span class="p">,</span>
+                                   <span class="s1">&#39;Savannah&#39;</span><span class="p">,</span> <span class="s1">&#39;Desert&#39;</span><span class="p">)):</span>
+            <span class="n">axlg</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="mf">0.</span><span class="p">,</span> <span class="n">ix</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">),</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span>
+                                         <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+                                         <span class="n">facecolor</span><span class="o">=</span><span class="n">rgb_value</span><span class="p">[</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))</span>
+            <span class="n">axlg</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">ix</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axlg</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BioSim.make_line_plot"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.make_line_plot">[docs]</a>    <span class="k">def</span> <span class="nf">make_line_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vis_steps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for making the line plot</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        vis_steps</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_limits</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_lim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_lim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Populations&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_herbivore</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">line_herbivore</span> <span class="o">=</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vis_steps</span><span class="p">),</span>
+                              <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
+                              <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vis_steps</span><span class="p">))),</span>
+                              <span class="s1">&#39;b-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">line_carnivore</span> <span class="o">=</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vis_steps</span><span class="p">),</span>
+                              <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
+                              <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vis_steps</span><span class="p">))),</span>
+                              <span class="s1">&#39;r-&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Herbivores&#39;</span><span class="p">,</span> <span class="s1">&#39;Carnivores&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_herbivore</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+            <span class="n">xnew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">xdata</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vis_steps</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xnew</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ynew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">xnew</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">line_herbivore</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">xdata</span><span class="p">,</span> <span class="n">xnew</span><span class="p">)),</span>
+                                             <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">ydata</span><span class="p">,</span> <span class="n">ynew</span><span class="p">)))</span>
+            <span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_carnivore</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+            <span class="n">xnew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">xdata</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vis_steps</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xnew</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ynew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">xnew</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">line_carnivore</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">xdata</span><span class="p">,</span> <span class="n">xnew</span><span class="p">)),</span>
+                                             <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">ydata</span><span class="p">,</span> <span class="n">ynew</span><span class="p">)))</span></div>
+
+<div class="viewcode-block" id="BioSim.update_line_plot"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.update_line_plot">[docs]</a>    <span class="k">def</span> <span class="nf">update_line_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for updating the line plot</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ydata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_herbivore</span><span class="o">.</span><span class="n">get_ydata</span><span class="p">()</span>
+        <span class="n">ydata</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">vis_index</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">number_of_herbivores_island</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_herbivore</span><span class="o">.</span><span class="n">set_ydata</span><span class="p">(</span><span class="n">ydata</span><span class="p">)</span>
+
+        <span class="n">ydata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_carnivore</span><span class="o">.</span><span class="n">get_ydata</span><span class="p">()</span>
+        <span class="n">ydata</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">vis_index</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">number_of_carnivores_island</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">line_carnivore</span><span class="o">.</span><span class="n">set_ydata</span><span class="p">(</span><span class="n">ydata</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mf">1e-6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vis_index</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="BioSim.make_herbivore_density_map"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.make_herbivore_density_map">[docs]</a>    <span class="k">def</span> <span class="nf">make_herbivore_density_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for making the hebrivore density map</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Source: Plesser&#39;s Repository:</span>
+<span class="sd">        NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)&quot;&quot;&quot;</span>
+
+        <span class="n">animals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">herbivores_on_island</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">herbivore_density</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax3</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">animals</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
+                            <span class="n">vmin</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">herbivore_color_code</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                            <span class="n">vmax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">herbivore_color_code</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax3</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">animals</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax3</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">animals</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax3</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">animals</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax3</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">animals</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Herbivore population density&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BioSim.update_herbivore_density_map"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.update_herbivore_density_map">[docs]</a>    <span class="k">def</span> <span class="nf">update_herbivore_density_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for updating the herbivore density map</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">herbivore_density</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">herbivores_on_island</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BioSim.make_carnivore_density_map"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.make_carnivore_density_map">[docs]</a>    <span class="k">def</span> <span class="nf">make_carnivore_density_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for making the carnivore density map</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Source: Plesser&#39;s Repository:</span>
+<span class="sd">        NMBU_INF200_H17 / Lectures / J05 / Plotting / mapping.py (18.01.2018)&quot;&quot;&quot;</span>
+
+        <span class="n">animals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">carnivores_on_island</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">carnivore_density</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax4</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">animals</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
+                            <span class="n">vmin</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">carnivore_color_code</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                            <span class="n">vmax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">carnivore_color_code</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax4</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">animals</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax4</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">animals</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax4</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">animals</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax4</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">animals</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax4</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Carnivore population density&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BioSim.update_carnivore_density_map"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.update_carnivore_density_map">[docs]</a>    <span class="k">def</span> <span class="nf">update_carnivore_density_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for updating the carnivore density map</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">carnivore_density</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">carnivores_on_island</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BioSim.make_visualization"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.make_visualization">[docs]</a>    <span class="k">def</span> <span class="nf">make_visualization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vis_steps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for making the visualization</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        vis_steps : int</span>
+<span class="sd">            How often the graphics should be updated, in years</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax4</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">make_rgb_map</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">make_herbivore_density_map</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">make_carnivore_density_map</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">year_counter</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">make_line_plot</span><span class="p">(</span><span class="n">vis_steps</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BioSim.update_visualization"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.update_visualization">[docs]</a>    <span class="k">def</span> <span class="nf">update_visualization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for updating the visualization</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_line_plot</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_herbivore_density_map</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_carnivore_density_map</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">year_counter</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="BioSim.simulate"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">,</span> <span class="n">vis_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">img_steps</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for simulating the entire island</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        num_steps : int</span>
+<span class="sd">            Numbers of years to be simulated</span>
+<span class="sd">        vis_steps : int</span>
+<span class="sd">            How often the graphics should be updated, in years</span>
+<span class="sd">        img_steps : How often the graphic should be saved</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">img_steps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">img_steps</span> <span class="o">=</span> <span class="n">vis_steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_step</span> <span class="o">+=</span> <span class="n">num_steps</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">make_visualization</span><span class="p">(</span><span class="n">vis_steps</span><span class="p">)</span>
+
+        <span class="c1"># Run through num_steps years</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_step</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">cycle</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">%</span> <span class="n">vis_steps</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update_visualization</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">%</span> <span class="n">img_steps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="sd">&quot;&quot;&quot;            print(&#39;Year over:&#39;, self.year)</span>
+<span class="sd">            print(&#39;Number of animals: &#39;,</span>
+<span class="sd">                  self.island.number_of_herbivores_island(),</span>
+<span class="sd">                  self.island.number_of_carnivores_island())&quot;&quot;&quot;</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="n">isle_map</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">              OOOOO</span>
+<span class="s2">              OJJJO</span>
+<span class="s2">              OSSSO</span>
+<span class="s2">              OOOOO&quot;&quot;&quot;</span>
+
+    <span class="n">isle_map</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">isle_map</span><span class="p">)</span>
+    <span class="n">ini_herb</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;loc&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                 <span class="s1">&#39;pop&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;species&#39;</span><span class="p">:</span> <span class="s1">&#39;Herbivore&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                          <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
+                         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">)]}]</span>
+    <span class="n">ini_carn</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;loc&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+                 <span class="s1">&#39;pop&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;species&#39;</span><span class="p">:</span> <span class="s1">&#39;Carnivore&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                          <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
+                         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]}]</span>
+
+    <span class="n">sim</span> <span class="o">=</span> <span class="n">BioSim</span><span class="p">(</span><span class="n">island_map</span><span class="o">=</span><span class="n">isle_map</span><span class="p">,</span> <span class="n">ini_pop</span><span class="o">=</span><span class="n">ini_herb</span> <span class="o">+</span> <span class="n">ini_carn</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
+
+
+    <span class="c1">#sim.simulate(50, 1, 2000)</span>
+    <span class="c1">#sim.make_visualization()</span>
+
+    <span class="c1">#sim.make_rgb_map()</span>
+
+    <span class="c1">#sim.simulate_in_one_place_herbivores(num_steps=200, printing=True)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">status_per_cell_animal_count</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;herbivores&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;carnivores&#39;</span><span class="p">][</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+
+    <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Press ENTER&#39;</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Lars Martin Lied, Jon-Fredrik Cappelen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
