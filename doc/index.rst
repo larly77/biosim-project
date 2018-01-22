@@ -17,6 +17,7 @@ This file is a simulation
    island
    landscape
    simulation
+   tests
 
 Indices and tables
 ==================
