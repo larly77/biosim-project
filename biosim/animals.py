@@ -73,8 +73,14 @@ class Herbivore:
         weight : float
             weight of herbivore
         """
-        self.age = age
-        self.weight = weight
+        if age >= 0:
+            self.age = int(age)
+        else:
+            raise ValueError("'age' must be non-negative")
+        if weight > 0:
+            self.weight = float(weight)
+        else:
+            raise ValueError("'weight' must be positive")
         self.fitness = None
         self.update_fitness()
 
