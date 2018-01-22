@@ -7,11 +7,13 @@ __author__ = 'Jon-Fredrik Blakstad Cappelen'
 __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
 
 
-import random
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import textwrap
+import random
 from biosim.island import Island
 
 
@@ -75,8 +77,23 @@ class BioSim:
 
     def status_per_cell_animal_count(self):
         """"""
-        panda_dataframe = pd.Series('00')
-        return panda_dataframe
+
+        shape = np.shape(self.island.herbivores_on_island)  # type: tuple
+        coordinates = []
+        for i in range(1, shape[0] + 1):
+            for j in range(1, shape[1] + 1):
+                coordinates.append((i, j))
+        coordinates = np.array(coordinates)
+
+        col1 = coordinates[:, 0]
+        col2 = coordinates[:, 1]
+        col3 = self.island.herbivores_on_island.ravel().astype(np.int)
+        col4 = self.island.carnivores_on_island.ravel().astype(np.int)
+
+        df = pd.DataFrame({'x':col1, 'y':col2, 'herbivores': col3,
+                           'carnivores': col4}, index=zip(col1, col2))
+        df = df[['x', 'y', 'herbivores', 'carnivores']]
+        return df
 
     def set_axis_limits(self, x_limits, y_limits):
         """"""
@@ -313,26 +330,18 @@ class BioSim:
 if __name__ == '__main__':
 
     isle_map = """\
-               OOOOOOOOOOOOOOOOOOOOO
-               OOOOOOOOSMMMMJJJJJJJO
-               OSSSSSJJJJMMJJJJJJJOO
-               OSSSSSSSSSMMJJJJJJOOO
-               OSSSSSJJJJJJJJJJJJOOO
-               OSSSSSJJJDDJJJSJJJOOO
-               OSSJJJJJDDDJJJSSSSOOO
-               OOSSSSJJJDDJJJSOOOOOO
-               OSSSJJJJJDDJJJJJJJOOO
-               OSSSSJJJJDDJJJJOOOOOO
-               OOSSSSJJJJJJJJOOOOOOO
-               OOOSSSSJJJJJJJOOOOOOO
-               OOOOOOOOOOOOOOOOOOOOO"""
+              OOOOO
+              OJJJO
+              OSSSO
+              OOOOO"""
+
     isle_map = textwrap.dedent(isle_map)
-    ini_herb = [{'loc': (10, 10),
+    ini_herb = [{'loc': (2, 2),
                  'pop': [{'species': 'Herbivore',
                           'age': 5,
                           'weight': 20}
                          for _ in range(40)]}]
-    ini_carn = [{'loc': (10, 3),
+    ini_carn = [{'loc': (3, 4),
                  'pop': [{'species': 'Carnivore',
                           'age': 5,
                           'weight': 20}
@@ -340,22 +349,17 @@ if __name__ == '__main__':
 
     sim = BioSim(island_map=isle_map, ini_pop=ini_herb + ini_carn, seed=12345)
 
-    sim.add_population([{'loc': (3, 3),
-                         'pop': [{'species': 'Herbivore',
-                                  'age': 5,
-                                  'weight': 20}
-                                 for _ in range(100)]}])
-    sim.add_population([{'loc': (3, 3),
-                         'pop': [{'species': 'Carnivore',
-                                  'age': 5,
-                                  'weight': 20}
-                                 for _ in range(2)]}])
 
-    sim.simulate(50, 1, 2000)
+    #sim.simulate(50, 1, 2000)
     #sim.make_visualization()
 
     #sim.make_rgb_map()
 
     #sim.simulate_in_one_place_herbivores(num_steps=200, printing=True)
+
+    df = sim.status_per_cell_animal_count()
+    print(df)
+    print(df['herbivores'][2,2])
+    print(df['carnivores'][3,4])
 
     input('Press ENTER')
