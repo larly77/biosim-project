@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>biosim.animals</title>
+    
+    <link rel="stylesheet" href="../../_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> 
+  </head>
+  <body role="document">
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for biosim.animals</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Jon-Fredrik Blakstad Cappelen&#39;</span><span class="p">,</span> <span class="s1">&#39;Lars Martin Boe Lied&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;jon-fredrik.blakstad.cappelen@nmbu.no&#39;</span><span class="p">,</span>\
+            <span class="s1">&#39;lars.martin.boe.lied@nmbu.no&#39;</span>
+
+
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+
+<div class="viewcode-block" id="Herbivore"><a class="viewcode-back" href="../../animals.xhtml#biosim.animals.Herbivore">[docs]</a><span class="k">class</span> <span class="nc">Herbivore</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">DEFAULT_HERBIVORE_PARAMETERS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;w_birth&#39;</span><span class="p">:</span> <span class="mf">8.0</span><span class="p">,</span>
+                                    <span class="s1">&#39;sigma_birth&#39;</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">,</span>
+                                    <span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span>
+                                    <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>
+                                    <span class="s1">&#39;a_half&#39;</span><span class="p">:</span> <span class="mf">40.0</span><span class="p">,</span>
+                                    <span class="s1">&#39;phi_age&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span>
+                                    <span class="s1">&#39;w_half&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+                                    <span class="s1">&#39;phi_weight&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+                                    <span class="s1">&#39;mu&#39;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span>
+                                    <span class="s1">&#39;lambda&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                    <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span>
+                                    <span class="s1">&#39;zeta&#39;</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">,</span>
+                                    <span class="s1">&#39;xi&#39;</span><span class="p">:</span> <span class="mf">1.2</span><span class="p">,</span>
+                                    <span class="s1">&#39;omega&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span>
+                                    <span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">}</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">DEFAULT_HERBIVORE_PARAMETERS</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Herbivore.set_parameters"><a class="viewcode-back" href="../../animals.xhtml#biosim.animals.Herbivore.set_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">set_parameters</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parameter_changes</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method that allows the user to set parameter values for the animal.</span>
+
+<span class="sd">        Method that allows the user to set parameter values for the animal.</span>
+<span class="sd">        This replaces the default values.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        parameter_changes : dictionary</span>
+<span class="sd">            A dictionary with one or more keys to set new parameters for the</span>
+<span class="sd">            animal. The items should be numeric.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        KeyError</span>
+<span class="sd">            If parameter_changes contain key(s) not already in the parameters.</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If parameter values that are to be set are not valid, such as</span>
+<span class="sd">            negative amounts of fodder/weight.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parameter_changes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;w_birth&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;w_birth&#39; must be positive&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;sigma_birth&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;sigma_birth&#39; must be positive&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;beta&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;beta&#39; must be in interval [0, 1]&quot;</span><span class="p">)</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;eta&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;eta&#39; must be in interval [0, 1]&quot;</span><span class="p">)</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;a_half&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;a_half&#39; must be positive&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;phi_age&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;phi_age&#39; must be positive&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;w_half&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;w_half&#39; must be positive&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;phi_weight&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;phi_weight&#39; must be positive&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;mu&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;mu&#39; must be positive&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;lambda&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">int</span> <span class="ow">or</span> \
+                                    <span class="nb">type</span><span class="p">(</span><span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;lambda&#39; must be int or float&quot;</span><span class="p">)</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;gamma&#39; must be positive&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;zeta&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;zeta&#39; must be greater than&quot;</span>
+                                         <span class="s2">&quot; or equal to 1&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;xi&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;xi&#39; must be greater than&quot;</span>
+                                         <span class="s2">&quot; or equal to 1&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;omega&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;omega must be positive&#39;&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;F&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;F must be positive&#39;&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;DeltaPhiMax&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;DeltaPhiMax&#39; must be positive&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;You have entered an unknown parameter key:&#39;</span><span class="si">{0}</span><span class="s2">&#39;&quot;</span>
+                               <span class="s2">&quot;.Keys must be found in Table 2; Column: &#39;Name&#39;.&quot;</span>
+                               <span class="s2">&quot; Table 2 can be found in the &#39;Modelling the &quot;</span>
+                               <span class="s2">&quot;Ecosystem of Rossumøya&#39; project description&quot;</span><span class="o">.</span>
+                               <span class="nb">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">weight</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor-method for making an herbivore of set age and weight.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        age : int</span>
+<span class="sd">            Age of herbivore</span>
+<span class="sd">        weight : float</span>
+<span class="sd">            Weight of herbivore</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">age</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;age&#39; must be non-negative&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">weight</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;weight&#39; must be positive&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_fitness</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Herbivore.update_fitness"><a class="viewcode-back" href="../../animals.xhtml#biosim.animals.Herbivore.update_fitness">[docs]</a>    <span class="k">def</span> <span class="nf">update_fitness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for updating fitness.</span>
+
+<span class="sd">        The attribute self.fitness is updated.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">q_plus</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;phi_age&#39;</span><span class="p">]</span> <span class="o">*</span>
+                               <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">-</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;a_half&#39;</span><span class="p">])))</span>
+        <span class="n">q_minus</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;phi_weight&#39;</span><span class="p">]</span> <span class="o">*</span>
+                                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">-</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;w_half&#39;</span><span class="p">])))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">q_plus</span> <span class="o">*</span> <span class="n">q_minus</span></div>
+
+<div class="viewcode-block" id="Herbivore.get_weight"><a class="viewcode-back" href="../../animals.xhtml#biosim.animals.Herbivore.get_weight">[docs]</a>    <span class="k">def</span> <span class="nf">get_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            The weight of the animal</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span></div>
+
+<div class="viewcode-block" id="Herbivore.feeding"><a class="viewcode-back" href="../../animals.xhtml#biosim.animals.Herbivore.feeding">[docs]</a>    <span class="k">def</span> <span class="nf">feeding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">landscape_instance</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the feeding of  the animal</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        landscape_instance : The tile, that the given animal is in</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">available_fodder</span> <span class="o">=</span> <span class="n">landscape_instance</span><span class="o">.</span><span class="n">get_fodder</span><span class="p">()</span>
+        <span class="n">appetite</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">available_fodder</span> <span class="o">&gt;=</span> <span class="n">appetite</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">appetite</span>
+            <span class="n">landscape_instance</span><span class="o">.</span><span class="n">reduce_fodder</span><span class="p">(</span><span class="n">appetite</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_fitness</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">available_fodder</span> <span class="o">&lt;</span> <span class="n">appetite</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">available_fodder</span>
+            <span class="n">landscape_instance</span><span class="o">.</span><span class="n">fodder</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_fitness</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Herbivore.procreation"><a class="viewcode-back" href="../../animals.xhtml#biosim.animals.Herbivore.procreation">[docs]</a>    <span class="k">def</span> <span class="nf">procreation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">landscape_instance</span><span class="p">,</span> <span class="n">number_of_adults</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the procreation of the animals</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        landscape_instance : object</span>
+<span class="sd">            The tile of the animal</span>
+<span class="sd">        number_of_adults : int</span>
+<span class="sd">            Number of animals old enough to procreate</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;zeta&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;w_birth&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma_birth&#39;</span><span class="p">]):</span>
+            <span class="n">probability_of_birth</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">]</span> <span class="o">*</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span> <span class="o">*</span> <span class="p">(</span><span class="n">number_of_adults</span><span class="o">-</span><span class="mi">1</span><span class="p">)])</span>
+
+            <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">probability_of_birth</span><span class="p">:</span>
+                <span class="n">weight_birth</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">gauss</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;w_birth&#39;</span><span class="p">],</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;sigma_birth&#39;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;xi&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">weight_birth</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update_fitness</span><span class="p">()</span>
+
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;Herbivore&#39;</span><span class="p">:</span>
+                    <span class="n">landscape_instance</span><span class="o">.</span><span class="n">herbivores_new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">Herbivore</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight_birth</span><span class="p">))</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;Carnivore&#39;</span><span class="p">:</span>
+                    <span class="n">landscape_instance</span><span class="o">.</span><span class="n">carnivores_new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">Carnivore</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight_birth</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Herbivore.migration"><a class="viewcode-back" href="../../animals.xhtml#biosim.animals.Herbivore.migration">[docs]</a>    <span class="k">def</span> <span class="nf">migration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for checking if the animal will migrate</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True or False value; if the animal wil move or not</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">probability_move</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span>
+        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">probability_move</span></div>
+
+<div class="viewcode-block" id="Herbivore.aging"><a class="viewcode-back" href="../../animals.xhtml#biosim.animals.Herbivore.aging">[docs]</a>    <span class="k">def</span> <span class="nf">aging</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for handling the aging of an animal. Also updates fitness.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_fitness</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Herbivore.loss_of_weight"><a class="viewcode-back" href="../../animals.xhtml#biosim.animals.Herbivore.loss_of_weight">[docs]</a>    <span class="k">def</span> <span class="nf">loss_of_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for handling the loss of weight, by natural causes</span>
+
+<span class="sd">        A method for decreasing the weight of animal every year by a parameter</span>
+<span class="sd">        &#39;eta&#39; multiplied by the animals own weight. Also updates fitness.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;eta&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_fitness</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Herbivore.death"><a class="viewcode-back" href="../../animals.xhtml#biosim.animals.Herbivore.death">[docs]</a>    <span class="k">def</span> <span class="nf">death</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method for for checking if the animal should die from natural causes</span>
+
+<span class="sd">        Calculates the chance of dying due to low fitness, by using the</span>
+<span class="sd">        parameter &#39;omega&#39;</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">probability_of_death</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;omega&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">probability_of_death</span></div></div>
+
+
+<div class="viewcode-block" id="Carnivore"><a class="viewcode-back" href="../../animals.xhtml#biosim.animals.Carnivore">[docs]</a><span class="k">class</span> <span class="nc">Carnivore</span><span class="p">(</span><span class="n">Herbivore</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">DEFAULT_CARNIVORE_PARAMETERS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;w_birth&#39;</span><span class="p">:</span> <span class="mf">6.0</span><span class="p">,</span>
+                                    <span class="s1">&#39;sigma_birth&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                    <span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span>
+                                    <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="mf">0.125</span><span class="p">,</span>
+                                    <span class="s1">&#39;a_half&#39;</span><span class="p">:</span> <span class="mf">60.0</span><span class="p">,</span>
+                                    <span class="s1">&#39;phi_age&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span>
+                                    <span class="s1">&#39;w_half&#39;</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">,</span>
+                                    <span class="s1">&#39;phi_weight&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span>
+                                    <span class="s1">&#39;mu&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span>
+                                    <span class="s1">&#39;lambda&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                    <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+                                    <span class="s1">&#39;zeta&#39;</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">,</span>
+                                    <span class="s1">&#39;xi&#39;</span><span class="p">:</span> <span class="mf">1.1</span><span class="p">,</span>
+                                    <span class="s1">&#39;omega&#39;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span>
+                                    <span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="mf">50.0</span><span class="p">,</span>
+                                    <span class="s1">&#39;DeltaPhiMax&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">}</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">DEFAULT_CARNIVORE_PARAMETERS</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">weight</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor method for carnivore with entered age and weight.</span>
+
+<span class="sd">        The carnivore class is a subclass of the Herbivore class, using most of</span>
+<span class="sd">        the methods from Herbivore except the feeding method.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        age : int</span>
+<span class="sd">            Age of animal</span>
+<span class="sd">        weight : float</span>
+<span class="sd">            Weight of animal</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">age</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Carnivore.feeding"><a class="viewcode-back" href="../../animals.xhtml#biosim.animals.Carnivore.feeding">[docs]</a>    <span class="k">def</span> <span class="nf">feeding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preys</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Feeding method for carnivores</span>
+
+<span class="sd">        Goes though all the herbivores in the same cell as the carnivore</span>
+<span class="sd">        and checks if the carnivore eats it or not. This depends on fitness of</span>
+<span class="sd">        both carnivore an herbivore, the parameters &#39;DeltaPhiMax&#39; and &#39;beta&#39;,</span>
+<span class="sd">        and the appetite of the carnivore.</span>
+<span class="sd">        It also updates the weight and fitness of the carnivore.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        preys : list</span>
+<span class="sd">            A list of all the herbivores on the same tile as the given carnivore</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        eaten_bool : list</span>
+<span class="sd">            A list of true/false values for which herbivores to be eaten.</span>
+<span class="sd">            False means it is to be eaten, and removed for the cell.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">appetite</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">])</span>
+        <span class="n">eaten_bool</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">preys</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">prey</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">preys</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">appetite</span> <span class="o">&gt;=</span> <span class="n">prey</span><span class="o">.</span><span class="n">get_weight</span><span class="p">():</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span> <span class="o">&lt;=</span> <span class="n">prey</span><span class="o">.</span><span class="n">fitness</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span> <span class="o">-</span> <span class="n">prey</span><span class="o">.</span><span class="n">fitness</span> <span class="o">&lt;</span> \
+                        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;DeltaPhiMax&#39;</span><span class="p">]:</span>
+
+                    <span class="n">probability</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness</span> <span class="o">-</span> <span class="n">prey</span><span class="o">.</span><span class="n">fitness</span><span class="p">)</span> <span class="o">/</span>\
+                                  <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;DeltaPhiMax&#39;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">probability</span><span class="p">:</span>
+                        <span class="n">eaten_bool</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">prey</span><span class="o">.</span><span class="n">weight</span>
+                        <span class="n">appetite</span> <span class="o">-=</span> <span class="n">prey</span><span class="o">.</span><span class="n">weight</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">update_fitness</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">eaten_bool</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">prey</span><span class="o">.</span><span class="n">weight</span>
+                    <span class="n">appetite</span> <span class="o">-=</span> <span class="n">prey</span><span class="o">.</span><span class="n">weight</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">update_fitness</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">appetite</span> <span class="o">&lt;</span> <span class="n">prey</span><span class="o">.</span><span class="n">get_weight</span><span class="p">():</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span> <span class="o">&lt;=</span> <span class="n">prey</span><span class="o">.</span><span class="n">fitness</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span> <span class="o">-</span> <span class="n">prey</span><span class="o">.</span><span class="n">fitness</span> <span class="o">&lt;</span> \
+                        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;DeltaPhiMax&#39;</span><span class="p">]:</span>
+
+                    <span class="n">probability</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness</span> <span class="o">-</span> <span class="n">prey</span><span class="o">.</span><span class="n">fitness</span><span class="p">)</span> <span class="o">/</span>\
+                                  <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;DeltaPhiMax&#39;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">probability</span><span class="p">:</span>
+                        <span class="n">eaten_bool</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">appetite</span>
+                        <span class="n">appetite</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">update_fitness</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">eaten_bool</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">appetite</span>
+                    <span class="n">appetite</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">update_fitness</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+        <span class="k">return</span> <span class="n">eaten_bool</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="n">h1</span> <span class="o">=</span> <span class="n">Herbivore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">Carnivore</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+
+    <span class="n">Herbivore</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">({</span><span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+    <span class="n">Carnivore</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">({</span><span class="s1">&#39;omega&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">})</span>
+
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">h1</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;omega&#39;</span><span class="p">])</span>
+</pre></div>
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

@@ -2,7 +2,7 @@
 <ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
   <head>
     <meta name="dtb:uid" content="unknown"/>
-    <meta name="dtb:depth" content="1"/>
+    <meta name="dtb:depth" content="2"/>
     <meta name="dtb:totalPageCount" content="0"/>
     <meta name="dtb:maxPageNumber" content="0"/>
   </head>
@@ -10,11 +10,119 @@
     <text>BioSim G04</text>
   </docTitle>
   <navMap>
-    <navPoint id="navPoint2" playOrder="1">
+    <navPoint id="navPoint15" playOrder="1">
       <navLabel>
         <text>Welcome to BioSim G04&#39;s documentation!</text>
       </navLabel>
       <content src="index.xhtml" />
+    </navPoint>
+    <navPoint id="navPoint16" playOrder="2">
+      <navLabel>
+        <text>Animals</text>
+      </navLabel>
+      <content src="animals.xhtml" />
+      <navPoint id="navPoint17" playOrder="2">
+        <navLabel>
+          <text>Animals</text>
+        </navLabel>
+        <content src="animals.xhtml" />
+      </navPoint>
+      <navPoint id="navPoint18" playOrder="3">
+        <navLabel>
+          <text>The animals module</text>
+        </navLabel>
+        <content src="animals.xhtml#the-animals-module" />
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint19" playOrder="4">
+      <navLabel>
+        <text>Island</text>
+      </navLabel>
+      <content src="island.xhtml" />
+      <navPoint id="navPoint20" playOrder="4">
+        <navLabel>
+          <text>Island</text>
+        </navLabel>
+        <content src="island.xhtml" />
+      </navPoint>
+      <navPoint id="navPoint21" playOrder="5">
+        <navLabel>
+          <text>The island module</text>
+        </navLabel>
+        <content src="island.xhtml#the-island-module" />
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint22" playOrder="6">
+      <navLabel>
+        <text>Landscape</text>
+      </navLabel>
+      <content src="landscape.xhtml" />
+      <navPoint id="navPoint23" playOrder="6">
+        <navLabel>
+          <text>Landscape</text>
+        </navLabel>
+        <content src="landscape.xhtml" />
+      </navPoint>
+      <navPoint id="navPoint24" playOrder="7">
+        <navLabel>
+          <text>The landscape module</text>
+        </navLabel>
+        <content src="landscape.xhtml#the-landscape-module" />
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint25" playOrder="8">
+      <navLabel>
+        <text>Simulation</text>
+      </navLabel>
+      <content src="simulation.xhtml" />
+      <navPoint id="navPoint26" playOrder="8">
+        <navLabel>
+          <text>Simulation</text>
+        </navLabel>
+        <content src="simulation.xhtml" />
+      </navPoint>
+      <navPoint id="navPoint27" playOrder="9">
+        <navLabel>
+          <text>The simulation module</text>
+        </navLabel>
+        <content src="simulation.xhtml#the-simulation-module" />
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint28" playOrder="10">
+      <navLabel>
+        <text>Tests</text>
+      </navLabel>
+      <content src="tests.xhtml" />
+      <navPoint id="navPoint29" playOrder="10">
+        <navLabel>
+          <text>Tests</text>
+        </navLabel>
+        <content src="tests.xhtml" />
+      </navPoint>
+      <navPoint id="navPoint30" playOrder="11">
+        <navLabel>
+          <text>The animal test module</text>
+        </navLabel>
+        <content src="tests.xhtml#the-animal-test-module" />
+      </navPoint>
+      <navPoint id="navPoint31" playOrder="12">
+        <navLabel>
+          <text>The island test module</text>
+        </navLabel>
+        <content src="tests.xhtml#the-island-test-module" />
+      </navPoint>
+      <navPoint id="navPoint32" playOrder="13">
+        <navLabel>
+          <text>The landscape test module</text>
+        </navLabel>
+        <content src="tests.xhtml#the-landscape-test-module" />
+      </navPoint>
+      <navPoint id="navPoint33" playOrder="14">
+        <navLabel>
+          <text>The simulation test module</text>
+        </navLabel>
+        <content src="tests.xhtml#the-simulation-test-module" />
+      </navPoint>
     </navPoint>
   </navMap>
 </ncx>

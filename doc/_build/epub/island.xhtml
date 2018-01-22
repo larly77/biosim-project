@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Island</title>
+    
+    <link rel="stylesheet" href="_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> 
+  </head>
+  <body role="document">
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="island">
+<h1>Island</h1>
+<div class="section" id="the-island-module">
+<h2>The island module</h2>
+<span class="target" id="module-biosim.island"></span><dl class="class">
+<dt id="biosim.island.Island">
+<em class="property">class </em><code class="descclassname">biosim.island.</code><code class="descname">Island</code><span class="sig-paren">(</span><em>island_map</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Class for the island</p>
+<p>Init method for class Island</p>
+<dl class="docutils">
+<dt>island_map <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>A string representing the map</dd>
+</dl>
+<dl class="method">
+<dt id="biosim.island.Island.add_animal_island">
+<code class="descname">add_animal_island</code><span class="sig-paren">(</span><em>coordinates</em>, <em>animals_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.add_animal_island"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for adding animals to the island</p>
+<dl class="docutils">
+<dt>coordinates <span class="classifier-delimiter">:</span> <span class="classifier">tuple</span></dt>
+<dd>Where to put the animals on the island</dd>
+<dt>animals_list <span class="classifier-delimiter">:</span> <span class="classifier">list</span></dt>
+<dd>The list of animals to put on the island</dd>
+</dl>
+<dl class="docutils">
+<dt>ValueError</dt>
+<dd>If coordinates is not in jungle, savannah or desert</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.animals_on_island">
+<code class="descname">animals_on_island</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.animals_on_island"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for getting the number of carnivores and herbivores on island</p>
+<p>Makes one matrix for herbivores and one for carnivores, containing
+the number of carnivores and herbivores on the tile on the island
+matching the matrix.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.array_to_island">
+<code class="descname">array_to_island</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.array_to_island"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Converts the array from the method string_to_array into a map</p>
+<p>changes the array consisting of strings into an array consisting of
+instances of classes depedning on the letter that was previously in
+the array, for example &#8216;J&#8217; would turn into an instance of the
+Jungle-class. These are stored in Island.cells</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.cell_move_carnivores">
+<code class="descname">cell_move_carnivores</code><span class="sig-paren">(</span><em>coordinate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.cell_move_carnivores"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>method for moving herbivores in given cell, if they should move</p>
+<dl class="docutils">
+<dt>coordinate <span class="classifier-delimiter">:</span> <span class="classifier">tuple</span></dt>
+<dd>coordinates in which to move herbivores</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.cell_move_herbivores">
+<code class="descname">cell_move_herbivores</code><span class="sig-paren">(</span><em>coordinate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.cell_move_herbivores"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>method for moving herbivores in given cell, if they should move</p>
+<dl class="docutils">
+<dt>coordinate <span class="classifier-delimiter">:</span> <span class="classifier">tuple</span></dt>
+<dd>coordinates in which to move herbivores</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.cycle">
+<code class="descname">cycle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.cycle"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Simulates one cycle/year</p>
+<p>Every method is done in the order specified in the assignment
+Returns
+&#8212;&#8212;-</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="biosim.island.Island.get_direction">
+<em class="property">static </em><code class="descname">get_direction</code><span class="sig-paren">(</span><em>pi_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.get_direction"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for getting the direction for the animal to move in</p>
+<dl class="docutils">
+<dt>pi_values <span class="classifier-delimiter">:</span> <span class="classifier">tuple</span></dt>
+<dd>Values used to calculate the direction, found in the method;
+get_pi_values_herbivores and get_pi_values_carnivores</dd>
+</dl>
+<p>Direction as a string for example &#8216;right&#8217; or &#8216;left</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.get_pi_values_carnivores">
+<code class="descname">get_pi_values_carnivores</code><span class="sig-paren">(</span><em>coordinate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.get_pi_values_carnivores"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for calculating pi-values(propensity) for carnivores</p>
+<dl class="docutils">
+<dt>coordinate <span class="classifier-delimiter">:</span> <span class="classifier">tuple</span></dt>
+<dd>Coordinates  from which to find the animals to calculate pi&#8217;s for</dd>
+</dl>
+<dl class="docutils">
+<dt>pi_right, pi_up, pi_left, pi_down <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>Different propensity-values for each direction in given cell</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.get_pi_values_herbivores">
+<code class="descname">get_pi_values_herbivores</code><span class="sig-paren">(</span><em>coordinate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.get_pi_values_herbivores"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for calculating pi-values(propensity) for herbivores</p>
+<dl class="docutils">
+<dt>coordinate <span class="classifier-delimiter">:</span> <span class="classifier">tuple</span></dt>
+<dd>Coordinates  from which to find the animals to calculate pi&#8217;s for</dd>
+</dl>
+<dl class="docutils">
+<dt>pi_right, pi_up, pi_left, pi_down <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>Different propensity-values for each direction in given cell</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.get_random_coordinates">
+<code class="descname">get_random_coordinates</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.get_random_coordinates"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for getting random coordinates from the island</p>
+<p>Shuffles the coordinates on the island, for use in a different method
+excludes the ocean at the edge of the island</p>
+<dl class="docutils">
+<dt>points_on_island <span class="classifier-delimiter">:</span> <span class="classifier">list</span></dt>
+<dd>a randomly shuffled list of coordinates from the island</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.migration">
+<code class="descname">migration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.migration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for handling migration</p>
+<p>Implements the previous move-methods for herbivores and carnivores,
+including all new animals in that were appended in the move-methods</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.number_of_carnivores_island">
+<code class="descname">number_of_carnivores_island</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.number_of_carnivores_island"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for getting the total amount of herbivores on island</p>
+<p>Number of carnivores on island</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.number_of_herbivores_island">
+<code class="descname">number_of_herbivores_island</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.number_of_herbivores_island"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for getting the total amount of herbivores on island</p>
+<p>Number of herbivores on island</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.string_to_array">
+<code class="descname">string_to_array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.xhtml#Island.string_to_array"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>A method for concerting thr given string into an array</p>
+<dl class="docutils">
+<dt>map_arr <span class="classifier-delimiter">:</span> <span class="classifier">arr</span></dt>
+<dd>An array of the map, where each letter has a seperate place</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

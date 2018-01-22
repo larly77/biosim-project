@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Simulation</title>
+    
+    <link rel="stylesheet" href="_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> 
+  </head>
+  <body role="document">
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="simulation">
+<h1>Simulation</h1>
+<div class="section" id="the-simulation-module">
+<h2>The simulation module</h2>
+<span class="target" id="module-biosim.simulation"></span><dl class="class">
+<dt id="biosim.simulation.BioSim">
+<em class="property">class </em><code class="descclassname">biosim.simulation.</code><code class="descname">BioSim</code><span class="sig-paren">(</span><em>island_map</em>, <em>ini_pop=None</em>, <em>seed=12345</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>class for the simulation</p>
+<dl class="method">
+<dt id="biosim.simulation.BioSim.add_population">
+<code class="descname">add_population</code><span class="sig-paren">(</span><em>population</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.add_population"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>method for adding a population to the island</p>
+<dl class="docutils">
+<dt>population <span class="classifier-delimiter">:</span> <span class="classifier">list</span></dt>
+<dd>A list of animals, containing dictionaries for each animal</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.make_carnivore_density_map">
+<code class="descname">make_carnivore_density_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.make_carnivore_density_map"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for making the carnivore density map</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.make_herbivore_density_map">
+<code class="descname">make_herbivore_density_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.make_herbivore_density_map"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for making the hebrivore density map</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.make_line_plot">
+<code class="descname">make_line_plot</code><span class="sig-paren">(</span><em>vis_steps</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.make_line_plot"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for making the line plot</p>
+<p>vis_steps</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.make_rgb_map">
+<code class="descname">make_rgb_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.make_rgb_map"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Function to make RGB map from island-string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.make_visualization">
+<code class="descname">make_visualization</code><span class="sig-paren">(</span><em>vis_steps</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.make_visualization"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for making the visualization</p>
+<dl class="docutils">
+<dt>vis_steps <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>How often the graphics should be updated, in years</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.reset_axis_limits">
+<code class="descname">reset_axis_limits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.reset_axis_limits"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for resetting the axis limits for both x and y axis</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.reset_color_code_limits">
+<code class="descname">reset_color_code_limits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.reset_color_code_limits"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for resetting the color code to default values</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.set_axis_limits">
+<code class="descname">set_axis_limits</code><span class="sig-paren">(</span><em>x_limits</em>, <em>y_limits</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.set_axis_limits"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for setting the x and y-limits on the line graph</p>
+<dl class="docutils">
+<dt>x_limits <span class="classifier-delimiter">:</span> <span class="classifier">tuple, list</span></dt>
+<dd>tuple or list containing the lower and upper boundaries for the
+x axis</dd>
+<dt>y_limits <span class="classifier-delimiter">:</span> <span class="classifier">tuple, list</span></dt>
+<dd>tuple or list containing the lower and upper boundaries for the
+y axis</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.set_color_code_limits">
+<code class="descname">set_color_code_limits</code><span class="sig-paren">(</span><em>herbivore_colors</em>, <em>carnivore_colors</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.set_color_code_limits"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for setting the color code limits for each species</p>
+<dl class="docutils">
+<dt>herbivore_colors <span class="classifier-delimiter">:</span> <span class="classifier">tuple</span></dt>
+<dd>boundaries for the color representation for number of herbivores</dd>
+<dt>carnivore_colors <span class="classifier-delimiter">:</span> <span class="classifier">tuple</span></dt>
+<dd>boundaries for the color representation for number of herbivores</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.simulate">
+<code class="descname">simulate</code><span class="sig-paren">(</span><em>num_steps</em>, <em>vis_steps=1</em>, <em>img_steps=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.simulate"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for simulating the entire island</p>
+<dl class="docutils">
+<dt>num_steps <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>Numbers of years to be simulated</dd>
+<dt>vis_steps <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>How often the graphics should be updated, in years</dd>
+</dl>
+<p>img_steps : How often the graphic should be saved</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.status_number_of_animals_by_species">
+<code class="descname">status_number_of_animals_by_species</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.status_number_of_animals_by_species"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>method for getting number of herbivores and carnivores on screen</p>
+<dl class="docutils">
+<dt>dictionary <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
+<dd>A dictionary containing number herbivores and carnivores on island</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.status_number_of_animals_total">
+<code class="descname">status_number_of_animals_total</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.status_number_of_animals_total"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>method for getting the total amount of animals on screen</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.status_per_cell_animal_count">
+<code class="descname">status_per_cell_animal_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.status_per_cell_animal_count"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for getting number of each species in each cell, using pandas</p>
+<dl class="docutils">
+<dt>df <span class="classifier-delimiter">:</span> <span class="classifier">pandas.DataFrame</span></dt>
+<dd>A table containing each cell and the number of each species on
+each cell</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.status_year">
+<code class="descname">status_year</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.status_year"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>method for getting the current year on screen</p>
+<dl class="docutils">
+<dt>self.year <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>the current year</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.update_carnivore_density_map">
+<code class="descname">update_carnivore_density_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.update_carnivore_density_map"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for updating the carnivore density map</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.update_herbivore_density_map">
+<code class="descname">update_herbivore_density_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.update_herbivore_density_map"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for updating the herbivore density map</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.update_line_plot">
+<code class="descname">update_line_plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.update_line_plot"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for updating the line plot</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.update_visualization">
+<code class="descname">update_visualization</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.update_visualization"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for updating the visualization</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.year_counter">
+<code class="descname">year_counter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.year_counter"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for updating the counter on screen</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

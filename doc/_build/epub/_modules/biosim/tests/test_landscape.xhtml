@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>biosim.tests.test_landscape</title>
+    
+    <link rel="stylesheet" href="../../../_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" /> 
+  </head>
+  <body role="document">
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for biosim.tests.test_landscape</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Jon-Fredrik Blakstad Cappelen&#39;</span><span class="p">,</span> <span class="s1">&#39;Lars Martin Boe Lied&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;jon-fredrik.blakstad.cappelen@nmbu.no&#39;</span><span class="p">,</span>\
+            <span class="s1">&#39;lars.martin.boe.lied@nmbu.no&#39;</span>
+
+
+<span class="kn">from</span> <span class="nn">biosim.landscape</span> <span class="k">import</span> <span class="n">Jungle</span><span class="p">,</span> <span class="n">Savannah</span>
+<span class="kn">from</span> <span class="nn">biosim.animals</span> <span class="k">import</span> <span class="n">Herbivore</span><span class="p">,</span> <span class="n">Carnivore</span>
+
+
+<div class="viewcode-block" id="TestLandscape"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape">[docs]</a><span class="k">class</span> <span class="nc">TestLandscape</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for testing landscape</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="TestLandscape.test_add_herbivore"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape.test_add_herbivore">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_herbivore</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        method for testing add_herbivore</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">j1</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">add_herbivore</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">weight</span> <span class="o">==</span> <span class="mi">20</span>
+        <span class="k">assert</span> <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">age</span> <span class="o">==</span> <span class="mi">5</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+            <span class="n">j1</span><span class="o">.</span><span class="n">add_herbivore</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span></div>
+
+<div class="viewcode-block" id="TestLandscape.test_add_carnivores"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape.test_add_carnivores">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_carnivores</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        method for testing add carnivore</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">j1</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">j1</span><span class="o">.</span><span class="n">carnivores</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">add_carnivore</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">j1</span><span class="o">.</span><span class="n">carnivores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">weight</span> <span class="o">==</span> <span class="mi">20</span>
+        <span class="k">assert</span> <span class="n">j1</span><span class="o">.</span><span class="n">carnivores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">age</span> <span class="o">==</span> <span class="mi">5</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+            <span class="n">j1</span><span class="o">.</span><span class="n">add_carnivore</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">j1</span><span class="o">.</span><span class="n">carnivores</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span></div>
+
+<div class="viewcode-block" id="TestLandscape.test_reset_fodder_jungle"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape.test_reset_fodder_jungle">[docs]</a>    <span class="k">def</span> <span class="nf">test_reset_fodder_jungle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        test for reset fodder in Jungle</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">j1</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">fodder</span> <span class="o">=</span> <span class="mf">500.0</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">reset_fodder</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">j1</span><span class="o">.</span><span class="n">fodder</span> <span class="o">==</span> <span class="mf">800.0</span></div>
+
+<div class="viewcode-block" id="TestLandscape.test_reduce_fodder"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape.test_reduce_fodder">[docs]</a>    <span class="k">def</span> <span class="nf">test_reduce_fodder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test for method reduce_fodder</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">j1</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">reduce_fodder</span><span class="p">(</span><span class="mf">100.0</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">j1</span><span class="o">.</span><span class="n">fodder</span> <span class="o">==</span> <span class="mf">700.0</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">reduce_fodder</span><span class="p">(</span><span class="mf">100.0</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">j1</span><span class="o">.</span><span class="n">fodder</span> <span class="o">==</span> <span class="mi">600</span></div>
+
+<div class="viewcode-block" id="TestLandscape.test_get_fodder"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape.test_get_fodder">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_fodder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test for method get_fodder</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">j1</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">j1</span><span class="o">.</span><span class="n">get_fodder</span><span class="p">()</span> <span class="o">==</span> <span class="mf">800.0</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">reduce_fodder</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">j1</span><span class="o">.</span><span class="n">get_fodder</span><span class="p">()</span> <span class="o">==</span> <span class="mi">700</span></div>
+
+<div class="viewcode-block" id="TestLandscape.test_reset_fodder_savannah"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape.test_reset_fodder_savannah">[docs]</a>    <span class="k">def</span> <span class="nf">test_reset_fodder_savannah</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test for the method reset_fodder i Savannah</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Test for the method Savannah.reset_fodder&quot;&quot;&quot;</span>
+        <span class="n">s1</span> <span class="o">=</span> <span class="n">Savannah</span><span class="p">()</span>
+        <span class="n">s1</span><span class="o">.</span><span class="n">fodder</span> <span class="o">=</span> <span class="mf">150.0</span>
+        <span class="n">s1</span><span class="o">.</span><span class="n">reset_fodder</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">s1</span><span class="o">.</span><span class="n">fodder</span> <span class="o">==</span> <span class="mi">195</span></div>
+
+<div class="viewcode-block" id="TestLandscape.test_feeding_jungle"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape.test_feeding_jungle">[docs]</a>    <span class="k">def</span> <span class="nf">test_feeding_jungle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test that all herbivores in the cell feed: the method feeding</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Test that all herbivores in the cell feed: the method feeding&quot;&quot;&quot;</span>
+        <span class="n">j1</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span> <span class="o">=</span> <span class="p">[</span><span class="n">Herbivore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">Herbivore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                         <span class="n">Herbivore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">Herbivore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">25</span><span class="p">)]</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">feeding</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">j1</span><span class="o">.</span><span class="n">get_fodder</span><span class="p">()</span> <span class="o">==</span> <span class="mi">760</span>
+        <span class="k">assert</span> <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">weight</span> <span class="o">==</span> <span class="mi">24</span>    <span class="c1"># j1.feeding sorts by &#39;weakness&#39;</span>
+        <span class="k">assert</span> <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">weight</span> <span class="o">==</span> <span class="mi">39</span></div>
+
+<div class="viewcode-block" id="TestLandscape.test_feeding_savannah"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape.test_feeding_savannah">[docs]</a>    <span class="k">def</span> <span class="nf">test_feeding_savannah</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test that all herbivores in the cell feed: the method feeding</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s1</span> <span class="o">=</span> <span class="n">Savannah</span><span class="p">()</span>
+        <span class="n">s1</span><span class="o">.</span><span class="n">herbivores</span> <span class="o">=</span> <span class="p">[</span><span class="n">Herbivore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">Herbivore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                         <span class="n">Herbivore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">Herbivore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">25</span><span class="p">)]</span>
+        <span class="n">s1</span><span class="o">.</span><span class="n">feeding</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">s1</span><span class="o">.</span><span class="n">get_fodder</span><span class="p">()</span> <span class="o">==</span> <span class="mi">260</span>
+        <span class="k">assert</span> <span class="n">s1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">weight</span> <span class="o">==</span> <span class="mi">24</span>
+        <span class="k">assert</span> <span class="n">s1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">weight</span> <span class="o">==</span> <span class="mi">39</span></div>
+
+<div class="viewcode-block" id="TestLandscape.test_procreation"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape.test_procreation">[docs]</a>    <span class="k">def</span> <span class="nf">test_procreation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test that all animals in cell procreate: the method procreation</span>
+
+<span class="sd">        Do this by manipulating the parameter gamma</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s1</span> <span class="o">=</span> <span class="n">Savannah</span><span class="p">()</span>
+        <span class="n">Herbivore</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">({</span><span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+        <span class="n">s1</span><span class="o">.</span><span class="n">herbivores</span> <span class="o">=</span> <span class="p">[</span><span class="n">Herbivore</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+        <span class="n">s1</span><span class="o">.</span><span class="n">procreation</span><span class="p">()</span>
+        <span class="n">Herbivore</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">({</span><span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">})</span>  <span class="c1"># default value</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">herbivores_new</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">get_herbivores</span><span class="p">())</span> <span class="o">==</span> <span class="mi">6</span></div>
+
+<div class="viewcode-block" id="TestLandscape.test_aging"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape.test_aging">[docs]</a>    <span class="k">def</span> <span class="nf">test_aging</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test that all animals in the cell age: the method aging</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">j1</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span> <span class="o">=</span> <span class="p">[</span><span class="n">Herbivore</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">aging</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">animal</span> <span class="ow">in</span> <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">animal</span><span class="o">.</span><span class="n">age</span> <span class="o">==</span> <span class="mi">4</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">aging</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">animal</span> <span class="ow">in</span> <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">animal</span><span class="o">.</span><span class="n">age</span> <span class="o">==</span> <span class="mi">5</span></div>
+
+<div class="viewcode-block" id="TestLandscape.test_loss_of_weight"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape.test_loss_of_weight">[docs]</a>    <span class="k">def</span> <span class="nf">test_loss_of_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test that all animal in cell lose weight:the method loss_of_weight</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">j1</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span> <span class="o">=</span> <span class="p">[</span><span class="n">Herbivore</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">loss_of_weight</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">animal</span> <span class="ow">in</span> <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">animal</span><span class="o">.</span><span class="n">weight</span> <span class="o">==</span> <span class="mi">19</span></div>
+
+<div class="viewcode-block" id="TestLandscape.test_death"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape.test_death">[docs]</a>    <span class="k">def</span> <span class="nf">test_death</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test that some animals in the cell die: the method death</span>
+
+<span class="sd">        do this by maniplating omega</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">j1</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
+        <span class="n">Herbivore</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">({</span><span class="s1">&#39;omega&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span> <span class="o">=</span> <span class="p">[</span><span class="n">Herbivore</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">animal</span> <span class="ow">in</span> <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">:</span>
+            <span class="n">animal</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">death</span><span class="p">()</span>
+        <span class="n">Herbivore</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">({</span><span class="s1">&#39;omega&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">})</span>  <span class="c1"># default value</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="TestLandscape.test_feeding_carnivores"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_landscape.TestLandscape.test_feeding_carnivores">[docs]</a>    <span class="k">def</span> <span class="nf">test_feeding_carnivores</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test that all carnivores in the cell feeds: the method feeding</span>
+
+<span class="sd">        do this by manipulating parameter DeltaPhiMax and the food</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Carnivore</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">({</span><span class="s1">&#39;DeltaPhiMax&#39;</span><span class="p">:</span> <span class="mf">1.000001</span><span class="p">})</span>
+        <span class="n">Jungle</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">({</span><span class="s1">&#39;f_max&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">})</span>
+        <span class="n">j1</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span> <span class="o">=</span> <span class="p">[</span><span class="n">Herbivore</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">Herbivore</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">Herbivore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">60</span><span class="p">)]</span>
+        <span class="n">j1</span><span class="o">.</span><span class="n">carnivores</span> <span class="o">=</span> <span class="p">[</span><span class="n">Carnivore</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">Carnivore</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">Carnivore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">j1</span><span class="o">.</span><span class="n">carnivores</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="n">j1</span><span class="o">.</span><span class="n">feeding</span><span class="p">()</span>
+
+        <span class="n">Carnivore</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">({</span><span class="s1">&#39;DeltaPhiMax&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">})</span>  <span class="c1"># default value</span>
+        <span class="n">Jungle</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">({</span><span class="s1">&#39;f_max&#39;</span><span class="p">:</span> <span class="mf">800.0</span><span class="p">})</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">j1</span><span class="o">.</span><span class="n">carnivores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">j1</span><span class="o">.</span><span class="n">carnivores</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+                <span class="n">j1</span><span class="o">.</span><span class="n">carnivores</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mf">57.5</span><span class="p">,</span> <span class="mf">57.5</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">j1</span><span class="o">.</span><span class="n">herbivores</span> <span class="o">==</span> <span class="p">[]</span></div></div>
+</pre></div>
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>
