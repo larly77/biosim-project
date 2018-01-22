@@ -193,11 +193,12 @@ class Herbivore:
 
     def update_fitness(self):
         """
-        Method for updating fitness
+        Method for updating fitness.
+
+        The attribute self.fitness is updated.
 
         Returns
         -------
-        An updated value of fitness
 
         """
         q_plus = 1/(1+math.exp(self.parameters['phi_age'] *
@@ -214,7 +215,8 @@ class Herbivore:
 
         Returns
         -------
-        returns the weight of the animal
+        float
+            The weight of the animal
 
         """
         return self.weight
@@ -331,7 +333,10 @@ class Herbivore:
 
 
 class Carnivore(Herbivore):
+    """
 
+    """
+    
     DEFAULT_CARNIVORE_PARAMETERS = {'w_birth': 6.0,
                                     'sigma_birth': 1.0,
                                     'beta': 0.75,
