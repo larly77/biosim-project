@@ -51,6 +51,7 @@ class BioSim:
     def add_population(self, population):
         """
         method for adding a population to the island
+
         Parameters
         ----------
         population : list
@@ -85,6 +86,7 @@ class BioSim:
     def status_year(self):
         """
         method for getting the current year on screen
+
         Returns
         -------
         self.year : int
@@ -97,6 +99,7 @@ class BioSim:
     def status_number_of_animals_total(self):
         """
         method for getting the total amount of animals on screen
+
         Returns
         -------
 
@@ -110,6 +113,7 @@ class BioSim:
     def status_number_of_animals_by_species(self):
         """
         method for getting number of herbivores and carnivores on screen
+
         Returns
         -------
         dictionary : dict
@@ -122,6 +126,7 @@ class BioSim:
     def status_per_cell_animal_count(self):
         """
         Method for getting number of each species in each cell, using pandas
+
         Returns
         -------
         df : pandas.DataFrame
@@ -150,6 +155,7 @@ class BioSim:
     def set_axis_limits(self, x_limits, y_limits):
         """
         Method for setting the x and y-limits on the line graph
+
         Parameters
         ----------
         x_limits : tuple, list
@@ -177,6 +183,7 @@ class BioSim:
     def reset_axis_limits(self):
         """
         Method for resetting the axis limits for both x and y axis
+
         Returns
         -------
 
@@ -187,6 +194,7 @@ class BioSim:
     def set_color_code_limits(self, herbivore_colors, carnivore_colors):
         """
         Method for setting the color code limits for each species
+
         Parameters
         ----------
         herbivore_colors : tuple
@@ -211,6 +219,7 @@ class BioSim:
     def reset_color_code_limits(self):
         """
         Method for resetting the color code to default values
+
         Returns
         -------
 
@@ -221,6 +230,7 @@ class BioSim:
     def year_counter(self):
         """
         Method for updating the counter on screen
+
         Returns
         -------
 
@@ -244,6 +254,7 @@ class BioSim:
     def make_rgb_map(self):
         """
         Function to make RGB map from island-string
+
         Returns
         -------
 
@@ -280,6 +291,7 @@ class BioSim:
     def make_line_plot(self, vis_steps):
         """
         Method for making the line plot
+
         Parameters
         ----------
         vis_steps
@@ -326,6 +338,7 @@ class BioSim:
     def update_line_plot(self):
         """
         Method for updating the line plot
+
         Returns
         -------
 
@@ -343,6 +356,7 @@ class BioSim:
     def make_herbivore_density_map(self):
         """
         Method for making the hebrivore density map
+
         Returns
         -------
 
@@ -366,6 +380,7 @@ class BioSim:
     def update_herbivore_density_map(self):
         """
         Method for updating the herbivore density map
+
         Returns
         -------
 
@@ -375,6 +390,7 @@ class BioSim:
     def make_carnivore_density_map(self):
         """
         Method for making the carnivore density map
+
         Returns
         -------
 
@@ -398,6 +414,7 @@ class BioSim:
     def update_carnivore_density_map(self):
         """
         Method for updating the carnivore density map
+
         Returns
         -------
 
@@ -407,6 +424,7 @@ class BioSim:
     def make_visualization(self, vis_steps):
         """
         Method for making the visualization
+
         Parameters
         ----------
         vis_steps : int
@@ -434,6 +452,7 @@ class BioSim:
     def update_visualization(self):
         """
         Method for updating the visualization
+
         Returns
         -------
 
@@ -446,6 +465,7 @@ class BioSim:
     def simulate(self, num_steps, vis_steps=1, img_steps=None):
         """
         Method for simulating the entire island
+
         Parameters
         ----------
         num_steps : int
