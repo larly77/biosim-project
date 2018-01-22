@@ -49,22 +49,15 @@ class Herbivore:
             A dictionary with one or more keys to set new parameters for the
             animal. The items should be numeric.
 
-        Returns
-        -------
-        None
-
         Raises
         ------
         ValueError
             If parameter_changes contain contain keys not already in the
             dictionary. 
         """
-        #       Idiotsikring her?
 
         for key in parameter_changes:
             if key in cls.parameters:
-
-
 
                 if key is 'w_birth':
                     if parameter_changes[key] < 0:
@@ -72,28 +65,100 @@ class Herbivore:
                     else:
                         cls.parameters[key] = parameter_changes[key]
 
-                if key is 'sigma_birth':
+                elif key is 'sigma_birth':
                     if parameter_changes[key] < 0:
                         raise ValueError("'sigma_birth' must be positive")
                     else:
                         cls.parameters[key] = parameter_changes[key]
 
-                if key is 'beta':
-                    if 0 < parameter_changes[key] < 1:
+                elif key is 'beta':
+                    if 0 <= parameter_changes[key] <= 1:
                         cls.parameters[key] = parameter_changes[key]
                     else:
-                        raise ValueError("'beta' must be in interval (0, 1)")
+                        raise ValueError("'beta' must be in interval [0, 1]")
 
-                if key is 'eta':
-                    if 0 < parameter_changes[key] < 1:
+                elif key is 'eta':
+                    if 0 <= parameter_changes[key] <= 1:
                         cls.parameters[key] = parameter_changes[key]
                     else:
-                        raise ValueError("'eta' must be in interval (0, 1)")
+                        raise ValueError("'eta' must be in interval [0, 1]")
 
+                elif key is 'a_half':
+                    if parameter_changes[key] < 0:
+                        raise ValueError("'a_half' must be positive")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
 
-                cls.parameters[key] = parameter_changes[key]
+                elif key is 'phi_age':
+                    if parameter_changes[key] < 0:
+                        raise ValueError("'phi_age' must be positive")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
 
+                elif key is 'w_half':
+                    if parameter_changes[key] < 0:
+                        raise ValueError("'w_half' must be positive")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
 
+                elif key is 'phi_weight':
+                    if parameter_changes[key] < 0:
+                        raise ValueError("'phi_weight' must be positive")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
+
+                elif key is 'mu':
+                    if parameter_changes[key] < 0:
+                        raise ValueError("'mu' must be positive")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
+
+                elif key is 'lambda':
+                    if type(parameter_changes[key]) is int or \
+                                    type(parameter_changes[key]) is float:
+                        cls.parameters[key] = parameter_changes[key]
+                    else:
+                        raise ValueError("'lambda' must be int or float")
+
+                elif key is 'gamma':
+                    if parameter_changes[key] < 0:
+                        raise ValueError("'gamma' must be positive")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
+
+                elif key is 'zeta':
+                    if parameter_changes[key] < 1:
+                        raise ValueError("'zeta' must be greater than"
+                                         " or equal to 1")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
+
+                elif key is 'xi':
+                    if parameter_changes[key] < 1:
+                        raise ValueError("'xi' must be greater than"
+                                         " or equal to 1")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
+
+                elif key is 'omega':
+                    if parameter_changes[key] < 0:
+                        raise ValueError("'omega must be positive'")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
+
+                elif key is 'F':
+                    if parameter_changes[key] < 0:
+                        raise ValueError("'F must be positive'")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
+
+                elif key is 'DeltaPhiMax':
+                    if parameter_changes[key] < 0:
+                        raise ValueError("'DeltaPhiMax' must be positive")
+                    else:
+                        cls.parameters[key] = parameter_changes[key]
+                else:
+                    pass
 
             else:
                 raise KeyError("You have entered an unknown parameter key:'{0}'"
@@ -179,7 +244,7 @@ class Herbivore:
     def procreation(self, landscape_instance, number_of_adults):
         """
         Handles the procreation of the animals
-        
+
         Parameters
         ----------
         landscape_instance : object
@@ -250,6 +315,7 @@ class Herbivore:
 
         Calculates the chance of dying due to low fitness, by using the
         parameter 'omega'
+
         Returns
         -------
 
@@ -361,17 +427,12 @@ class Carnivore(Herbivore):
 
 if __name__ == '__main__':
 
-    Herbivore.set_parameters({'beta': 20})
-    Carnivore.set_parameters({'F': 100})
     h1 = Herbivore(3, 40)
     c1 = Carnivore(2, 40)
 
+    Herbivore.set_parameters({'F': 20})
+    Carnivore.set_parameters({'omega':1})
+
+
     print(h1.parameters['F'])
-    print(c1.parameters['F'])
-
-    Carnivore.set_parameters({'DeltaPhiMax': 120})
-
-    print(c1.parameters['DeltaPhiMax'])
-
-
-
+    print(c1.parameters['omega'])
