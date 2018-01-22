@@ -14,7 +14,7 @@ from biosim.animals import Herbivore, Carnivore
 
 class Jungle:
     """
-    Class for jungle
+    Class for the jungle, containing all methods used in the Jungle-landscape
     """
 
     DEFAULT_JUNGLE_PARAMETERS = {'f_max': 800.0}
@@ -40,7 +40,9 @@ class Jungle:
             cls.parameters[key] = parameter_changes[key]
 
     def __init__(self):
-        """"""
+        """
+        Constructor for the jungle class
+        """
 
         self.fodder = copy.deepcopy(self.parameters['f_max'])
         self.herbivores = []
