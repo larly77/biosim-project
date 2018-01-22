@@ -57,11 +57,17 @@ class Herbivore:
             If parameter_changes contain contain keys not already in the
             dictionary. 
         """
-
         #       Idiotsikring her?
 
         for key in parameter_changes:
-            cls.parameters[key] = parameter_changes[key]
+            if key in cls.parameters:
+                cls.parameters[key] = parameter_changes[key]
+            else:
+                raise KeyError("You have entered an unknown parameter key: Key "
+                               "'{0}' must be found in Table 2: Column: 'Name'."
+                               " Table 2 can be found in the 'Modelling the "
+                               "Ecosystem of Rossumøya' project description".
+                               format(key))
 
     def __init__(self, age, weight):
         """
@@ -346,5 +352,18 @@ def f(x):
 
 
 if __name__ == '__main__':
+
+    Herbivore.set_parameters({'F': 20})
+    Carnivore.set_parameters({'F': 100})
     h1 = Herbivore(3, 20)
-    print(type(h1).__name__)
+    c1 = Carnivore(2, 40)
+
+    print(h1.parameters['F'])
+    print(c1.parameters['F'])
+
+    Carnivore.set_parameters({'F': 120})
+
+    print(c1.parameters['F'])
+
+
+
