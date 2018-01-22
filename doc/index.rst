@@ -16,6 +16,7 @@ This file is a simulation
    animals
    island
    landscape
+   simulation
 
 Indices and tables
 ==================

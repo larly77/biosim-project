@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-"""
-"""
 
 __author__ = 'Jon-Fredrik Blakstad Cappelen'
 __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
@@ -18,7 +16,9 @@ from biosim.island import Island
 
 
 class BioSim:
-    """"""
+    """
+    class for the simulation
+    """
 
     def __init__(self, island_map, ini_pop=None, seed=12345):
         random.seed(seed)

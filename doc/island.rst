@@ -3,5 +3,5 @@ Island
 
 The island module
 ---------------
-.. automodule:: biosim.island.py
+.. automodule:: biosim.island
    :members:
