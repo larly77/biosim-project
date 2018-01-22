@@ -14,34 +14,34 @@ from biosim.animals import Herbivore, Carnivore
 
 class Jungle:
     """
-    class for jungle
+    Class for jungle
     """
 
     DEFAULT_JUNGLE_PARAMETERS = {'f_max': 800.0}
     parameters = copy.deepcopy(DEFAULT_JUNGLE_PARAMETERS)
 
     @classmethod
-    def set_parameters(cls, dictionary_changes):
+    def set_parameters(cls, parameter_changes):
         """
         Method that allows the user to set parameter values for the landscape.
 
         Parameters
         ----------
-        dictionary_changes : dict
-            The changes to be made from the default values
+        parameter_changes : dict
+            The changes to be made to the parameters
 
         Returns
         -------
 
         """
-        """Method that allows the user to set parameter values for the landscape.
-        This replaces the default values."""
-        #       Idiotsikring her?
 
-        for key in dictionary_changes:
-            cls.parameters[key] = dictionary_changes[key]
+
+        for key in parameter_changes:
+            cls.parameters[key] = parameter_changes[key]
 
     def __init__(self):
+        """"""
+
         self.fodder = copy.deepcopy(self.parameters['f_max'])
         self.herbivores = []
         self.carnivores = []
@@ -50,20 +50,19 @@ class Jungle:
 
     def add_herbivore(self, age, weight):
         """
-        Method for adding a herbivore into the landscape-cell
+        Method for adding a herbivore into the landscape instance.
 
         Parameters
         ----------
         age : int
-            the age for the herbivore to be added
+            The age for the herbivore to be added
         weight : float
-            the weight for the animal to be added
+            The weight for the animal to be added
 
         Returns
         -------
 
         """
-        """Method for adding a herbivore into the landscape-cell"""
         self.herbivores.append(Herbivore(age, weight))
 
     def add_carnivore(self, age, weight):
@@ -73,9 +72,9 @@ class Jungle:
         Parameters
         ----------
         age : int
-            the age for the carnivore to be added
+            The age for the carnivore to be added
         weight : float
-            the weight for the carnivore to be added
+            The weight for the carnivore to be added
 
         Returns
         -------
@@ -85,7 +84,7 @@ class Jungle:
 
     def reset_fodder(self):
         """
-        Method that set the amount of fodder in the jungle to f_max.
+        Method that resets the amount of fodder in the jungle to f_max.
 
         Returns
         -------
@@ -95,11 +94,12 @@ class Jungle:
 
     def reduce_fodder(self, amount):
         """
-        method for reducing the fodder by given amount
+        Method for reducing the amount of fodder available in landscape instance
 
         Parameters
         ----------
-        amount
+        amount : float, int
+            How much fodder is to be removed from landscape instance.
 
         Returns
         -------
@@ -109,19 +109,19 @@ class Jungle:
 
     def get_fodder(self):
         """
-        Method for getting fodder in the landscape
+        Method for getting fodder in the landscape instance.
 
         Returns
         -------
         self.fodder : int
-            amount of fodder left
+            Amount of fodder left is landscape instance.
 
         """
         return self.fodder
     
     def move_new_animals(self):
         """
-        method for moving animals from the new-lists into the real one
+        Method for moving animals from the new-lists into the real one.
 
         Returns
         -------
@@ -134,35 +134,35 @@ class Jungle:
 
     def get_herbivores(self):
         """
-        method for getting a list of all herbivore in the landscape instance
+        Method for getting a list of all herbivore in the landscape instance
 
         Returns
         -------
         self.hebivores : list
-            list of herbivores in instance
+            List of herbivores in instance
 
         """
         return self.herbivores
 
     def get_carnivores(self):
         """
-        method for getting a list of all carnivores in the landscape instance
+        Method for getting a list of all carnivores in the landscape instance
 
         Returns
         -------
         self.carnivores : list
-            list of carnivores in instance
+            List of carnivores in landscape instance.
         """
         return self.carnivores
 
     def get_abundance_herbivore(self):
         """
-        method for calculating abundance of food for herbivore in instance
+        Method for calculating abundance of food for herbivore in landscape.
 
         Returns
         -------
         ek : float
-            abundance of food for herbivores in instance
+            Abundance of food for herbivores in landscape.
 
         """
         ek = (self.get_fodder())/((len(self.herbivores + self.herbivores_new)
@@ -171,12 +171,12 @@ class Jungle:
 
     def get_abundance_carnivore(self):
         """
-        method for calculating abundance of food for carnivore in instance
+        Method for calculating abundance of food for carnivore in landscape.
 
         Returns
         -------
         ek : float
-            abundance of food for carnivores in instance
+            Abundance of food for carnivores in landscape
         """
         herbivores_weight = 0
         for animal in self.herbivores + self.herbivores_new:
@@ -188,7 +188,7 @@ class Jungle:
 
     def feeding(self):
         """
-        Method that makes all animals in the cell feed
+        Method that makes all animals in the cell feed.
 
         Returns
         -------
@@ -228,7 +228,13 @@ class Jungle:
         self.move_new_animals()
 
     def migration(self):
-        """Dummy. Migration is handled by the class Island"""
+        """
+        Dummy. Migration is handled by the class Island.
+
+        Returns
+        -------
+
+        """
 
     def aging(self):
         """
@@ -249,13 +255,12 @@ class Jungle:
         -------
 
         """
-        """Method that makes all animals in the cell lose weight"""
         for animal in self.herbivores + self.carnivores:
             animal.loss_of_weight()
 
     def death(self):
         """
-        Method that makes some animals in the cell die, and remove them
+        Method that makes some animals in the cell die, and remove them.
 
         Returns
         -------
@@ -292,7 +297,7 @@ class Savannah(Jungle):
 
 class Desert(Jungle):
     """
-    Desert is a sublass of Jungle inheriting most of its methods
+    Desert is a subclass of Jungle, inheriting most of its methods
     """
 
     def __init__(self):
@@ -317,9 +322,10 @@ class Desert(Jungle):
 
         """
 
+
 class Ocean:
     """
-    Class for Ocean landscape
+    Class for Ocean landscape. Is passive.
     """
     def __init__(self):
         """"""
@@ -327,7 +333,7 @@ class Ocean:
 
 class Mountain:
     """
-    class for mountain landscape
+    Class for mountain landscape. Is passive.
     """
     def __init__(self):
         """"""
