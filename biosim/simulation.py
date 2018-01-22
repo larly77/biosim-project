@@ -61,8 +61,23 @@ class BioSim:
 
         """
 
+        island_shape = np.shape(self.island.cells)  # type: tuple
+        points_on_island = []
+        for i in range(1, island_shape[0] + 1):
+            for j in range(1, island_shape[1] + 1):
+                points_on_island.append((i, j))
+
         for index in range(len(population)):
-            coordinates = population[index]['loc']
+
+            if type(population[index]['loc']) is tuple:
+                if population[index]['loc'] in points_on_island:
+                    coordinates = population[index]['loc']
+                else:
+                    raise IndexError('The coordinates must exist on the island'
+                                     ': (x, y). (1,1) is the upper left corner')
+            else:
+                raise TypeError("'loc' must be tuple with coordinates: (x, y)")
+
             coordinates = (coordinates[0] - 1, coordinates[1] - 1)
             animals = population[index]['pop']
             self.island.add_animal_island(coordinates, animals)
