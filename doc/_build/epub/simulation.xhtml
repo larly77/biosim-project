@@ -22,16 +22,20 @@
 <h2>The simulation module</h2>
 <span class="target" id="module-biosim.simulation"></span><dl class="class">
 <dt id="biosim.simulation.BioSim">
-<em class="property">class </em><code class="descclassname">biosim.simulation.</code><code class="descname">BioSim</code><span class="sig-paren">(</span><em>island_map</em>, <em>ini_pop=None</em>, <em>seed=12345</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property">class </em><code class="descclassname">biosim.simulation.</code><code class="descname">BioSim</code><span class="sig-paren">(</span><em>island_map</em>, <em>ini_pop=None</em>, <em>seed=12345</em>, <em>img_dir=None</em>, <em>img_name='Rossumoya'</em>, <em>img_format='png'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>class for the simulation</p>
 <dl class="method">
 <dt id="biosim.simulation.BioSim.add_population">
 <code class="descname">add_population</code><span class="sig-paren">(</span><em>population</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.add_population"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>method for adding a population to the island</p>
-<dl class="docutils">
-<dt>population <span class="classifier-delimiter">:</span> <span class="classifier">list</span></dt>
-<dd>A list of animals, containing dictionaries for each animal</dd>
-</dl>
+<dd><p>Method for adding a population to the island</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>population</strong> (<em>list</em>) &#8211; A list of animals, containing dictionaries for each animal</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -50,7 +54,23 @@
 <dt id="biosim.simulation.BioSim.make_line_plot">
 <code class="descname">make_line_plot</code><span class="sig-paren">(</span><em>vis_steps</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.make_line_plot"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Method for making the line plot</p>
-<p>vis_steps</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vis_steps</strong> &#8211; Variable entered in BioSim.simulation.
+How often the graphics are updated.
+Examples: 1 = updated each year. 2 = every second year</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.make_movie">
+<code class="descname">make_movie</code><span class="sig-paren">(</span><em>movie_format='mp4'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.make_movie"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Creates MPEG4 movie from visualization images saved.</p>
+<p>The movie is stored as img_base + movie_format</p>
 </dd></dl>
 
 <dl class="method">
@@ -63,10 +83,14 @@
 <dt id="biosim.simulation.BioSim.make_visualization">
 <code class="descname">make_visualization</code><span class="sig-paren">(</span><em>vis_steps</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.make_visualization"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Method for making the visualization</p>
-<dl class="docutils">
-<dt>vis_steps <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd>How often the graphics should be updated, in years</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vis_steps</strong> (<em>int</em>) &#8211; How often the graphics should be updated, in years</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -82,79 +106,121 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="biosim.simulation.BioSim.save_graphics">
+<code class="descname">save_graphics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.save_graphics"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Saves graphics to file if file name given.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="biosim.simulation.BioSim.set_axis_limits">
-<code class="descname">set_axis_limits</code><span class="sig-paren">(</span><em>x_limits</em>, <em>y_limits</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.set_axis_limits"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">set_axis_limits</code><span class="sig-paren">(</span><em>x_limits=None</em>, <em>y_limits=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.set_axis_limits"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Method for setting the x and y-limits on the line graph</p>
-<dl class="docutils">
-<dt>x_limits <span class="classifier-delimiter">:</span> <span class="classifier">tuple, list</span></dt>
-<dd>tuple or list containing the lower and upper boundaries for the
-x axis</dd>
-<dt>y_limits <span class="classifier-delimiter">:</span> <span class="classifier">tuple, list</span></dt>
-<dd>tuple or list containing the lower and upper boundaries for the
-y axis</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x_limits</strong> (<em>tuple</em><em>, </em><em>list</em>) &#8211; tuple or list containing the lower and upper boundaries for the
+x axis</li>
+<li><strong>y_limits</strong> (<em>tuple</em><em>, </em><em>list</em>) &#8211; tuple or list containing the lower and upper boundaries for the
+y axis</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="biosim.simulation.BioSim.set_color_code_limits">
 <code class="descname">set_color_code_limits</code><span class="sig-paren">(</span><em>herbivore_colors</em>, <em>carnivore_colors</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.set_color_code_limits"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Method for setting the color code limits for each species</p>
-<dl class="docutils">
-<dt>herbivore_colors <span class="classifier-delimiter">:</span> <span class="classifier">tuple</span></dt>
-<dd>boundaries for the color representation for number of herbivores</dd>
-<dt>carnivore_colors <span class="classifier-delimiter">:</span> <span class="classifier">tuple</span></dt>
-<dd>boundaries for the color representation for number of herbivores</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>herbivore_colors</strong> (<em>tuple</em>) &#8211; boundaries for the color representation for number of herbivores</li>
+<li><strong>carnivore_colors</strong> (<em>tuple</em>) &#8211; boundaries for the color representation for number of herbivores</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="biosim.simulation.BioSim.simulate">
 <code class="descname">simulate</code><span class="sig-paren">(</span><em>num_steps</em>, <em>vis_steps=1</em>, <em>img_steps=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.simulate"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Method for simulating the entire island</p>
-<dl class="docutils">
-<dt>num_steps <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd>Numbers of years to be simulated</dd>
-<dt>vis_steps <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd>How often the graphics should be updated, in years</dd>
-</dl>
-<p>img_steps : How often the graphic should be saved</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>num_steps</strong> (<em>int</em>) &#8211; Numbers of years to be simulated</li>
+<li><strong>vis_steps</strong> (<em>int</em>) &#8211; How often the graphics should be updated, in years</li>
+<li><strong>img_steps</strong> (<em>How often the graphic should be saved</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="biosim.simulation.BioSim.status_number_of_animals_by_species">
 <code class="descname">status_number_of_animals_by_species</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.status_number_of_animals_by_species"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>method for getting number of herbivores and carnivores on screen</p>
-<dl class="docutils">
-<dt>dictionary <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
-<dd>A dictionary containing number herbivores and carnivores on island</dd>
-</dl>
+<dd><p>Method for getting number of herbivores and carnivores on screen</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>dictionary</strong> &#8211; A dictionary containing number herbivores and carnivores on island</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="biosim.simulation.BioSim.status_number_of_animals_total">
 <code class="descname">status_number_of_animals_total</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.status_number_of_animals_total"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>method for getting the total amount of animals on screen</p>
+<dd><p>Method for getting the total amount of animals on screen</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="biosim.simulation.BioSim.status_per_cell_animal_count">
 <code class="descname">status_per_cell_animal_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.status_per_cell_animal_count"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Method for getting number of each species in each cell, using pandas</p>
-<dl class="docutils">
-<dt>df <span class="classifier-delimiter">:</span> <span class="classifier">pandas.DataFrame</span></dt>
-<dd>A table containing each cell and the number of each species on
-each cell</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>df</strong> &#8211; A table containing each cell and the number of each species on
+each cell</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pandas.DataFrame</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="biosim.simulation.BioSim.status_year">
 <code class="descname">status_year</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.xhtml#BioSim.status_year"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>method for getting the current year on screen</p>
-<dl class="docutils">
-<dt>self.year <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd>the current year</dd>
-</dl>
+<dd><p>Method for getting the current year on screen</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>self.year</strong> &#8211; the current year</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">

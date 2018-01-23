@@ -47,12 +47,13 @@ DEFAULT_CARNIVORE_PARAMETERS = {'w_birth': 6.0,
 
 class TestAnimal:
     """
-    class for testing animal
+    Class for testing animal.
     """
     @pytest.fixture(autouse=True)
     def set_default_animal(self):
         """
-        method for resetting to default parameters for herbivore and carnivore
+        Method for resetting to default parameters for herbivore and carnivore
+
         Returns
         -------
 
@@ -62,7 +63,8 @@ class TestAnimal:
 
     def test_init_parameters(self):
         """
-        test for init_parameters, that we can change parameters
+        Test for init_parameters, that we can change parameters
+
         Returns
         -------
 
@@ -76,7 +78,8 @@ class TestAnimal:
 
     def test_set_parameters(self):
         """
-        test for method set_parameters
+        Test for method set_parameters.
+
         Returns
         -------
 
@@ -89,7 +92,8 @@ class TestAnimal:
 
     def test_feeding_plenty(self):
         """
-        Test for herbivore feeding method with plenty of fodder
+        Test for herbivore feeding method with plenty of fodder.
+
         Returns
         -------
 
@@ -102,7 +106,8 @@ class TestAnimal:
 
     def test_feeding_little(self):
         """
-        Test for herbivore feeding method with little fodder
+        Test for herbivore feeding method with little fodder.
+
         Returns
         -------
 
@@ -116,7 +121,8 @@ class TestAnimal:
 
     def test_feeding_none(self):
         """
-        Test for herbivore feeding method with no fodder
+        Test for herbivore feeding method with no fodder.
+
         Returns
         -------
 
@@ -130,7 +136,8 @@ class TestAnimal:
 
     def test_aging(self):
         """
-        Tests that the animal's age increases properly, including fitness
+        Tests that the animal's age increases properly, including fitness.
+
         Returns
         -------
 
@@ -150,7 +157,8 @@ class TestAnimal:
 
     def test_loss_of_weight(self):
         """
-        Tests that the animal loses weight, including fitness update
+        Tests that the animal loses weight, including fitness update.
+
         Returns
         -------
 
@@ -166,7 +174,8 @@ class TestAnimal:
 
     def test_feeding_carnivore_fit(self):
         """
-        Test for carnivore feeding method, with fit carnivore
+        Test for carnivore feeding method, with fit carnivore.
+
         Returns
         -------
 
@@ -186,7 +195,8 @@ class TestAnimal:
 
     def test_feeding_carnivore_unfit(self):
         """
-        Test for carnivore feeding method, with unfit carnivore
+        Test for carnivore feeding method, with unfit carnivore.
+
         Returns
         -------
 
@@ -206,7 +216,8 @@ class TestAnimal:
 
     def test_feeding_carnivore_appetite(self):
         """
-        Test for a fit carnivore's feeding method, with low appetite
+        Test for a fit carnivore's feeding method, with low appetite.
+
         Returns
         -------
 

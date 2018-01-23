@@ -80,7 +80,8 @@ class TestIsland:
     @pytest.fixture(autouse=True)
     def set_default_animal(self):
         """
-        method for resetting parameters for herbivores and carnivores
+        Method for resetting parameters for herbivores and carnivores.
+
         Returns
         -------
 
@@ -91,6 +92,7 @@ class TestIsland:
     def test_string_to_array(self):
         """
         Test for the method Island.string_to_array
+
         Returns
         -------
 
@@ -104,7 +106,8 @@ class TestIsland:
 
     def test_array_to_island(self):
         """
-        test for converting the array into a map
+        Test for converting the array into a map
+
         Returns
         -------
 
@@ -120,7 +123,8 @@ class TestIsland:
 
     def test_add_animal_island(self):
         """
-        test for adding animals to map
+        Test for adding animals to map.
+
         Returns
         -------
 
@@ -142,7 +146,8 @@ class TestIsland:
 
     def test_get_direction(self):
         """
-        test for getting direction to move
+        Test for getting direction to move.
+
         Returns
         -------
 
@@ -157,7 +162,8 @@ class TestIsland:
 
     def test_get_random_coordinates(self):
         """
-        test for getting random coordinates, for type and length
+        Test for getting random coordinates, for type and length.
+
         Returns
         -------
 
@@ -168,12 +174,12 @@ class TestIsland:
 
     def test_get_pi_values_herbivores(self):
         """
-        test for getting pi-values for herbivores
+        Test for getting pi-values for herbivores
+
         Returns
         -------
 
         """
-        """test for getting pi-values for herbivores"""
 
         i1 = Island(ISLE_MAP2)
         coordinate = (2, 3)
@@ -189,7 +195,8 @@ class TestIsland:
 
     def test_get_pi_values_carnivores_no_herb(self):
         """
-        test for getting pi_values for carnivores without any herbivores
+        Test for getting pi_values for carnivores without any herbivores
+
         Returns
         -------
 
@@ -208,9 +215,10 @@ class TestIsland:
 
     def test_get_pi_values_carnivores_with_herbs_and_carns(self):
         """
-        test for getting pi values
+        Test for getting pi values
 
         We also test with extra herbivores and carnivores in adjacent cells
+
         Returns
         -------
 
@@ -235,7 +243,8 @@ class TestIsland:
 
     def test_cell_move_herbivore_and_carnivore(self):
         """
-        test for moving herbivore and carnivore
+        Test for moving herbivore and carnivore
+
         Returns
         -------
 
@@ -272,7 +281,8 @@ class TestIsland:
 
     def test_migration(self):
         """
-        test for migration
+        Test for migration
+
         Returns
         -------
 

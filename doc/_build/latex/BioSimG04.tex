@@ -69,7 +69,7 @@ on an island
 
 
 \chapter{Animals}
-\label{\detokenize{animals:welcome-to-biosim-g04-s-documentation}}\label{\detokenize{animals:animals}}\label{\detokenize{animals::doc}}
+\label{\detokenize{animals:animals}}\label{\detokenize{animals::doc}}\label{\detokenize{animals:welcome-to-biosim-g04-s-documentation}}
 
 \section{The animals module}
 \label{\detokenize{animals:the-animals-module}}\phantomsection\label{\detokenize{animals:module-biosim.animals}}\index{biosim.animals (module)}\index{Carnivore (class in biosim.animals)}
@@ -80,14 +80,17 @@ Constructor method for carnivore with entered age and weight.
 
 The carnivore class is a subclass of the Herbivore class, using most of
 the methods from Herbivore except the feeding method.
-\begin{description}
-\item[{age}] \leavevmode{[}int{]}
-Age of animal
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{age} (\sphinxstyleliteralemphasis{int}) -- Age of animal
 
-\item[{weight}] \leavevmode{[}float{]}
-Weight of animal
+\item {} 
+\sphinxstyleliteralstrong{weight} (\sphinxstyleliteralemphasis{float}) -- Weight of animal
 
-\end{description}
+\end{itemize}
+
+\end{description}\end{quote}
 \index{feeding() (biosim.animals.Carnivore method)}
 
 \begin{fulllineitems}
@@ -99,17 +102,18 @@ and checks if the carnivore eats it or not. This depends on fitness of
 both carnivore an herbivore, the parameters `DeltaPhiMax' and `beta',
 and the appetite of the carnivore.
 It also updates the weight and fitness of the carnivore.
-\begin{description}
-\item[{preys}] \leavevmode{[}list{]}
-A list of all the herbivores on the same tile as the given carnivore
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{preys} (\sphinxstyleliteralemphasis{list}) -- A list of all the herbivores on the same tile as the given carnivore
 
-\end{description}
-\begin{description}
-\item[{eaten\_bool}] \leavevmode{[}list{]}
-A list of true/false values for which herbivores to be eaten.
+\item[{Returns}] \leavevmode
+\sphinxstylestrong{eaten\_bool} -- A list of true/false values for which herbivores to be eaten.
 False means it is to be eaten, and removed for the cell.
 
-\end{description}
+\item[{Return type}] \leavevmode
+list
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -121,14 +125,17 @@ False means it is to be eaten, and removed for the cell.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{animals:biosim.animals.Herbivore}}\pysiglinewithargsret{\sphinxstrong{class }\sphinxcode{biosim.animals.}\sphinxbfcode{Herbivore}}{\emph{age}, \emph{weight}}{}
 Constructor-method for making an herbivore of set age and weight.
-\begin{description}
-\item[{age}] \leavevmode{[}int{]}
-Age of herbivore
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{age} (\sphinxstyleliteralemphasis{int}) -- Age of herbivore
 
-\item[{weight}] \leavevmode{[}float{]}
-Weight of herbivore
+\item {} 
+\sphinxstyleliteralstrong{weight} (\sphinxstyleliteralemphasis{float}) -- Weight of herbivore
 
-\end{description}
+\end{itemize}
+
+\end{description}\end{quote}
 \index{aging() (biosim.animals.Herbivore method)}
 
 \begin{fulllineitems}
@@ -153,19 +160,25 @@ parameter `omega'
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{animals:biosim.animals.Herbivore.feeding}}\pysiglinewithargsret{\sphinxbfcode{feeding}}{\emph{landscape\_instance}}{}
 Handles the feeding of  the animal
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{landscape\_instance} (\sphinxstyleliteralemphasis{The tile}\sphinxstyleliteralemphasis{, }\sphinxstyleliteralemphasis{that the given animal is in}) -- 
 
-landscape\_instance : The tile, that the given animal is in
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
 \index{get\_weight() (biosim.animals.Herbivore method)}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{animals:biosim.animals.Herbivore.get_weight}}\pysiglinewithargsret{\sphinxbfcode{get\_weight}}{}{}~\begin{description}
-\item[{float}] \leavevmode
+\phantomsection\label{\detokenize{animals:biosim.animals.Herbivore.get_weight}}\pysiglinewithargsret{\sphinxbfcode{get\_weight}}{}{}~\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
 The weight of the animal
 
-\end{description}
+\item[{Return type}] \leavevmode
+float
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -185,11 +198,14 @@ A method for decreasing the weight of animal every year by a parameter
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{animals:biosim.animals.Herbivore.migration}}\pysiglinewithargsret{\sphinxbfcode{migration}}{}{}
 Method for checking if the animal will migrate
-\begin{description}
-\item[{bool}] \leavevmode
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
 True or False value; if the animal wil move or not
 
-\end{description}
+\item[{Return type}] \leavevmode
+bool
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -198,14 +214,17 @@ True or False value; if the animal wil move or not
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{animals:biosim.animals.Herbivore.procreation}}\pysiglinewithargsret{\sphinxbfcode{procreation}}{\emph{landscape\_instance}, \emph{number\_of\_adults}}{}
 Handles the procreation of the animals
-\begin{description}
-\item[{landscape\_instance}] \leavevmode{[}object{]}
-The tile of the animal
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{landscape\_instance} (\sphinxstyleliteralemphasis{object}) -- The tile of the animal
 
-\item[{number\_of\_adults}] \leavevmode{[}int{]}
-Number of animals old enough to procreate
+\item {} 
+\sphinxstyleliteralstrong{number\_of\_adults} (\sphinxstyleliteralemphasis{int}) -- Number of animals old enough to procreate
 
-\end{description}
+\end{itemize}
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -217,21 +236,22 @@ Method that allows the user to set parameter values for the animal.
 
 Method that allows the user to set parameter values for the animal.
 This replaces the default values.
-\begin{description}
-\item[{parameter\_changes}] \leavevmode{[}dictionary{]}
-A dictionary with one or more keys to set new parameters for the
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{parameter\_changes} (\sphinxstyleliteralemphasis{dictionary}) -- A dictionary with one or more keys to set new parameters for the
 animal. The items should be numeric.
 
-\end{description}
-\begin{description}
-\item[{KeyError}] \leavevmode
-If parameter\_changes contain key(s) not already in the parameters.
+\item[{Raises}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxcode{KeyError} -- If parameter\_changes contain key(s) not already in the parameters.
 
-\item[{ValueError}] \leavevmode
-If parameter values that are to be set are not valid, such as
+\item {} 
+\sphinxcode{ValueError} -- If parameter values that are to be set are not valid, such as
 negative amounts of fodder/weight.
 
-\end{description}
+\end{itemize}
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -261,29 +281,30 @@ The attribute self.fitness is updated.
 Class for the island
 
 Constructor method for class Island
-\begin{description}
-\item[{island\_map}] \leavevmode{[}str{]}
-A string representing the map
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{island\_map} (\sphinxstyleliteralemphasis{str}) -- A string representing the map
 
-\end{description}
+\end{description}\end{quote}
 \index{add\_animal\_island() (biosim.island.Island method)}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{island:biosim.island.Island.add_animal_island}}\pysiglinewithargsret{\sphinxbfcode{add\_animal\_island}}{\emph{coordinates}, \emph{animals\_list}}{}
 Method for adding animals to the island
-\begin{description}
-\item[{coordinates}] \leavevmode{[}tuple{]}
-Where to put the animals on the island
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{coordinates} (\sphinxstyleliteralemphasis{tuple}) -- Where to put the animals on the island
 
-\item[{animals\_list}] \leavevmode{[}list{]}
-The list of animals to put on the island
+\item {} 
+\sphinxstyleliteralstrong{animals\_list} (\sphinxstyleliteralemphasis{list}) -- The list of animals to put on the island
 
-\end{description}
-\begin{description}
-\item[{ValueError}] \leavevmode
-If coordinates is not in jungle, savannah or desert
+\end{itemize}
 
-\end{description}
+\item[{Raises}] \leavevmode
+\sphinxcode{ValueError} -- If coordinates is not in jungle, savannah or desert
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -309,11 +330,11 @@ changes the array consisting of strings into an array consisting of
 instances of classes depedning on the letter that was previously in
 the array, for example `J' would turn into an instance of the
 Jungle-class. These are stored in Island.cells
-\begin{description}
-\item[{SyntaxError}] \leavevmode
-If self.map contain other letters than `J', `S', `D', `O', `M'.
+\begin{quote}\begin{description}
+\item[{Raises}] \leavevmode
+\sphinxcode{SyntaxError} -- If self.map contain other letters than `J', `S', `D', `O', `M'.
 
-\end{description}
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -322,11 +343,11 @@ If self.map contain other letters than `J', `S', `D', `O', `M'.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{island:biosim.island.Island.cell_move_carnivores}}\pysiglinewithargsret{\sphinxbfcode{cell\_move\_carnivores}}{\emph{coordinate}}{}
 Method for moving herbivores in given cell, if they should move
-\begin{description}
-\item[{coordinate}] \leavevmode{[}tuple{]}
-coordinates in which to move herbivores
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{coordinate} (\sphinxstyleliteralemphasis{tuple}) -- coordinates in which to move herbivores
 
-\end{description}
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -335,11 +356,11 @@ coordinates in which to move herbivores
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{island:biosim.island.Island.cell_move_herbivores}}\pysiglinewithargsret{\sphinxbfcode{cell\_move\_herbivores}}{\emph{coordinate}}{}
 Method for moving herbivores in given cell, if they should move
-\begin{description}
-\item[{coordinate}] \leavevmode{[}tuple{]}
-coordinates in which to move herbivores
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{coordinate} (\sphinxstyleliteralemphasis{tuple}) -- coordinates in which to move herbivores
 
-\end{description}
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -350,8 +371,6 @@ coordinates in which to move herbivores
 Simulates one cycle/year
 
 Every method is done in the order specified in the assignment
-Returns
--------
 
 \end{fulllineitems}
 
@@ -360,14 +379,18 @@ Returns
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{island:biosim.island.Island.get_direction}}\pysiglinewithargsret{\sphinxstrong{static }\sphinxbfcode{get\_direction}}{\emph{pi\_values}}{}
 Method for getting the direction for the animal to move in
-\begin{description}
-\item[{pi\_values}] \leavevmode{[}tuple{]}
-Values used to calculate the direction, found in the method;
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{pi\_values} (\sphinxstyleliteralemphasis{tuple}) -- Values used to calculate the direction, found in the method;
 get\_pi\_values\_herbivores and get\_pi\_values\_carnivores
 
-\end{description}
+\item[{Returns}] \leavevmode
 
+
+\item[{Return type}] \leavevmode
 Direction as a string for example `right' or `left
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -376,16 +399,17 @@ Direction as a string for example `right' or `left
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{island:biosim.island.Island.get_pi_values_carnivores}}\pysiglinewithargsret{\sphinxbfcode{get\_pi\_values\_carnivores}}{\emph{coordinate}}{}
 Method for calculating pi-values(propensity) for carnivores
-\begin{description}
-\item[{coordinate}] \leavevmode{[}tuple{]}
-Coordinates  from which to find the animals to calculate pi's for
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{coordinate} (\sphinxstyleliteralemphasis{tuple}) -- Coordinates  from which to find the animals to calculate pi's for
 
-\end{description}
-\begin{description}
-\item[{pi\_right, pi\_up, pi\_left, pi\_down}] \leavevmode{[}float{]}
-Different propensity-values for each direction in given cell
+\item[{Returns}] \leavevmode
+\sphinxstylestrong{pi\_right, pi\_up, pi\_left, pi\_down} -- Different propensity-values for each direction in given cell
 
-\end{description}
+\item[{Return type}] \leavevmode
+float
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -394,16 +418,17 @@ Different propensity-values for each direction in given cell
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{island:biosim.island.Island.get_pi_values_herbivores}}\pysiglinewithargsret{\sphinxbfcode{get\_pi\_values\_herbivores}}{\emph{coordinate}}{}
 Method for calculating pi-values(propensity) for herbivores
-\begin{description}
-\item[{coordinate}] \leavevmode{[}tuple{]}
-Coordinates  from which to find the animals to calculate pi's for
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{coordinate} (\sphinxstyleliteralemphasis{tuple}) -- Coordinates  from which to find the animals to calculate pi's for
 
-\end{description}
-\begin{description}
-\item[{pi\_right, pi\_up, pi\_left, pi\_down}] \leavevmode{[}float{]}
-Different propensity-values for each direction in given cell
+\item[{Returns}] \leavevmode
+\sphinxstylestrong{pi\_right, pi\_up, pi\_left, pi\_down} -- Different propensity-values for each direction in given cell
 
-\end{description}
+\item[{Return type}] \leavevmode
+float
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -415,11 +440,14 @@ Method for getting random coordinates from the island
 
 Shuffles the coordinates on the island, for use in a different method
 excludes the ocean at the edge of the island
-\begin{description}
-\item[{points\_on\_island}] \leavevmode{[}list{]}
-a randomly shuffled list of coordinates from the island
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+\sphinxstylestrong{points\_on\_island} -- a randomly shuffled list of coordinates from the island
 
-\end{description}
+\item[{Return type}] \leavevmode
+list
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -439,8 +467,14 @@ including all new animals in that were appended in the move-methods
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{island:biosim.island.Island.number_of_carnivores_island}}\pysiglinewithargsret{\sphinxbfcode{number\_of\_carnivores\_island}}{}{}
 Method for getting the total amount of herbivores on island
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
 
+
+\item[{Return type}] \leavevmode
 Number of carnivores on island
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -449,8 +483,14 @@ Number of carnivores on island
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{island:biosim.island.Island.number_of_herbivores_island}}\pysiglinewithargsret{\sphinxbfcode{number\_of\_herbivores\_island}}{}{}
 Method for getting the total amount of herbivores on island
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
 
+
+\item[{Return type}] \leavevmode
 Number of herbivores on island
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -459,17 +499,18 @@ Number of herbivores on island
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{island:biosim.island.Island.string_to_array}}\pysiglinewithargsret{\sphinxbfcode{string\_to\_array}}{}{}
 A method for concerting thr given string into an array
-\begin{description}
-\item[{map\_arr}] \leavevmode{[}arr{]}
-An array of the map, where each letter has a seperate place
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+\sphinxstylestrong{map\_arr} -- An array of the map, where each letter has a seperate place
 
-\end{description}
-\begin{description}
-\item[{SyntaxError}] \leavevmode
-If self.map have lines of unequal length.
+\item[{Return type}] \leavevmode
+arr
+
+\item[{Raises}] \leavevmode
+\sphinxcode{SyntaxError} -- If self.map have lines of unequal length.
 If self.map have edges unequal to `O'.
 
-\end{description}
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -479,7 +520,7 @@ If self.map have edges unequal to `O'.
 
 
 \chapter{Landscape}
-\label{\detokenize{landscape::doc}}\label{\detokenize{landscape:landscape}}
+\label{\detokenize{landscape:landscape}}\label{\detokenize{landscape::doc}}
 
 \section{The landscape module}
 \label{\detokenize{landscape:the-landscape-module}}\phantomsection\label{\detokenize{landscape:module-biosim.landscape}}\index{biosim.landscape (module)}\index{Desert (class in biosim.landscape)}
@@ -518,14 +559,17 @@ Constructor for the jungle class
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{landscape:biosim.landscape.Jungle.add_carnivore}}\pysiglinewithargsret{\sphinxbfcode{add\_carnivore}}{\emph{age}, \emph{weight}}{}
 Method for adding a carnivore into the landscape-cell
-\begin{description}
-\item[{age}] \leavevmode{[}int{]}
-The age for the carnivore to be added
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{age} (\sphinxstyleliteralemphasis{int}) -- The age for the carnivore to be added
 
-\item[{weight}] \leavevmode{[}float{]}
-The weight for the carnivore to be added
+\item {} 
+\sphinxstyleliteralstrong{weight} (\sphinxstyleliteralemphasis{float}) -- The weight for the carnivore to be added
 
-\end{description}
+\end{itemize}
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -534,14 +578,17 @@ The weight for the carnivore to be added
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{landscape:biosim.landscape.Jungle.add_herbivore}}\pysiglinewithargsret{\sphinxbfcode{add\_herbivore}}{\emph{age}, \emph{weight}}{}
 Method for adding a herbivore into the landscape instance.
-\begin{description}
-\item[{age}] \leavevmode{[}int{]}
-The age for the herbivore to be added
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{age} (\sphinxstyleliteralemphasis{int}) -- The age for the herbivore to be added
 
-\item[{weight}] \leavevmode{[}float{]}
-The weight for the animal to be added
+\item {} 
+\sphinxstyleliteralstrong{weight} (\sphinxstyleliteralemphasis{float}) -- The weight for the animal to be added
 
-\end{description}
+\end{itemize}
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -574,11 +621,14 @@ Method that makes all animals in the cell feed.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{landscape:biosim.landscape.Jungle.get_abundance_carnivore}}\pysiglinewithargsret{\sphinxbfcode{get\_abundance\_carnivore}}{}{}
 Method for calculating abundance of food for carnivore in landscape.
-\begin{description}
-\item[{ek}] \leavevmode{[}float{]}
-Abundance of food for carnivores in landscape
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+\sphinxstylestrong{ek} -- Abundance of food for carnivores in landscape
 
-\end{description}
+\item[{Return type}] \leavevmode
+float
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -587,11 +637,14 @@ Abundance of food for carnivores in landscape
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{landscape:biosim.landscape.Jungle.get_abundance_herbivore}}\pysiglinewithargsret{\sphinxbfcode{get\_abundance\_herbivore}}{}{}
 Method for calculating abundance of food for herbivore in landscape.
-\begin{description}
-\item[{ek}] \leavevmode{[}float{]}
-Abundance of food for herbivores in landscape.
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+\sphinxstylestrong{ek} -- Abundance of food for herbivores in landscape.
 
-\end{description}
+\item[{Return type}] \leavevmode
+float
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -600,11 +653,14 @@ Abundance of food for herbivores in landscape.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{landscape:biosim.landscape.Jungle.get_carnivores}}\pysiglinewithargsret{\sphinxbfcode{get\_carnivores}}{}{}
 Method for getting a list of all carnivores in the landscape instance
-\begin{description}
-\item[{self.carnivores}] \leavevmode{[}list{]}
-List of carnivores in landscape instance.
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+\sphinxstylestrong{self.carnivores} -- List of carnivores in landscape instance.
 
-\end{description}
+\item[{Return type}] \leavevmode
+list
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -613,11 +669,14 @@ List of carnivores in landscape instance.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{landscape:biosim.landscape.Jungle.get_fodder}}\pysiglinewithargsret{\sphinxbfcode{get\_fodder}}{}{}
 Method for getting fodder in the landscape instance.
-\begin{description}
-\item[{self.fodder}] \leavevmode{[}int{]}
-Amount of fodder left is landscape instance.
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+\sphinxstylestrong{self.fodder} -- Amount of fodder left is landscape instance.
 
-\end{description}
+\item[{Return type}] \leavevmode
+int
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -626,11 +685,14 @@ Amount of fodder left is landscape instance.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{landscape:biosim.landscape.Jungle.get_herbivores}}\pysiglinewithargsret{\sphinxbfcode{get\_herbivores}}{}{}
 Method for getting a list of all herbivore in the landscape instance
-\begin{description}
-\item[{self.hebivores}] \leavevmode{[}list{]}
-List of herbivores in instance
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+\sphinxstylestrong{self.hebivores} -- List of herbivores in instance
 
-\end{description}
+\item[{Return type}] \leavevmode
+list
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -671,11 +733,11 @@ Method that makes all animals in the cell try to procreate
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{landscape:biosim.landscape.Jungle.reduce_fodder}}\pysiglinewithargsret{\sphinxbfcode{reduce\_fodder}}{\emph{amount}}{}
 Method for reducing the amount of fodder available in landscape instance
-\begin{description}
-\item[{amount}] \leavevmode{[}float, int{]}
-How much fodder is to be removed from landscape instance.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{amount} (\sphinxstyleliteralemphasis{float}\sphinxstyleliteralemphasis{, }\sphinxstyleliteralemphasis{int}) -- How much fodder is to be removed from landscape instance.
 
-\end{description}
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -692,11 +754,11 @@ Method that resets the amount of fodder in the jungle to f\_max.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{landscape:biosim.landscape.Jungle.set_parameters}}\pysiglinewithargsret{\sphinxstrong{classmethod }\sphinxbfcode{set\_parameters}}{\emph{parameter\_changes}}{}
 Method that allows the user to set parameter values for the landscape.
-\begin{description}
-\item[{parameter\_changes}] \leavevmode{[}dict{]}
-The changes to be made to the parameters
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{parameter\_changes} (\sphinxstyleliteralemphasis{dict}) -- The changes to be made to the parameters
 
-\end{description}
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -738,7 +800,7 @@ Method that updates the fodder amount in the savannah each year
 
 
 \chapter{Simulation}
-\label{\detokenize{simulation::doc}}\label{\detokenize{simulation:simulation}}
+\label{\detokenize{simulation:simulation}}\label{\detokenize{simulation::doc}}
 
 \section{The simulation module}
 \label{\detokenize{simulation:the-simulation-module}}\phantomsection\label{\detokenize{simulation:module-biosim.simulation}}\index{biosim.simulation (module)}\index{BioSim (class in biosim.simulation)}
@@ -751,11 +813,11 @@ class for the simulation
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.add_population}}\pysiglinewithargsret{\sphinxbfcode{add\_population}}{\emph{population}}{}
 Method for adding a population to the island
-\begin{description}
-\item[{population}] \leavevmode{[}list{]}
-A list of animals, containing dictionaries for each animal
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{population} (\sphinxstyleliteralemphasis{list}) -- A list of animals, containing dictionaries for each animal
 
-\end{description}
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -780,13 +842,13 @@ Method for making the hebrivore density map
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.make_line_plot}}\pysiglinewithargsret{\sphinxbfcode{make\_line\_plot}}{\emph{vis\_steps}}{}
 Method for making the line plot
-\begin{description}
-\item[{vis\_steps}] \leavevmode
-Variable entered in BioSim.simulation.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{vis\_steps} -- Variable entered in BioSim.simulation.
 How often the graphics are updated.
 Examples: 1 = updated each year. 2 = every second year
 
-\end{description}
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -813,11 +875,11 @@ Function to make RGB map from island-string
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.make_visualization}}\pysiglinewithargsret{\sphinxbfcode{make\_visualization}}{\emph{vis\_steps}}{}
 Method for making the visualization
-\begin{description}
-\item[{vis\_steps}] \leavevmode{[}int{]}
-How often the graphics should be updated, in years
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{vis\_steps} (\sphinxstyleliteralemphasis{int}) -- How often the graphics should be updated, in years
 
-\end{description}
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -850,16 +912,19 @@ Saves graphics to file if file name given.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.set_axis_limits}}\pysiglinewithargsret{\sphinxbfcode{set\_axis\_limits}}{\emph{x\_limits=None}, \emph{y\_limits=None}}{}
 Method for setting the x and y-limits on the line graph
-\begin{description}
-\item[{x\_limits}] \leavevmode{[}tuple, list{]}
-tuple or list containing the lower and upper boundaries for the
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{x\_limits} (\sphinxstyleliteralemphasis{tuple}\sphinxstyleliteralemphasis{, }\sphinxstyleliteralemphasis{list}) -- tuple or list containing the lower and upper boundaries for the
 x axis
 
-\item[{y\_limits}] \leavevmode{[}tuple, list{]}
-tuple or list containing the lower and upper boundaries for the
+\item {} 
+\sphinxstyleliteralstrong{y\_limits} (\sphinxstyleliteralemphasis{tuple}\sphinxstyleliteralemphasis{, }\sphinxstyleliteralemphasis{list}) -- tuple or list containing the lower and upper boundaries for the
 y axis
 
-\end{description}
+\end{itemize}
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -868,14 +933,17 @@ y axis
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.set_color_code_limits}}\pysiglinewithargsret{\sphinxbfcode{set\_color\_code\_limits}}{\emph{herbivore\_colors}, \emph{carnivore\_colors}}{}
 Method for setting the color code limits for each species
-\begin{description}
-\item[{herbivore\_colors}] \leavevmode{[}tuple{]}
-boundaries for the color representation for number of herbivores
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{herbivore\_colors} (\sphinxstyleliteralemphasis{tuple}) -- boundaries for the color representation for number of herbivores
 
-\item[{carnivore\_colors}] \leavevmode{[}tuple{]}
-boundaries for the color representation for number of herbivores
+\item {} 
+\sphinxstyleliteralstrong{carnivore\_colors} (\sphinxstyleliteralemphasis{tuple}) -- boundaries for the color representation for number of herbivores
 
-\end{description}
+\end{itemize}
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -884,16 +952,20 @@ boundaries for the color representation for number of herbivores
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.simulate}}\pysiglinewithargsret{\sphinxbfcode{simulate}}{\emph{num\_steps}, \emph{vis\_steps=1}, \emph{img\_steps=None}}{}
 Method for simulating the entire island
-\begin{description}
-\item[{num\_steps}] \leavevmode{[}int{]}
-Numbers of years to be simulated
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{num\_steps} (\sphinxstyleliteralemphasis{int}) -- Numbers of years to be simulated
 
-\item[{vis\_steps}] \leavevmode{[}int{]}
-How often the graphics should be updated, in years
+\item {} 
+\sphinxstyleliteralstrong{vis\_steps} (\sphinxstyleliteralemphasis{int}) -- How often the graphics should be updated, in years
 
-\end{description}
+\item {} 
+\sphinxstyleliteralstrong{img\_steps} (\sphinxstyleliteralemphasis{How often the graphic should be saved}) -- 
 
-img\_steps : How often the graphic should be saved
+\end{itemize}
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -902,11 +974,14 @@ img\_steps : How often the graphic should be saved
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.status_number_of_animals_by_species}}\pysiglinewithargsret{\sphinxbfcode{status\_number\_of\_animals\_by\_species}}{}{}
 Method for getting number of herbivores and carnivores on screen
-\begin{description}
-\item[{dictionary}] \leavevmode{[}dict{]}
-A dictionary containing number herbivores and carnivores on island
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+\sphinxstylestrong{dictionary} -- A dictionary containing number herbivores and carnivores on island
 
-\end{description}
+\item[{Return type}] \leavevmode
+dict
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -923,12 +998,15 @@ Method for getting the total amount of animals on screen
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.status_per_cell_animal_count}}\pysiglinewithargsret{\sphinxbfcode{status\_per\_cell\_animal\_count}}{}{}
 Method for getting number of each species in each cell, using pandas
-\begin{description}
-\item[{df}] \leavevmode{[}pandas.DataFrame{]}
-A table containing each cell and the number of each species on
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+\sphinxstylestrong{df} -- A table containing each cell and the number of each species on
 each cell
 
-\end{description}
+\item[{Return type}] \leavevmode
+pandas.DataFrame
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -937,11 +1015,14 @@ each cell
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.status_year}}\pysiglinewithargsret{\sphinxbfcode{status\_year}}{}{}
 Method for getting the current year on screen
-\begin{description}
-\item[{self.year}] \leavevmode{[}int{]}
-the current year
+\begin{quote}\begin{description}
+\item[{Returns}] \leavevmode
+\sphinxstylestrong{self.year} -- the current year
 
-\end{description}
+\item[{Return type}] \leavevmode
+int
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -991,21 +1072,19 @@ Method for updating the counter on screen
 
 
 \chapter{Tests}
-\label{\detokenize{tests::doc}}\label{\detokenize{tests:tests}}
+\label{\detokenize{tests:tests}}\label{\detokenize{tests::doc}}
 
 \section{The animal test module}
 \label{\detokenize{tests:the-animal-test-module}}\phantomsection\label{\detokenize{tests:module-biosim.tests.test_animals}}\index{biosim.tests.test\_animals (module)}\index{TestAnimal (class in biosim.tests.test\_animals)}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_animals.TestAnimal}}\pysigline{\sphinxstrong{class }\sphinxcode{biosim.tests.test\_animals.}\sphinxbfcode{TestAnimal}}
-class for testing animal
+Class for testing animal.
 \index{set\_default\_animal() (biosim.tests.test\_animals.TestAnimal method)}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_animals.TestAnimal.set_default_animal}}\pysiglinewithargsret{\sphinxbfcode{set\_default\_animal}}{}{}
-method for resetting to default parameters for herbivore and carnivore
-Returns
--------
+Method for resetting to default parameters for herbivore and carnivore
 
 \end{fulllineitems}
 
@@ -1013,9 +1092,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_animals.TestAnimal.test_aging}}\pysiglinewithargsret{\sphinxbfcode{test\_aging}}{}{}
-Tests that the animal's age increases properly, including fitness
-Returns
--------
+Tests that the animal's age increases properly, including fitness.
 
 \end{fulllineitems}
 
@@ -1023,9 +1100,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_animals.TestAnimal.test_feeding_carnivore_appetite}}\pysiglinewithargsret{\sphinxbfcode{test\_feeding\_carnivore\_appetite}}{}{}
-Test for a fit carnivore's feeding method, with low appetite
-Returns
--------
+Test for a fit carnivore's feeding method, with low appetite.
 
 \end{fulllineitems}
 
@@ -1033,9 +1108,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_animals.TestAnimal.test_feeding_carnivore_fit}}\pysiglinewithargsret{\sphinxbfcode{test\_feeding\_carnivore\_fit}}{}{}
-Test for carnivore feeding method, with fit carnivore
-Returns
--------
+Test for carnivore feeding method, with fit carnivore.
 
 \end{fulllineitems}
 
@@ -1043,9 +1116,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_animals.TestAnimal.test_feeding_carnivore_unfit}}\pysiglinewithargsret{\sphinxbfcode{test\_feeding\_carnivore\_unfit}}{}{}
-Test for carnivore feeding method, with unfit carnivore
-Returns
--------
+Test for carnivore feeding method, with unfit carnivore.
 
 \end{fulllineitems}
 
@@ -1053,9 +1124,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_animals.TestAnimal.test_feeding_little}}\pysiglinewithargsret{\sphinxbfcode{test\_feeding\_little}}{}{}
-Test for herbivore feeding method with little fodder
-Returns
--------
+Test for herbivore feeding method with little fodder.
 
 \end{fulllineitems}
 
@@ -1063,9 +1132,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_animals.TestAnimal.test_feeding_none}}\pysiglinewithargsret{\sphinxbfcode{test\_feeding\_none}}{}{}
-Test for herbivore feeding method with no fodder
-Returns
--------
+Test for herbivore feeding method with no fodder.
 
 \end{fulllineitems}
 
@@ -1073,9 +1140,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_animals.TestAnimal.test_feeding_plenty}}\pysiglinewithargsret{\sphinxbfcode{test\_feeding\_plenty}}{}{}
-Test for herbivore feeding method with plenty of fodder
-Returns
--------
+Test for herbivore feeding method with plenty of fodder.
 
 \end{fulllineitems}
 
@@ -1083,9 +1148,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_animals.TestAnimal.test_init_parameters}}\pysiglinewithargsret{\sphinxbfcode{test\_init\_parameters}}{}{}
-test for init\_parameters, that we can change parameters
-Returns
--------
+Test for init\_parameters, that we can change parameters
 
 \end{fulllineitems}
 
@@ -1093,9 +1156,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_animals.TestAnimal.test_loss_of_weight}}\pysiglinewithargsret{\sphinxbfcode{test\_loss\_of\_weight}}{}{}
-Tests that the animal loses weight, including fitness update
-Returns
--------
+Tests that the animal loses weight, including fitness update.
 
 \end{fulllineitems}
 
@@ -1103,9 +1164,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_animals.TestAnimal.test_set_parameters}}\pysiglinewithargsret{\sphinxbfcode{test\_set\_parameters}}{}{}
-test for method set\_parameters
-Returns
--------
+Test for method set\_parameters.
 
 \end{fulllineitems}
 
@@ -1124,9 +1183,7 @@ class for testing island
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_island.TestIsland.set_default_animal}}\pysiglinewithargsret{\sphinxbfcode{set\_default\_animal}}{}{}
-method for resetting parameters for herbivores and carnivores
-Returns
--------
+Method for resetting parameters for herbivores and carnivores.
 
 \end{fulllineitems}
 
@@ -1134,9 +1191,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_island.TestIsland.test_add_animal_island}}\pysiglinewithargsret{\sphinxbfcode{test\_add\_animal\_island}}{}{}
-test for adding animals to map
-Returns
--------
+Test for adding animals to map.
 
 \end{fulllineitems}
 
@@ -1144,9 +1199,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_island.TestIsland.test_array_to_island}}\pysiglinewithargsret{\sphinxbfcode{test\_array\_to\_island}}{}{}
-test for converting the array into a map
-Returns
--------
+Test for converting the array into a map
 
 \end{fulllineitems}
 
@@ -1154,9 +1207,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_island.TestIsland.test_cell_move_herbivore_and_carnivore}}\pysiglinewithargsret{\sphinxbfcode{test\_cell\_move\_herbivore\_and\_carnivore}}{}{}
-test for moving herbivore and carnivore
-Returns
--------
+Test for moving herbivore and carnivore
 
 \end{fulllineitems}
 
@@ -1164,9 +1215,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_island.TestIsland.test_get_direction}}\pysiglinewithargsret{\sphinxbfcode{test\_get\_direction}}{}{}
-test for getting direction to move
-Returns
--------
+Test for getting direction to move.
 
 \end{fulllineitems}
 
@@ -1174,9 +1223,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_island.TestIsland.test_get_pi_values_carnivores_no_herb}}\pysiglinewithargsret{\sphinxbfcode{test\_get\_pi\_values\_carnivores\_no\_herb}}{}{}
-test for getting pi\_values for carnivores without any herbivores
-Returns
--------
+Test for getting pi\_values for carnivores without any herbivores
 
 \end{fulllineitems}
 
@@ -1184,11 +1231,9 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_island.TestIsland.test_get_pi_values_carnivores_with_herbs_and_carns}}\pysiglinewithargsret{\sphinxbfcode{test\_get\_pi\_values\_carnivores\_with\_herbs\_and\_carns}}{}{}
-test for getting pi values
+Test for getting pi values
 
 We also test with extra herbivores and carnivores in adjacent cells
-Returns
--------
 
 \end{fulllineitems}
 
@@ -1196,9 +1241,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_island.TestIsland.test_get_pi_values_herbivores}}\pysiglinewithargsret{\sphinxbfcode{test\_get\_pi\_values\_herbivores}}{}{}
-test for getting pi-values for herbivores
-Returns
--------
+Test for getting pi-values for herbivores
 
 \end{fulllineitems}
 
@@ -1206,9 +1249,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_island.TestIsland.test_get_random_coordinates}}\pysiglinewithargsret{\sphinxbfcode{test\_get\_random\_coordinates}}{}{}
-test for getting random coordinates, for type and length
-Returns
--------
+Test for getting random coordinates, for type and length.
 
 \end{fulllineitems}
 
@@ -1216,9 +1257,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_island.TestIsland.test_migration}}\pysiglinewithargsret{\sphinxbfcode{test\_migration}}{}{}
-test for migration
-Returns
--------
+Test for migration
 
 \end{fulllineitems}
 
@@ -1227,8 +1266,6 @@ Returns
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_island.TestIsland.test_string_to_array}}\pysiglinewithargsret{\sphinxbfcode{test\_string\_to\_array}}{}{}
 Test for the method Island.string\_to\_array
-Returns
--------
 
 \end{fulllineitems}
 
@@ -1247,9 +1284,7 @@ Class for testing landscape
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_add_carnivores}}\pysiglinewithargsret{\sphinxbfcode{test\_add\_carnivores}}{}{}
-Method for testing add carnivore
-Returns
--------
+Method for testing add carnivore.
 
 \end{fulllineitems}
 
@@ -1257,9 +1292,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_add_herbivore}}\pysiglinewithargsret{\sphinxbfcode{test\_add\_herbivore}}{}{}
-Method for testing add\_herbivore
-Returns
--------
+Method for testing add\_herbivore.
 
 \end{fulllineitems}
 
@@ -1267,9 +1300,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_aging}}\pysiglinewithargsret{\sphinxbfcode{test\_aging}}{}{}
-Test that all animals in the cell age: the method aging
-Returns
--------
+Test that all animals in the cell age: the method aging.
 
 \end{fulllineitems}
 
@@ -1279,9 +1310,7 @@ Returns
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_death}}\pysiglinewithargsret{\sphinxbfcode{test\_death}}{}{}
 Test that some animals in the cell die: the method death
 
-do this by maniplating omega
-Returns
--------
+Does this by manipulating omega.
 
 \end{fulllineitems}
 
@@ -1291,9 +1320,7 @@ Returns
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_feeding_carnivores}}\pysiglinewithargsret{\sphinxbfcode{test\_feeding\_carnivores}}{}{}
 Test that all carnivores in the cell feeds: the method feeding
 
-do this by manipulating parameter DeltaPhiMax and the food
-Returns
--------
+Does this by manipulating parameter DeltaPhiMax and the food.
 
 \end{fulllineitems}
 
@@ -1301,9 +1328,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_feeding_jungle}}\pysiglinewithargsret{\sphinxbfcode{test\_feeding\_jungle}}{}{}
-Test that all herbivores in the cell feed: the method feeding
-Returns
--------
+Test that all herbivores in the cell feed: the method feeding.
 
 \end{fulllineitems}
 
@@ -1311,9 +1336,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_feeding_savannah}}\pysiglinewithargsret{\sphinxbfcode{test\_feeding\_savannah}}{}{}
-Test that all herbivores in the cell feed: the method feeding
-Returns
--------
+Test that all herbivores in the cell feed: the method feeding.
 
 \end{fulllineitems}
 
@@ -1321,9 +1344,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_get_fodder}}\pysiglinewithargsret{\sphinxbfcode{test\_get\_fodder}}{}{}
-Test for method get\_fodder
-Returns
--------
+Test for method get\_fodder.
 
 \end{fulllineitems}
 
@@ -1331,9 +1352,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_loss_of_weight}}\pysiglinewithargsret{\sphinxbfcode{test\_loss\_of\_weight}}{}{}
-Test that all animal in cell lose weight:the method loss\_of\_weight
-Returns
--------
+Test that all animal in cell lose weight:the method loss\_of\_weight.
 
 \end{fulllineitems}
 
@@ -1341,11 +1360,9 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_procreation}}\pysiglinewithargsret{\sphinxbfcode{test\_procreation}}{}{}
-Test that all animals in cell procreate: the method procreation
+Test that all animals in cell procreate: the method procreation.
 
-Do this by manipulating the parameter gamma
-Returns
--------
+Do this by manipulating the parameter gamma.
 
 \end{fulllineitems}
 
@@ -1353,9 +1370,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_reduce_fodder}}\pysiglinewithargsret{\sphinxbfcode{test\_reduce\_fodder}}{}{}
-Test for method reduce\_fodder
-Returns
--------
+Test for method reduce\_fodder.
 
 \end{fulllineitems}
 
@@ -1363,9 +1378,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_reset_fodder_jungle}}\pysiglinewithargsret{\sphinxbfcode{test\_reset\_fodder\_jungle}}{}{}
-test for reset fodder in Jungle
-Returns
--------
+test for reset fodder in Jungle.
 
 \end{fulllineitems}
 
@@ -1373,9 +1386,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_reset_fodder_savannah}}\pysiglinewithargsret{\sphinxbfcode{test\_reset\_fodder\_savannah}}{}{}
-Test for the method reset\_fodder i Savannah
-Returns
--------
+Test for the method reset\_fodder i Savannah.
 
 \end{fulllineitems}
 
@@ -1389,14 +1400,12 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_simulation.TestSimulation}}\pysigline{\sphinxstrong{class }\sphinxcode{biosim.tests.test\_simulation.}\sphinxbfcode{TestSimulation}}
-class for testing Simulation
+Class for testing Simulation
 \index{test\_add\_population() (biosim.tests.test\_simulation.TestSimulation method)}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_simulation.TestSimulation.test_add_population}}\pysiglinewithargsret{\sphinxbfcode{test\_add\_population}}{}{}
-Tests the population is added to cell on island
-Returns
--------
+Tests the population is added to cell on island.
 
 \end{fulllineitems}
 

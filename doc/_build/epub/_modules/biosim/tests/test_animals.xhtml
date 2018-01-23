@@ -66,12 +66,13 @@
 
 <div class="viewcode-block" id="TestAnimal"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_animals.TestAnimal">[docs]</a><span class="k">class</span> <span class="nc">TestAnimal</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    class for testing animal</span>
+<span class="sd">    Class for testing animal.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <div class="viewcode-block" id="TestAnimal.set_default_animal"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_animals.TestAnimal.set_default_animal">[docs]</a>    <span class="k">def</span> <span class="nf">set_default_animal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        method for resetting to default parameters for herbivore and carnivore</span>
+<span class="sd">        Method for resetting to default parameters for herbivore and carnivore</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -81,7 +82,8 @@
 
 <div class="viewcode-block" id="TestAnimal.test_init_parameters"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_animals.TestAnimal.test_init_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">test_init_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        test for init_parameters, that we can change parameters</span>
+<span class="sd">        Test for init_parameters, that we can change parameters</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -95,7 +97,8 @@
 
 <div class="viewcode-block" id="TestAnimal.test_set_parameters"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_animals.TestAnimal.test_set_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">test_set_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        test for method set_parameters</span>
+<span class="sd">        Test for method set_parameters.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -108,7 +111,8 @@
 
 <div class="viewcode-block" id="TestAnimal.test_feeding_plenty"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_animals.TestAnimal.test_feeding_plenty">[docs]</a>    <span class="k">def</span> <span class="nf">test_feeding_plenty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Test for herbivore feeding method with plenty of fodder</span>
+<span class="sd">        Test for herbivore feeding method with plenty of fodder.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -121,7 +125,8 @@
 
 <div class="viewcode-block" id="TestAnimal.test_feeding_little"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_animals.TestAnimal.test_feeding_little">[docs]</a>    <span class="k">def</span> <span class="nf">test_feeding_little</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Test for herbivore feeding method with little fodder</span>
+<span class="sd">        Test for herbivore feeding method with little fodder.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -135,7 +140,8 @@
 
 <div class="viewcode-block" id="TestAnimal.test_feeding_none"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_animals.TestAnimal.test_feeding_none">[docs]</a>    <span class="k">def</span> <span class="nf">test_feeding_none</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Test for herbivore feeding method with no fodder</span>
+<span class="sd">        Test for herbivore feeding method with no fodder.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -149,7 +155,8 @@
 
 <div class="viewcode-block" id="TestAnimal.test_aging"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_animals.TestAnimal.test_aging">[docs]</a>    <span class="k">def</span> <span class="nf">test_aging</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Tests that the animal&#39;s age increases properly, including fitness</span>
+<span class="sd">        Tests that the animal&#39;s age increases properly, including fitness.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -169,7 +176,8 @@
 
 <div class="viewcode-block" id="TestAnimal.test_loss_of_weight"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_animals.TestAnimal.test_loss_of_weight">[docs]</a>    <span class="k">def</span> <span class="nf">test_loss_of_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Tests that the animal loses weight, including fitness update</span>
+<span class="sd">        Tests that the animal loses weight, including fitness update.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -185,7 +193,8 @@
 
 <div class="viewcode-block" id="TestAnimal.test_feeding_carnivore_fit"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_animals.TestAnimal.test_feeding_carnivore_fit">[docs]</a>    <span class="k">def</span> <span class="nf">test_feeding_carnivore_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Test for carnivore feeding method, with fit carnivore</span>
+<span class="sd">        Test for carnivore feeding method, with fit carnivore.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -205,7 +214,8 @@
 
 <div class="viewcode-block" id="TestAnimal.test_feeding_carnivore_unfit"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_animals.TestAnimal.test_feeding_carnivore_unfit">[docs]</a>    <span class="k">def</span> <span class="nf">test_feeding_carnivore_unfit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Test for carnivore feeding method, with unfit carnivore</span>
+<span class="sd">        Test for carnivore feeding method, with unfit carnivore.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -225,7 +235,8 @@
 
 <div class="viewcode-block" id="TestAnimal.test_feeding_carnivore_appetite"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_animals.TestAnimal.test_feeding_carnivore_appetite">[docs]</a>    <span class="k">def</span> <span class="nf">test_feeding_carnivore_appetite</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Test for a fit carnivore&#39;s feeding method, with low appetite</span>
+<span class="sd">        Test for a fit carnivore&#39;s feeding method, with low appetite.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 

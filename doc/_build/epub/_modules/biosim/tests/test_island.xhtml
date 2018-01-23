@@ -29,7 +29,7 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">biosim.island</span> <span class="k">import</span> <span class="n">Island</span>
-<span class="kn">from</span> <span class="nn">biosim.landscape</span> <span class="k">import</span> <span class="n">Jungle</span><span class="p">,</span> <span class="n">Savannah</span>
+<span class="kn">from</span> <span class="nn">biosim.landscape</span> <span class="k">import</span> <span class="n">Savannah</span><span class="p">,</span> <span class="n">Ocean</span>
 <span class="kn">from</span> <span class="nn">biosim.animals</span> <span class="k">import</span> <span class="n">Carnivore</span><span class="p">,</span> <span class="n">Herbivore</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">pytest</span>
@@ -69,9 +69,9 @@
                                 <span class="s1">&#39;DeltaPhiMax&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">}</span>
 
 <span class="n">ISLE_MAP</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
-<span class="s2">        JSS</span>
-<span class="s2">        SSJ</span>
-<span class="s2">        SSS&quot;&quot;&quot;</span>
+<span class="s2">        OOO</span>
+<span class="s2">        OSO</span>
+<span class="s2">        OOO&quot;&quot;&quot;</span>
 <span class="n">INI_HERB</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;loc&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
              <span class="s1">&#39;pop&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;species&#39;</span><span class="p">:</span> <span class="s1">&#39;Herbivore&#39;</span><span class="p">,</span>
                       <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
@@ -84,11 +84,11 @@
                      <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">)]}]</span>
 
 <span class="n">ISLE_MAP2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
-<span class="s2">                        JSSJJSS</span>
-<span class="s2">                        SSJMSSJ</span>
-<span class="s2">                        SSSJOSJ</span>
-<span class="s2">                        JJJSSSS</span>
-<span class="s2">                        JJJSSSJ&quot;&quot;&quot;</span>
+<span class="s2">                        OOOOOOO</span>
+<span class="s2">                        OSJMSSO</span>
+<span class="s2">                        OSSJOSO</span>
+<span class="s2">                        OJJSSSO</span>
+<span class="s2">                        OOOOOOO&quot;&quot;&quot;</span>
 
 
 <div class="viewcode-block" id="TestIsland"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_island.TestIsland">[docs]</a><span class="k">class</span> <span class="nc">TestIsland</span><span class="p">:</span>
@@ -99,7 +99,8 @@
     <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <div class="viewcode-block" id="TestIsland.set_default_animal"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_island.TestIsland.set_default_animal">[docs]</a>    <span class="k">def</span> <span class="nf">set_default_animal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        method for resetting parameters for herbivores and carnivores</span>
+<span class="sd">        Method for resetting parameters for herbivores and carnivores.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -110,28 +111,30 @@
 <div class="viewcode-block" id="TestIsland.test_string_to_array"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_island.TestIsland.test_string_to_array">[docs]</a>    <span class="k">def</span> <span class="nf">test_string_to_array</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Test for the method Island.string_to_array</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">i1</span> <span class="o">=</span> <span class="n">Island</span><span class="p">(</span><span class="n">ISLE_MAP</span><span class="p">)</span>
         <span class="n">arry</span> <span class="o">=</span> <span class="n">i1</span><span class="o">.</span><span class="n">string_to_array</span><span class="p">()</span>
-        <span class="n">correct_arry</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="s1">&#39;J&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">],</span>
-                                 <span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;J&#39;</span><span class="p">],</span>
-                                 <span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">]])</span>
+        <span class="n">correct_arry</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">],</span>
+                                 <span class="p">[</span><span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">],</span>
+                                 <span class="p">[</span><span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">]])</span>
         <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">arry</span><span class="p">,</span> <span class="n">correct_arry</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TestIsland.test_array_to_island"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_island.TestIsland.test_array_to_island">[docs]</a>    <span class="k">def</span> <span class="nf">test_array_to_island</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        test for converting the array into a map</span>
+<span class="sd">        Test for converting the array into a map</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">i1</span> <span class="o">=</span> <span class="n">Island</span><span class="p">(</span><span class="n">ISLE_MAP</span><span class="p">)</span>
-        <span class="n">correct_island</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">Jungle</span><span class="p">,</span> <span class="n">Savannah</span><span class="p">,</span> <span class="n">Savannah</span><span class="p">],</span>
-                                   <span class="p">[</span><span class="n">Savannah</span><span class="p">,</span> <span class="n">Savannah</span><span class="p">,</span> <span class="n">Jungle</span><span class="p">],</span>
-                                   <span class="p">[</span><span class="n">Savannah</span><span class="p">,</span> <span class="n">Savannah</span><span class="p">,</span> <span class="n">Savannah</span><span class="p">]])</span>
+        <span class="n">correct_island</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">Ocean</span><span class="p">,</span> <span class="n">Ocean</span><span class="p">,</span> <span class="n">Ocean</span><span class="p">],</span>
+                                   <span class="p">[</span><span class="n">Ocean</span><span class="p">,</span> <span class="n">Savannah</span><span class="p">,</span> <span class="n">Ocean</span><span class="p">],</span>
+                                   <span class="p">[</span><span class="n">Ocean</span><span class="p">,</span> <span class="n">Ocean</span><span class="p">,</span> <span class="n">Ocean</span><span class="p">]])</span>
         <span class="n">island_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">correct_island</span><span class="p">)</span>   <span class="c1"># type: tuple</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">island_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">island_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
@@ -139,7 +142,8 @@
 
 <div class="viewcode-block" id="TestIsland.test_add_animal_island"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_island.TestIsland.test_add_animal_island">[docs]</a>    <span class="k">def</span> <span class="nf">test_add_animal_island</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        test for adding animals to map</span>
+<span class="sd">        Test for adding animals to map.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -161,7 +165,8 @@
 
 <div class="viewcode-block" id="TestIsland.test_get_direction"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_island.TestIsland.test_get_direction">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        test for getting direction to move</span>
+<span class="sd">        Test for getting direction to move.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -176,7 +181,8 @@
 
 <div class="viewcode-block" id="TestIsland.test_get_random_coordinates"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_island.TestIsland.test_get_random_coordinates">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_random_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        test for getting random coordinates, for type and length</span>
+<span class="sd">        Test for getting random coordinates, for type and length.</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -187,12 +193,12 @@
 
 <div class="viewcode-block" id="TestIsland.test_get_pi_values_herbivores"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_island.TestIsland.test_get_pi_values_herbivores">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_pi_values_herbivores</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        test for getting pi-values for herbivores</span>
+<span class="sd">        Test for getting pi-values for herbivores</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="sd">&quot;&quot;&quot;test for getting pi-values for herbivores&quot;&quot;&quot;</span>
 
         <span class="n">i1</span> <span class="o">=</span> <span class="n">Island</span><span class="p">(</span><span class="n">ISLE_MAP2</span><span class="p">)</span>
         <span class="n">coordinate</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
@@ -208,7 +214,8 @@
 
 <div class="viewcode-block" id="TestIsland.test_get_pi_values_carnivores_no_herb"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_island.TestIsland.test_get_pi_values_carnivores_no_herb">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_pi_values_carnivores_no_herb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        test for getting pi_values for carnivores without any herbivores</span>
+<span class="sd">        Test for getting pi_values for carnivores without any herbivores</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -227,9 +234,10 @@
 
 <div class="viewcode-block" id="TestIsland.test_get_pi_values_carnivores_with_herbs_and_carns"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_island.TestIsland.test_get_pi_values_carnivores_with_herbs_and_carns">[docs]</a>    <span class="k">def</span> <span class="nf">test_get_pi_values_carnivores_with_herbs_and_carns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        test for getting pi values</span>
+<span class="sd">        Test for getting pi values</span>
 
 <span class="sd">        We also test with extra herbivores and carnivores in adjacent cells</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -254,7 +262,8 @@
 
 <div class="viewcode-block" id="TestIsland.test_cell_move_herbivore_and_carnivore"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_island.TestIsland.test_cell_move_herbivore_and_carnivore">[docs]</a>    <span class="k">def</span> <span class="nf">test_cell_move_herbivore_and_carnivore</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        test for moving herbivore and carnivore</span>
+<span class="sd">        Test for moving herbivore and carnivore</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
@@ -291,7 +300,8 @@
 
 <div class="viewcode-block" id="TestIsland.test_migration"><a class="viewcode-back" href="../../../tests.xhtml#biosim.tests.test_island.TestIsland.test_migration">[docs]</a>    <span class="k">def</span> <span class="nf">test_migration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        test for migration</span>
+<span class="sd">        Test for migration</span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 

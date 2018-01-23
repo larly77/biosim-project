@@ -42,7 +42,7 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">island_map</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Init method for class Island</span>
+<span class="sd">        Constructor method for class Island</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -64,18 +64,43 @@
 <span class="sd">        map_arr : arr</span>
 <span class="sd">            An array of the map, where each letter has a seperate place</span>
 
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        SyntaxError</span>
+<span class="sd">            If self.map have lines of unequal length.</span>
+<span class="sd">            If self.map have edges unequal to &#39;O&#39;.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">temp_map</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
-
-        <span class="c1"># new version</span>
         <span class="n">map_list</span> <span class="o">=</span> <span class="p">[[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">temp_map</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()]</span>
+
+        <span class="c1"># Checks that all lines are of equal length</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">map_list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">map_list</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">map_list</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Island geography multi-line string &quot;</span>
+                                      <span class="s2">&quot;must have lines of same length.&quot;</span><span class="p">)</span>
         <span class="n">map_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">map_list</span><span class="p">)</span>
+
+        <span class="c1"># Checks that there are only &#39;O&#39;s at the edges.</span>
+        <span class="n">edge</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">edge</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">map_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
+        <span class="n">edge</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">map_arr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+        <span class="n">edge</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">map_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">edge</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">map_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;O&#39;</span><span class="p">}:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Island geography multi-line string &quot;</span>
+                              <span class="s2">&quot;must have &#39;O&#39; around the edges. &quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">map_arr</span></div>
 
 <div class="viewcode-block" id="Island.array_to_island"><a class="viewcode-back" href="../../island.xhtml#biosim.island.Island.array_to_island">[docs]</a>    <span class="k">def</span> <span class="nf">array_to_island</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Converts the array from the method string_to_array into a map</span>
+<span class="sd">        Converts the array from the method string_to_array into a island.</span>
 
 <span class="sd">        changes the array consisting of strings into an array consisting of</span>
 <span class="sd">        instances of classes depedning on the letter that was previously in</span>
@@ -85,8 +110,12 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        SyntaxError</span>
+<span class="sd">            If self.map contain other letters than &#39;J&#39;, &#39;S&#39;, &#39;D&#39;, &#39;O&#39;, &#39;M&#39;.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="sd">&quot;&quot;&quot;converts the array into a map&quot;&quot;&quot;</span>
 
         <span class="n">array_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">string_to_array</span><span class="p">()</span>
         <span class="n">array_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">array_map</span><span class="p">)</span>   <span class="c1"># type: tuple</span>
@@ -99,14 +128,18 @@
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">array_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
                 <span class="k">if</span> <span class="n">array_map</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;J&#39;</span><span class="p">:</span>
                     <span class="n">nested</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">array_map</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;S&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">array_map</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;S&#39;</span><span class="p">:</span>
                     <span class="n">nested</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Savannah</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">array_map</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">array_map</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span>
                     <span class="n">nested</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Desert</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">array_map</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">array_map</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span>
                     <span class="n">nested</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Ocean</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">array_map</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;M&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">array_map</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;M&#39;</span><span class="p">:</span>
                     <span class="n">nested</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Mountain</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s2">&quot;Island geography multi-line string &quot;</span>
+                                      <span class="s2">&quot;must only have these letters: &quot;</span>
+                                      <span class="s2">&quot;&#39;J&#39;, &#39;S&#39;, &#39;D&#39;, &#39;O&#39;, &#39;M&#39;&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">nested</span><span class="p">)</span></div>
 
@@ -344,7 +377,7 @@
 
 <div class="viewcode-block" id="Island.cell_move_herbivores"><a class="viewcode-back" href="../../island.xhtml#biosim.island.Island.cell_move_herbivores">[docs]</a>    <span class="k">def</span> <span class="nf">cell_move_herbivores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coordinate</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        method for moving herbivores in given cell, if they should move</span>
+<span class="sd">        Method for moving herbivores in given cell, if they should move</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -384,7 +417,7 @@
 
 <div class="viewcode-block" id="Island.cell_move_carnivores"><a class="viewcode-back" href="../../island.xhtml#biosim.island.Island.cell_move_carnivores">[docs]</a>    <span class="k">def</span> <span class="nf">cell_move_carnivores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coordinate</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        method for moving herbivores in given cell, if they should move</span>
+<span class="sd">        Method for moving herbivores in given cell, if they should move</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -478,24 +511,6 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">[</span><span class="n">coord</span><span class="p">]</span><span class="o">.</span><span class="n">death</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">animals_on_island</span><span class="p">()</span></div></div>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-
-    <span class="n">isle_map</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
-<span class="s2">            JSS</span>
-<span class="s2">            SSJ</span>
-<span class="s2">            SSS&quot;&quot;&quot;</span>
-    <span class="n">ini_herb</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;loc&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-                 <span class="s1">&#39;pop&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;species&#39;</span><span class="p">:</span> <span class="s1">&#39;Herbivore&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-                          <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
-                         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">)]}]</span>
-
-    <span class="n">isle</span> <span class="o">=</span> <span class="n">Island</span><span class="p">(</span><span class="n">isle_map</span><span class="p">)</span>
-    <span class="n">isle</span><span class="o">.</span><span class="n">array_to_island</span><span class="p">()</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="n">isle</span><span class="o">.</span><span class="n">cells</span><span class="p">)</span>
 </pre></div>
 
           </div>

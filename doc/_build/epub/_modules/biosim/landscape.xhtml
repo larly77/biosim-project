@@ -54,9 +54,29 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parameter_changes</span><span class="p">:</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;f_max&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;f_max&#39; must be positive&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;alpha&#39; must be in interval [0, 1].&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;You have entered an unknown parameter key:&#39;</span><span class="si">{0}</span><span class="s2">&#39;&quot;</span>
+                               <span class="s2">&quot;.Keys must be found in Table 2; Column: &#39;Name&#39;.&quot;</span>
+                               <span class="s2">&quot; Table 2 can be found in the &#39;Modelling the &quot;</span>
+                               <span class="s2">&quot;Ecosystem of Rossumøya&#39; project description&quot;</span><span class="o">.</span>
+                               <span class="nb">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span></div>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -358,24 +378,6 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span></div>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-
-    <span class="n">j1</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
-    <span class="n">s1</span> <span class="o">=</span> <span class="n">Savannah</span><span class="p">()</span>
-    <span class="n">j2</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
-    <span class="n">s2</span> <span class="o">=</span> <span class="n">Savannah</span><span class="p">()</span>
-    <span class="n">m1</span> <span class="o">=</span> <span class="n">Mountain</span><span class="p">()</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="n">j1</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;f_max&#39;</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;f_max&#39;</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">j2</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;f_max&#39;</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">s2</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;f_max&#39;</span><span class="p">],</span> <span class="n">s2</span><span class="o">.</span><span class="n">fodder</span><span class="p">)</span>
-
-    <span class="c1"># isinstanse</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="p">(</span><span class="n">Jungle</span><span class="p">,</span> <span class="n">Savannah</span><span class="p">,</span> <span class="n">Desert</span><span class="p">)))</span>
 </pre></div>
 
           </div>

@@ -29,13 +29,14 @@ INI_CARN = [{'loc': (2, 2),
 
 class TestSimulation:
     """
-    class for testing Simulation
+    Class for testing Simulation
     """
-    """Class for testing simulation"""
+
 
     def test_add_population(self):
         """
-        Tests the population is added to cell on island
+        Tests the population is added to cell on island.
+
         Returns
         -------
 

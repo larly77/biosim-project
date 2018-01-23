@@ -18,7 +18,8 @@ class TestLandscape:
     """
     def test_add_herbivore(self):
         """
-        Method for testing add_herbivore
+        Method for testing add_herbivore.
+
         Returns
         -------
 
@@ -34,7 +35,8 @@ class TestLandscape:
 
     def test_add_carnivores(self):
         """
-        Method for testing add carnivore
+        Method for testing add carnivore.
+
         Returns
         -------
 
@@ -50,7 +52,8 @@ class TestLandscape:
 
     def test_reset_fodder_jungle(self):
         """
-        test for reset fodder in Jungle
+        test for reset fodder in Jungle.
+
         Returns
         -------
 
@@ -62,7 +65,8 @@ class TestLandscape:
 
     def test_reduce_fodder(self):
         """
-        Test for method reduce_fodder
+        Test for method reduce_fodder.
+
         Returns
         -------
 
@@ -75,7 +79,8 @@ class TestLandscape:
 
     def test_get_fodder(self):
         """
-        Test for method get_fodder
+        Test for method get_fodder.
+
         Returns
         -------
 
@@ -87,7 +92,8 @@ class TestLandscape:
 
     def test_reset_fodder_savannah(self):
         """
-        Test for the method reset_fodder i Savannah
+        Test for the method reset_fodder i Savannah.
+
         Returns
         -------
 
@@ -99,7 +105,8 @@ class TestLandscape:
 
     def test_feeding_jungle(self):
         """
-        Test that all herbivores in the cell feed: the method feeding
+        Test that all herbivores in the cell feed: the method feeding.
+
         Returns
         -------
 
@@ -114,7 +121,8 @@ class TestLandscape:
 
     def test_feeding_savannah(self):
         """
-        Test that all herbivores in the cell feed: the method feeding
+        Test that all herbivores in the cell feed: the method feeding.
+
         Returns
         -------
 
@@ -129,9 +137,10 @@ class TestLandscape:
 
     def test_procreation(self):
         """
-        Test that all animals in cell procreate: the method procreation
+        Test that all animals in cell procreate: the method procreation.
 
-        Do this by manipulating the parameter gamma
+        Do this by manipulating the parameter gamma.
+
         Returns
         -------
 
@@ -146,7 +155,8 @@ class TestLandscape:
 
     def test_aging(self):
         """
-        Test that all animals in the cell age: the method aging
+        Test that all animals in the cell age: the method aging.
+
         Returns
         -------
 
@@ -162,7 +172,8 @@ class TestLandscape:
 
     def test_loss_of_weight(self):
         """
-        Test that all animal in cell lose weight:the method loss_of_weight
+        Test that all animal in cell lose weight:the method loss_of_weight.
+
         Returns
         -------
 
@@ -177,7 +188,8 @@ class TestLandscape:
         """
         Test that some animals in the cell die: the method death
 
-        do this by maniplating omega
+        Does this by manipulating omega.
+
         Returns
         -------
 
@@ -195,7 +207,8 @@ class TestLandscape:
         """
         Test that all carnivores in the cell feeds: the method feeding
 
-        do this by manipulating parameter DeltaPhiMax and the food
+        Does this by manipulating parameter DeltaPhiMax and the food.
+
         Returns
         -------
 
