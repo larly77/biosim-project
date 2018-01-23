@@ -13,7 +13,7 @@ def read_readme():
 setup(
       # Basic information
       name='biosim',
-      version='0.1.1',
+      version='1.0.0',
 
       # Packages to include
       packages=['biosim', 'biosim.tests'],
@@ -32,7 +32,7 @@ setup(
       keywords='simulation ecosystem',
       license='MIT License',
       classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 3 - Release-ready',
         'Intended Audience :: Developers',
         'Topic :: Science :: Stochastic processes',
         'License :: OSI Approved :: MIT License',
