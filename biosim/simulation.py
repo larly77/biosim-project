@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 import textwrap
 import random
+import os
 from biosim.island import Island
 
 
@@ -23,7 +24,12 @@ class BioSim:
     class for the simulation
     """
 
-    def __init__(self, island_map, ini_pop=None, seed=12345):
+    # update these variables to point to your ffmpeg and convert binaries
+    FFMPEG_BINARY = 'ffmpeg'
+    CONVERT_BINARY = 'convert'
+
+
+    def __init__(self, island_map, ini_pop=None, seed=12345, img_dir=None):
         random.seed(seed)
         np.random.seed(seed)
         self.island_map = island_map
@@ -50,6 +56,10 @@ class BioSim:
         self.user_limits = False
         self.herbivore_color_code = (0, 300)  # population map color code limits
         self.carnivore_color_code = (0, 300)  # population map color code limits
+
+        self.img_base = None
+        self.img_counter = 0
+        self.img_format = None
 
     def add_population(self, population):
         """
@@ -470,6 +480,23 @@ class BioSim:
         self.update_carnivore_density_map()
         self.year_counter()
 
+    def save_graphics(self):
+        """
+        Saves graphics to file if file name given.
+
+        Returns
+        -------
+
+        """
+
+        if self.img_base is None:
+            return
+
+        plt.savefig('{base}_{num:05d}.{type}'.format(base=self.img_base,
+                                                     num=self.img_counter,
+                                                     type=self.img_format))
+        self.img_counter += 1
+
     def simulate(self, num_steps, vis_steps=1, img_steps=None):
         """
         Method for simulating the entire island
@@ -487,10 +514,10 @@ class BioSim:
 
         """
         plt.ion()
-        if img_steps is None:
-            img_steps = vis_steps
-        if img_steps % vis_steps != 0:
-            raise ValueError("'img_steps' must be a multiple of 'vis_steps'")
+
+        if img_steps is not None:
+            if img_steps % vis_steps != 0:
+                raise ValueError("'img_steps' must be a multiple of 'vis_steps'")
 
         self.last_step += num_steps
 
@@ -503,7 +530,7 @@ class BioSim:
             if (self.year % vis_steps) == 0:
                 self.update_visualization()
             if self.year % img_steps == 0:
-                pass
+                self.save_graphics()
 
             self.year += 1
 
