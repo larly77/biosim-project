@@ -579,18 +579,22 @@ class BioSim:
 
             if (self.year % vis_steps) == 0:
                 self.update_visualization()
-            if self.year % img_steps == 0:
-                self.save_graphics()
+            if img_steps is not None:
+                if self.year % img_steps == 0:
+                    self.save_graphics()
 
             self.year += 1
-
+            if self.island.number_of_herbivores_island() + \
+                self.island.number_of_carnivores_island() == 0:
+                print('All the animals on the island died')
+                break
 
 if __name__ == '__main__':
 
     isle_map = """\
               OOOOO
               OJJJO
-              OSSSO
+              OSMSO
               OOOOO"""
 
     isle_map = textwrap.dedent(isle_map)
@@ -609,5 +613,10 @@ if __name__ == '__main__':
 
     sim = BioSim(island_map=isle_map, ini_pop=ini_herb + ini_carn, seed=12345,
                  img_dir=dir, img_name='island')
+    sim.set_axis_limits(y_limits=(0,100))
+    sim.simulate(500)
+
     #sim.make_movie('gif')
-    sim.make_movie('mp4')
+    #sim.make_movie('mp4')
+
+    input('Press Enter')
