@@ -489,6 +489,9 @@ class BioSim:
         plt.ion()
         if img_steps is None:
             img_steps = vis_steps
+        if img_steps % vis_steps != 0:
+            raise ValueError("'img_steps' must be a multiple of 'vis_steps'")
+
         self.last_step += num_steps
 
         self.make_visualization(vis_steps)
@@ -526,3 +529,4 @@ if __name__ == '__main__':
                          for _ in range(5)]}]
 
     sim = BioSim(island_map=isle_map, ini_pop=ini_herb + ini_carn, seed=12345)
+    sim.simulate(10, 10,1)
