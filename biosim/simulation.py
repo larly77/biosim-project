@@ -24,8 +24,9 @@ DEFAULT_GRAPHICS_NAME = 'dv'
 DEFAULT_MOVIE_FORMAT = 'mp4'  # alternatives: mp4, gif
 
 # update these variables to point to your ffmpeg and convert binaries
-FFMPEG_BINARY = 'ffmpeg'
-CONVERT_BINARY = 'convert'
+FFMPEG_BINARY = r'C:\Program Files\ImageMagick-7.0.7-Q16\ffmpeg.exe'
+
+#CONVERT_BINARY = 'convert'    for GIF.
 
 
 class BioSim:
@@ -612,11 +613,11 @@ if __name__ == '__main__':
     dir = os.path.join('..', 'data')
 
     sim = BioSim(island_map=isle_map, ini_pop=ini_herb + ini_carn, seed=12345,
-                 img_dir=dir, img_name='island')
-    sim.set_axis_limits(y_limits=(0,100))
-    sim.simulate(500)
+                 img_dir=dir, img_name='test1')
+    sim.set_axis_limits(y_limits=(0,3000))
+    sim.simulate(200,1,1)
 
-    #sim.make_movie('gif')
-    #sim.make_movie('mp4')
+    #sim.make_movie('gif')   gif funker ikke
+    sim.make_movie('mp4')
 
     input('Press Enter')
