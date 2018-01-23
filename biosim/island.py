@@ -23,7 +23,7 @@ class Island:
 
     def __init__(self, island_map):
         """
-        Init method for class Island
+        Constructor method for class Island
 
         Parameters
         ----------
@@ -358,7 +358,7 @@ class Island:
 
     def cell_move_herbivores(self, coordinate):
         """
-        method for moving herbivores in given cell, if they should move
+        Method for moving herbivores in given cell, if they should move
 
         Parameters
         ----------
@@ -398,7 +398,7 @@ class Island:
 
     def cell_move_carnivores(self, coordinate):
         """
-        method for moving herbivores in given cell, if they should move
+        Method for moving herbivores in given cell, if they should move
 
         Parameters
         ----------

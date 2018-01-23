@@ -18,7 +18,7 @@ class TestLandscape:
     """
     def test_add_herbivore(self):
         """
-        method for testing add_herbivore
+        Method for testing add_herbivore
         Returns
         -------
 
@@ -34,7 +34,7 @@ class TestLandscape:
 
     def test_add_carnivores(self):
         """
-        method for testing add carnivore
+        Method for testing add carnivore
         Returns
         -------
 
@@ -92,7 +92,6 @@ class TestLandscape:
         -------
 
         """
-        """Test for the method Savannah.reset_fodder"""
         s1 = Savannah()
         s1.fodder = 150.0
         s1.reset_fodder()
@@ -105,7 +104,6 @@ class TestLandscape:
         -------
 
         """
-        """Test that all herbivores in the cell feed: the method feeding"""
         j1 = Jungle()
         j1.herbivores = [Herbivore(3, 15), Herbivore(3, 20),
                          Herbivore(3, 30), Herbivore(3, 25)]

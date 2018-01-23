@@ -72,7 +72,7 @@ class BioSim:
 
     def add_population(self, population):
         """
-        method for adding a population to the island
+        Method for adding a population to the island
 
         Parameters
         ----------
@@ -107,7 +107,7 @@ class BioSim:
 
     def status_year(self):
         """
-        method for getting the current year on screen
+        Method for getting the current year on screen
 
         Returns
         -------
@@ -120,7 +120,7 @@ class BioSim:
 
     def status_number_of_animals_total(self):
         """
-        method for getting the total amount of animals on screen
+        Method for getting the total amount of animals on screen
 
         Returns
         -------
@@ -134,7 +134,7 @@ class BioSim:
 
     def status_number_of_animals_by_species(self):
         """
-        method for getting number of herbivores and carnivores on screen
+        Method for getting number of herbivores and carnivores on screen
 
         Returns
         -------
@@ -322,6 +322,9 @@ class BioSim:
         Parameters
         ----------
         vis_steps
+            Variable entered in BioSim.simulation.
+            How often the graphics are updated.
+            Examples: 1 = updated each year. 2 = every second year
 
         Returns
         -------
