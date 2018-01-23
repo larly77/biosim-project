@@ -16,7 +16,16 @@ import pandas as pd
 import textwrap
 import random
 import os
+import subprocess
 from biosim.island import Island
+
+DEFAULT_GRAPHICS_DIR = os.path.join('..', 'data')
+DEFAULT_GRAPHICS_NAME = 'dv'
+DEFAULT_MOVIE_FORMAT = 'mp4'  # alternatives: mp4, gif
+
+# update these variables to point to your ffmpeg and convert binaries
+FFMPEG_BINARY = 'ffmpeg'
+CONVERT_BINARY = 'convert'
 
 
 class BioSim:
@@ -24,17 +33,8 @@ class BioSim:
     class for the simulation
     """
 
-    _DEFAULT_GRAPHICS_DIR = os.path.join('..', 'data')
-    _DEFAULT_GRAPHICS_NAME = 'dv'
-    _DEFAULT_MOVIE_FORMAT = 'mp4'  # alternatives: mp4, gif
-
-    # update these variables to point to your ffmpeg and convert binaries
-    FFMPEG_BINARY = 'ffmpeg'
-    CONVERT_BINARY = 'convert'
-
-
     def __init__(self, island_map, ini_pop=None, seed=12345, img_dir=None,
-                 img_name=_DEFAULT_GRAPHICS_NAME, img_format='png'):
+                 img_name=DEFAULT_GRAPHICS_NAME, img_format='png'):
         random.seed(seed)
         np.random.seed(seed)
         self.island_map = island_map
@@ -505,6 +505,48 @@ class BioSim:
                                                      type=self.img_format))
         self.img_counter += 1
 
+    def make_movie(self, movie_format=DEFAULT_MOVIE_FORMAT):
+        """
+        Creates MPEG4 movie from visualization images saved.
+
+        .. :note:
+            Requires ffmpeg
+
+        The movie is stored as img_base + movie_format
+        """
+
+        if self.img_base is None:
+            raise RuntimeError("No filename defined.")
+
+        if movie_format == 'mp4':
+            try:
+                # Parameters chosen according to
+                # http://trac.ffmpeg.org/wiki/Encode/H.264,
+                # section "Compatibility"
+                subprocess.check_call([FFMPEG_BINARY,
+                                       '-i',
+                                       '{}_%05d.png'.format(self.img_base),
+                                       '-y',
+                                       '-profile:v', 'baseline',
+                                       '-level', '3.0',
+                                       '-pix_fmt', 'yuv420p',
+                                       '{}.{}'.format(self.img_base,
+                                                      movie_format)])
+            except subprocess.CalledProcessError as err:
+                raise RuntimeError('ERROR: ffmpeg failed with: {}'.format(err))
+        elif movie_format == 'gif':
+            try:
+                subprocess.check_call([CONVERT_BINARY,
+                                       '-delay', '1',
+                                       '-loop', '0',
+                                       '{}_*.png'.format(self.img_base),
+                                       '{}.{}'.format(self.img_base,
+                                                      movie_format)])
+            except subprocess.CalledProcessError as err:
+                raise RuntimeError('ERROR: convert failed with: {}'.format(err))
+        else:
+            raise ValueError('Unknown movie format: ' + movie_format)
+
     def simulate(self, num_steps, vis_steps=1, img_steps=None):
         """
         Method for simulating the entire island
@@ -563,5 +605,9 @@ if __name__ == '__main__':
                           'weight': 20}
                          for _ in range(5)]}]
 
-    sim = BioSim(island_map=isle_map, ini_pop=ini_herb + ini_carn, seed=12345)
-    sim.simulate(10, 10,1)
+    dir = os.path.join('..', 'data')
+
+    sim = BioSim(island_map=isle_map, ini_pop=ini_herb + ini_carn, seed=12345,
+                 img_dir=dir, img_name='island')
+    #sim.make_movie('gif')
+    sim.make_movie('mp4')
