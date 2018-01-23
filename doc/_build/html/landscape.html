@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Landscape &#8212; BioSim G04 2018.01.22 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2018.01.22',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Simulation" href="simulation.html" />
+    <link rel="prev" title="Island" href="island.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="landscape">
+<h1>Landscape<a class="headerlink" href="#landscape" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-landscape-module">
+<h2>The landscape module<a class="headerlink" href="#the-landscape-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-biosim.landscape"></span><dl class="class">
+<dt id="biosim.landscape.Desert">
+<em class="property">class </em><code class="descclassname">biosim.landscape.</code><code class="descname">Desert</code><a class="reference internal" href="_modules/biosim/landscape.html#Desert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Desert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Desert is a subclass of Jungle, inheriting most of its methods</p>
+<dl class="method">
+<dt id="biosim.landscape.Desert.feeding">
+<code class="descname">feeding</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Desert.feeding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Desert.feeding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces the method Jungle.feeding. It does nothing</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Desert.reset_fodder">
+<code class="descname">reset_fodder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Desert.reset_fodder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Desert.reset_fodder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces the method Jungle.reset_fodder. It does nothing</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="biosim.landscape.Jungle">
+<em class="property">class </em><code class="descclassname">biosim.landscape.</code><code class="descname">Jungle</code><a class="reference internal" href="_modules/biosim/landscape.html#Jungle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for the jungle, containing all methods used in the Jungle-landscape</p>
+<p>Constructor for the jungle class</p>
+<dl class="method">
+<dt id="biosim.landscape.Jungle.add_carnivore">
+<code class="descname">add_carnivore</code><span class="sig-paren">(</span><em>age</em>, <em>weight</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.add_carnivore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.add_carnivore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for adding a carnivore into the landscape-cell</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>age</strong> (<em>int</em>) &#8211; The age for the carnivore to be added</li>
+<li><strong>weight</strong> (<em>float</em>) &#8211; The weight for the carnivore to be added</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.add_herbivore">
+<code class="descname">add_herbivore</code><span class="sig-paren">(</span><em>age</em>, <em>weight</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.add_herbivore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.add_herbivore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for adding a herbivore into the landscape instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>age</strong> (<em>int</em>) &#8211; The age for the herbivore to be added</li>
+<li><strong>weight</strong> (<em>float</em>) &#8211; The weight for the animal to be added</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.aging">
+<code class="descname">aging</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.aging"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.aging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that makes all animals in the cell age</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.death">
+<code class="descname">death</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.death"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.death" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that makes some animals in the cell die, and remove them.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.feeding">
+<code class="descname">feeding</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.feeding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.feeding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that makes all animals in the cell feed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.get_abundance_carnivore">
+<code class="descname">get_abundance_carnivore</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.get_abundance_carnivore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.get_abundance_carnivore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for calculating abundance of food for carnivore in landscape.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>ek</strong> &#8211; Abundance of food for carnivores in landscape</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.get_abundance_herbivore">
+<code class="descname">get_abundance_herbivore</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.get_abundance_herbivore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.get_abundance_herbivore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for calculating abundance of food for herbivore in landscape.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>ek</strong> &#8211; Abundance of food for herbivores in landscape.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.get_carnivores">
+<code class="descname">get_carnivores</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.get_carnivores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.get_carnivores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for getting a list of all carnivores in the landscape instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>self.carnivores</strong> &#8211; List of carnivores in landscape instance.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.get_fodder">
+<code class="descname">get_fodder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.get_fodder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.get_fodder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for getting fodder in the landscape instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>self.fodder</strong> &#8211; Amount of fodder left is landscape instance.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.get_herbivores">
+<code class="descname">get_herbivores</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.get_herbivores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.get_herbivores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for getting a list of all herbivore in the landscape instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>self.hebivores</strong> &#8211; List of herbivores in instance</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.loss_of_weight">
+<code class="descname">loss_of_weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.loss_of_weight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.loss_of_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that makes all animals in the cell lose weight</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.migration">
+<code class="descname">migration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy. Migration is handled by the class Island.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.move_new_animals">
+<code class="descname">move_new_animals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.move_new_animals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.move_new_animals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for moving animals from the new-lists into the real one.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.procreation">
+<code class="descname">procreation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.procreation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.procreation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that makes all animals in the cell try to procreate</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.reduce_fodder">
+<code class="descname">reduce_fodder</code><span class="sig-paren">(</span><em>amount</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.reduce_fodder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.reduce_fodder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for reducing the amount of fodder available in landscape instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>amount</strong> (<em>float</em><em>, </em><em>int</em>) &#8211; How much fodder is to be removed from landscape instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.landscape.Jungle.reset_fodder">
+<code class="descname">reset_fodder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.reset_fodder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.reset_fodder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that resets the amount of fodder in the jungle to f_max.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="biosim.landscape.Jungle.set_parameters">
+<em class="property">classmethod </em><code class="descname">set_parameters</code><span class="sig-paren">(</span><em>parameter_changes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Jungle.set_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Jungle.set_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that allows the user to set parameter values for the landscape.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parameter_changes</strong> (<em>dict</em>) &#8211; The changes to be made to the parameters</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="biosim.landscape.Mountain">
+<em class="property">class </em><code class="descclassname">biosim.landscape.</code><code class="descname">Mountain</code><a class="reference internal" href="_modules/biosim/landscape.html#Mountain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Mountain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for mountain landscape. Is passive.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="biosim.landscape.Ocean">
+<em class="property">class </em><code class="descclassname">biosim.landscape.</code><code class="descname">Ocean</code><a class="reference internal" href="_modules/biosim/landscape.html#Ocean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Ocean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for Ocean landscape. Is passive.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="biosim.landscape.Savannah">
+<em class="property">class </em><code class="descclassname">biosim.landscape.</code><code class="descname">Savannah</code><a class="reference internal" href="_modules/biosim/landscape.html#Savannah"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Savannah" title="Permalink to this definition">¶</a></dt>
+<dd><p>Savannah is a subclass of Jungle, inheriting most of its methods</p>
+<dl class="method">
+<dt id="biosim.landscape.Savannah.reset_fodder">
+<code class="descname">reset_fodder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/landscape.html#Savannah.reset_fodder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.landscape.Savannah.reset_fodder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that updates the fodder amount in the savannah each year</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Landscape</a><ul>
+<li><a class="reference internal" href="#the-landscape-module">The landscape module</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="island.html" title="previous chapter">Island</a></li>
+      <li>Next: <a href="simulation.html" title="next chapter">Simulation</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/landscape.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Lars Martin Lied, Jon-Fredrik Cappelen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/landscape.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

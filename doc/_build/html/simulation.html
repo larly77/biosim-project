@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Simulation &#8212; BioSim G04 2018.01.22 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2018.01.22',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tests" href="tests.html" />
+    <link rel="prev" title="Landscape" href="landscape.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="simulation">
+<h1>Simulation<a class="headerlink" href="#simulation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-simulation-module">
+<h2>The simulation module<a class="headerlink" href="#the-simulation-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-biosim.simulation"></span><dl class="class">
+<dt id="biosim.simulation.BioSim">
+<em class="property">class </em><code class="descclassname">biosim.simulation.</code><code class="descname">BioSim</code><span class="sig-paren">(</span><em>island_map</em>, <em>ini_pop=None</em>, <em>seed=12345</em>, <em>img_dir=None</em>, <em>img_name='Rossumoya'</em>, <em>img_format='png'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim" title="Permalink to this definition">¶</a></dt>
+<dd><p>class for the simulation</p>
+<dl class="method">
+<dt id="biosim.simulation.BioSim.add_population">
+<code class="descname">add_population</code><span class="sig-paren">(</span><em>population</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.add_population"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.add_population" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for adding a population to the island</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>population</strong> (<em>list</em>) &#8211; A list of animals, containing dictionaries for each animal</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.make_carnivore_density_map">
+<code class="descname">make_carnivore_density_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.make_carnivore_density_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.make_carnivore_density_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for making the carnivore density map</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.make_herbivore_density_map">
+<code class="descname">make_herbivore_density_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.make_herbivore_density_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.make_herbivore_density_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for making the hebrivore density map</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.make_line_plot">
+<code class="descname">make_line_plot</code><span class="sig-paren">(</span><em>vis_steps</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.make_line_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.make_line_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for making the line plot</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vis_steps</strong> &#8211; Variable entered in BioSim.simulation.
+How often the graphics are updated.
+Examples: 1 = updated each year. 2 = every second year</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.make_movie">
+<code class="descname">make_movie</code><span class="sig-paren">(</span><em>movie_format='mp4'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.make_movie"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.make_movie" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates MPEG4 movie from visualization images saved.</p>
+<p>The movie is stored as img_base + movie_format</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.make_rgb_map">
+<code class="descname">make_rgb_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.make_rgb_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.make_rgb_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to make RGB map from island-string</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.make_visualization">
+<code class="descname">make_visualization</code><span class="sig-paren">(</span><em>vis_steps</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.make_visualization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.make_visualization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for making the visualization</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vis_steps</strong> (<em>int</em>) &#8211; How often the graphics should be updated, in years</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.reset_axis_limits">
+<code class="descname">reset_axis_limits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.reset_axis_limits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.reset_axis_limits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for resetting the axis limits for both x and y axis</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.reset_color_code_limits">
+<code class="descname">reset_color_code_limits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.reset_color_code_limits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.reset_color_code_limits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for resetting the color code to default values</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.save_graphics">
+<code class="descname">save_graphics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.save_graphics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.save_graphics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves graphics to file if file name given.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.set_axis_limits">
+<code class="descname">set_axis_limits</code><span class="sig-paren">(</span><em>x_limits=None</em>, <em>y_limits=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.set_axis_limits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.set_axis_limits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for setting the x and y-limits on the line graph</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x_limits</strong> (<em>tuple</em><em>, </em><em>list</em>) &#8211; tuple or list containing the lower and upper boundaries for the
+x axis</li>
+<li><strong>y_limits</strong> (<em>tuple</em><em>, </em><em>list</em>) &#8211; tuple or list containing the lower and upper boundaries for the
+y axis</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.set_color_code_limits">
+<code class="descname">set_color_code_limits</code><span class="sig-paren">(</span><em>herbivore_colors</em>, <em>carnivore_colors</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.set_color_code_limits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.set_color_code_limits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for setting the color code limits for each species</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>herbivore_colors</strong> (<em>tuple</em>) &#8211; boundaries for the color representation for number of herbivores</li>
+<li><strong>carnivore_colors</strong> (<em>tuple</em>) &#8211; boundaries for the color representation for number of herbivores</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.simulate">
+<code class="descname">simulate</code><span class="sig-paren">(</span><em>num_steps</em>, <em>vis_steps=1</em>, <em>img_steps=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.simulate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.simulate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for simulating the entire island</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>num_steps</strong> (<em>int</em>) &#8211; Numbers of years to be simulated</li>
+<li><strong>vis_steps</strong> (<em>int</em>) &#8211; How often the graphics should be updated, in years</li>
+<li><strong>img_steps</strong> (<em>How often the graphic should be saved</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.status_number_of_animals_by_species">
+<code class="descname">status_number_of_animals_by_species</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.status_number_of_animals_by_species"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.status_number_of_animals_by_species" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for getting number of herbivores and carnivores on screen</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>dictionary</strong> &#8211; A dictionary containing number herbivores and carnivores on island</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.status_number_of_animals_total">
+<code class="descname">status_number_of_animals_total</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.status_number_of_animals_total"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.status_number_of_animals_total" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for getting the total amount of animals on screen</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.status_per_cell_animal_count">
+<code class="descname">status_per_cell_animal_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.status_per_cell_animal_count"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.status_per_cell_animal_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for getting number of each species in each cell, using pandas</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>df</strong> &#8211; A table containing each cell and the number of each species on
+each cell</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pandas.DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.status_year">
+<code class="descname">status_year</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.status_year"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.status_year" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for getting the current year on screen</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>self.year</strong> &#8211; the current year</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.update_carnivore_density_map">
+<code class="descname">update_carnivore_density_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.update_carnivore_density_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.update_carnivore_density_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for updating the carnivore density map</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.update_herbivore_density_map">
+<code class="descname">update_herbivore_density_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.update_herbivore_density_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.update_herbivore_density_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for updating the herbivore density map</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.update_line_plot">
+<code class="descname">update_line_plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.update_line_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.update_line_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for updating the line plot</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.update_visualization">
+<code class="descname">update_visualization</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.update_visualization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.update_visualization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for updating the visualization</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.simulation.BioSim.year_counter">
+<code class="descname">year_counter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/simulation.html#BioSim.year_counter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.simulation.BioSim.year_counter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for updating the counter on screen</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Simulation</a><ul>
+<li><a class="reference internal" href="#the-simulation-module">The simulation module</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="landscape.html" title="previous chapter">Landscape</a></li>
+      <li>Next: <a href="tests.html" title="next chapter">Tests</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/simulation.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Lars Martin Lied, Jon-Fredrik Cappelen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/simulation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -3,17 +3,18 @@
 """
 """
 
-__author__ = 'Jon-Fredrik Blakstad Cappelen'
-__email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no'
+__author__ = 'Jon-Fredrik Blakstad Cappelen', 'Lars Martin Boe Lied'
+__email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
+            'lars.martin.boe.lied@nmbu.no'
 
 
-from simulation import BioSim
+from biosim.simulation import BioSim
 
 
 ISLE_MAP = """\
-        JSS
-        SSJ
-        DSS"""
+        OOO
+        OSO
+        OOO"""
 INI_HERB = [{'loc': (2, 2),
              'pop': [{'species': 'Herbivore',
                       'age': 5,
@@ -27,10 +28,19 @@ INI_CARN = [{'loc': (2, 2),
 
 
 class TestSimulation:
-    """Class for testing simulation"""
+    """
+    Class for testing Simulation
+    """
+
 
     def test_add_population(self):
-        """Tests the population is added to cell on island"""
+        """
+        Tests the population is added to cell on island.
+
+        Returns
+        -------
+
+        """
         s1 = BioSim(island_map=ISLE_MAP, ini_pop=INI_HERB, seed=123)
         assert len(s1.island.cells[1, 1].herbivores) == 20
         s1.add_population(INI_HERB)

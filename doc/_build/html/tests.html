@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tests &#8212; BioSim G04 2018.01.22 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2018.01.22',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Simulation" href="simulation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tests">
+<h1>Tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-animal-test-module">
+<h2>The animal test module<a class="headerlink" href="#the-animal-test-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-biosim.tests.test_animals"></span><dl class="class">
+<dt id="biosim.tests.test_animals.TestAnimal">
+<em class="property">class </em><code class="descclassname">biosim.tests.test_animals.</code><code class="descname">TestAnimal</code><a class="reference internal" href="_modules/biosim/tests/test_animals.html#TestAnimal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_animals.TestAnimal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for testing animal.</p>
+<dl class="method">
+<dt id="biosim.tests.test_animals.TestAnimal.set_default_animal">
+<code class="descname">set_default_animal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_animals.html#TestAnimal.set_default_animal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_animals.TestAnimal.set_default_animal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for resetting to default parameters for herbivore and carnivore</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_animals.TestAnimal.test_aging">
+<code class="descname">test_aging</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_animals.html#TestAnimal.test_aging"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_animals.TestAnimal.test_aging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests that the animal&#8217;s age increases properly, including fitness.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_animals.TestAnimal.test_feeding_carnivore_appetite">
+<code class="descname">test_feeding_carnivore_appetite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_animals.html#TestAnimal.test_feeding_carnivore_appetite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_animals.TestAnimal.test_feeding_carnivore_appetite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for a fit carnivore&#8217;s feeding method, with low appetite.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_animals.TestAnimal.test_feeding_carnivore_fit">
+<code class="descname">test_feeding_carnivore_fit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_animals.html#TestAnimal.test_feeding_carnivore_fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_animals.TestAnimal.test_feeding_carnivore_fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for carnivore feeding method, with fit carnivore.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_animals.TestAnimal.test_feeding_carnivore_unfit">
+<code class="descname">test_feeding_carnivore_unfit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_animals.html#TestAnimal.test_feeding_carnivore_unfit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_animals.TestAnimal.test_feeding_carnivore_unfit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for carnivore feeding method, with unfit carnivore.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_animals.TestAnimal.test_feeding_little">
+<code class="descname">test_feeding_little</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_animals.html#TestAnimal.test_feeding_little"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_animals.TestAnimal.test_feeding_little" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for herbivore feeding method with little fodder.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_animals.TestAnimal.test_feeding_none">
+<code class="descname">test_feeding_none</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_animals.html#TestAnimal.test_feeding_none"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_animals.TestAnimal.test_feeding_none" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for herbivore feeding method with no fodder.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_animals.TestAnimal.test_feeding_plenty">
+<code class="descname">test_feeding_plenty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_animals.html#TestAnimal.test_feeding_plenty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_animals.TestAnimal.test_feeding_plenty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for herbivore feeding method with plenty of fodder.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_animals.TestAnimal.test_init_parameters">
+<code class="descname">test_init_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_animals.html#TestAnimal.test_init_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_animals.TestAnimal.test_init_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for init_parameters, that we can change parameters</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_animals.TestAnimal.test_loss_of_weight">
+<code class="descname">test_loss_of_weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_animals.html#TestAnimal.test_loss_of_weight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_animals.TestAnimal.test_loss_of_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests that the animal loses weight, including fitness update.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_animals.TestAnimal.test_set_parameters">
+<code class="descname">test_set_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_animals.html#TestAnimal.test_set_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_animals.TestAnimal.test_set_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for method set_parameters.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="the-island-test-module">
+<h2>The island test module<a class="headerlink" href="#the-island-test-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-biosim.tests.test_island"></span><dl class="class">
+<dt id="biosim.tests.test_island.TestIsland">
+<em class="property">class </em><code class="descclassname">biosim.tests.test_island.</code><code class="descname">TestIsland</code><a class="reference internal" href="_modules/biosim/tests/test_island.html#TestIsland"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_island.TestIsland" title="Permalink to this definition">¶</a></dt>
+<dd><p>class for testing island</p>
+<dl class="method">
+<dt id="biosim.tests.test_island.TestIsland.set_default_animal">
+<code class="descname">set_default_animal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_island.html#TestIsland.set_default_animal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_island.TestIsland.set_default_animal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for resetting parameters for herbivores and carnivores.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_island.TestIsland.test_add_animal_island">
+<code class="descname">test_add_animal_island</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_island.html#TestIsland.test_add_animal_island"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_island.TestIsland.test_add_animal_island" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for adding animals to map.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_island.TestIsland.test_array_to_island">
+<code class="descname">test_array_to_island</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_island.html#TestIsland.test_array_to_island"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_island.TestIsland.test_array_to_island" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for converting the array into a map</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_island.TestIsland.test_cell_move_herbivore_and_carnivore">
+<code class="descname">test_cell_move_herbivore_and_carnivore</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_island.html#TestIsland.test_cell_move_herbivore_and_carnivore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_island.TestIsland.test_cell_move_herbivore_and_carnivore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for moving herbivore and carnivore</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_island.TestIsland.test_get_direction">
+<code class="descname">test_get_direction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_island.html#TestIsland.test_get_direction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_island.TestIsland.test_get_direction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for getting direction to move.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_island.TestIsland.test_get_pi_values_carnivores_no_herb">
+<code class="descname">test_get_pi_values_carnivores_no_herb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_island.html#TestIsland.test_get_pi_values_carnivores_no_herb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_island.TestIsland.test_get_pi_values_carnivores_no_herb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for getting pi_values for carnivores without any herbivores</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_island.TestIsland.test_get_pi_values_carnivores_with_herbs_and_carns">
+<code class="descname">test_get_pi_values_carnivores_with_herbs_and_carns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_island.html#TestIsland.test_get_pi_values_carnivores_with_herbs_and_carns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_island.TestIsland.test_get_pi_values_carnivores_with_herbs_and_carns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for getting pi values</p>
+<p>We also test with extra herbivores and carnivores in adjacent cells</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_island.TestIsland.test_get_pi_values_herbivores">
+<code class="descname">test_get_pi_values_herbivores</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_island.html#TestIsland.test_get_pi_values_herbivores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_island.TestIsland.test_get_pi_values_herbivores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for getting pi-values for herbivores</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_island.TestIsland.test_get_random_coordinates">
+<code class="descname">test_get_random_coordinates</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_island.html#TestIsland.test_get_random_coordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_island.TestIsland.test_get_random_coordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for getting random coordinates, for type and length.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_island.TestIsland.test_migration">
+<code class="descname">test_migration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_island.html#TestIsland.test_migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_island.TestIsland.test_migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for migration</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_island.TestIsland.test_string_to_array">
+<code class="descname">test_string_to_array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_island.html#TestIsland.test_string_to_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_island.TestIsland.test_string_to_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for the method Island.string_to_array</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="the-landscape-test-module">
+<h2>The landscape test module<a class="headerlink" href="#the-landscape-test-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-biosim.tests.test_landscape"></span><dl class="class">
+<dt id="biosim.tests.test_landscape.TestLandscape">
+<em class="property">class </em><code class="descclassname">biosim.tests.test_landscape.</code><code class="descname">TestLandscape</code><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for testing landscape</p>
+<dl class="method">
+<dt id="biosim.tests.test_landscape.TestLandscape.test_add_carnivores">
+<code class="descname">test_add_carnivores</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape.test_add_carnivores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape.test_add_carnivores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for testing add carnivore.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_landscape.TestLandscape.test_add_herbivore">
+<code class="descname">test_add_herbivore</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape.test_add_herbivore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape.test_add_herbivore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for testing add_herbivore.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_landscape.TestLandscape.test_aging">
+<code class="descname">test_aging</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape.test_aging"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape.test_aging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that all animals in the cell age: the method aging.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_landscape.TestLandscape.test_death">
+<code class="descname">test_death</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape.test_death"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape.test_death" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that some animals in the cell die: the method death</p>
+<p>Does this by manipulating omega.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_landscape.TestLandscape.test_feeding_carnivores">
+<code class="descname">test_feeding_carnivores</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape.test_feeding_carnivores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape.test_feeding_carnivores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that all carnivores in the cell feeds: the method feeding</p>
+<p>Does this by manipulating parameter DeltaPhiMax and the food.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_landscape.TestLandscape.test_feeding_jungle">
+<code class="descname">test_feeding_jungle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape.test_feeding_jungle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape.test_feeding_jungle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that all herbivores in the cell feed: the method feeding.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_landscape.TestLandscape.test_feeding_savannah">
+<code class="descname">test_feeding_savannah</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape.test_feeding_savannah"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape.test_feeding_savannah" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that all herbivores in the cell feed: the method feeding.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_landscape.TestLandscape.test_get_fodder">
+<code class="descname">test_get_fodder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape.test_get_fodder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape.test_get_fodder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for method get_fodder.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_landscape.TestLandscape.test_loss_of_weight">
+<code class="descname">test_loss_of_weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape.test_loss_of_weight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape.test_loss_of_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that all animal in cell lose weight:the method loss_of_weight.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_landscape.TestLandscape.test_procreation">
+<code class="descname">test_procreation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape.test_procreation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape.test_procreation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test that all animals in cell procreate: the method procreation.</p>
+<p>Do this by manipulating the parameter gamma.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_landscape.TestLandscape.test_reduce_fodder">
+<code class="descname">test_reduce_fodder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape.test_reduce_fodder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape.test_reduce_fodder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for method reduce_fodder.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_landscape.TestLandscape.test_reset_fodder_jungle">
+<code class="descname">test_reset_fodder_jungle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape.test_reset_fodder_jungle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape.test_reset_fodder_jungle" title="Permalink to this definition">¶</a></dt>
+<dd><p>test for reset fodder in Jungle.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.tests.test_landscape.TestLandscape.test_reset_fodder_savannah">
+<code class="descname">test_reset_fodder_savannah</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_landscape.html#TestLandscape.test_reset_fodder_savannah"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_landscape.TestLandscape.test_reset_fodder_savannah" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for the method reset_fodder i Savannah.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="the-simulation-test-module">
+<h2>The simulation test module<a class="headerlink" href="#the-simulation-test-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-biosim.tests.test_simulation"></span><dl class="class">
+<dt id="biosim.tests.test_simulation.TestSimulation">
+<em class="property">class </em><code class="descclassname">biosim.tests.test_simulation.</code><code class="descname">TestSimulation</code><a class="reference internal" href="_modules/biosim/tests/test_simulation.html#TestSimulation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_simulation.TestSimulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for testing Simulation</p>
+<dl class="method">
+<dt id="biosim.tests.test_simulation.TestSimulation.test_add_population">
+<code class="descname">test_add_population</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/tests/test_simulation.html#TestSimulation.test_add_population"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.tests.test_simulation.TestSimulation.test_add_population" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests the population is added to cell on island.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tests</a><ul>
+<li><a class="reference internal" href="#the-animal-test-module">The animal test module</a></li>
+<li><a class="reference internal" href="#the-island-test-module">The island test module</a></li>
+<li><a class="reference internal" href="#the-landscape-test-module">The landscape test module</a></li>
+<li><a class="reference internal" href="#the-simulation-test-module">The simulation test module</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="simulation.html" title="previous chapter">Simulation</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tests.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Lars Martin Lied, Jon-Fredrik Cappelen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/tests.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

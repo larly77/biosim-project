@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Island &#8212; BioSim G04 2018.01.22 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2018.01.22',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Landscape" href="landscape.html" />
+    <link rel="prev" title="Animals" href="animals.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="island">
+<h1>Island<a class="headerlink" href="#island" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-island-module">
+<h2>The island module<a class="headerlink" href="#the-island-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-biosim.island"></span><dl class="class">
+<dt id="biosim.island.Island">
+<em class="property">class </em><code class="descclassname">biosim.island.</code><code class="descname">Island</code><span class="sig-paren">(</span><em>island_map</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for the island</p>
+<p>Constructor method for class Island</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>island_map</strong> (<em>str</em>) &#8211; A string representing the map</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="biosim.island.Island.add_animal_island">
+<code class="descname">add_animal_island</code><span class="sig-paren">(</span><em>coordinates</em>, <em>animals_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.add_animal_island"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.add_animal_island" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for adding animals to the island</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>coordinates</strong> (<em>tuple</em>) &#8211; Where to put the animals on the island</li>
+<li><strong>animals_list</strong> (<em>list</em>) &#8211; The list of animals to put on the island</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If coordinates is not in jungle, savannah or desert</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.animals_on_island">
+<code class="descname">animals_on_island</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.animals_on_island"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.animals_on_island" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for getting the number of carnivores and herbivores on island</p>
+<p>Makes one matrix for herbivores and one for carnivores, containing
+the number of carnivores and herbivores on the tile on the island
+matching the matrix.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.array_to_island">
+<code class="descname">array_to_island</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.array_to_island"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.array_to_island" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the array from the method string_to_array into a island.</p>
+<p>changes the array consisting of strings into an array consisting of
+instances of classes depedning on the letter that was previously in
+the array, for example &#8216;J&#8217; would turn into an instance of the
+Jungle-class. These are stored in Island.cells</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">SyntaxError</span></code> &#8211; If self.map contain other letters than &#8216;J&#8217;, &#8216;S&#8217;, &#8216;D&#8217;, &#8216;O&#8217;, &#8216;M&#8217;.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.cell_move_carnivores">
+<code class="descname">cell_move_carnivores</code><span class="sig-paren">(</span><em>coordinate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.cell_move_carnivores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.cell_move_carnivores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for moving herbivores in given cell, if they should move</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>coordinate</strong> (<em>tuple</em>) &#8211; coordinates in which to move herbivores</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.cell_move_herbivores">
+<code class="descname">cell_move_herbivores</code><span class="sig-paren">(</span><em>coordinate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.cell_move_herbivores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.cell_move_herbivores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for moving herbivores in given cell, if they should move</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>coordinate</strong> (<em>tuple</em>) &#8211; coordinates in which to move herbivores</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.cycle">
+<code class="descname">cycle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.cycle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.cycle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulates one cycle/year</p>
+<p>Every method is done in the order specified in the assignment</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="biosim.island.Island.get_direction">
+<em class="property">static </em><code class="descname">get_direction</code><span class="sig-paren">(</span><em>pi_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.get_direction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.get_direction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for getting the direction for the animal to move in</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pi_values</strong> (<em>tuple</em>) &#8211; Values used to calculate the direction, found in the method;
+get_pi_values_herbivores and get_pi_values_carnivores</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Direction as a string for example &#8216;right&#8217; or &#8216;left</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.get_pi_values_carnivores">
+<code class="descname">get_pi_values_carnivores</code><span class="sig-paren">(</span><em>coordinate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.get_pi_values_carnivores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.get_pi_values_carnivores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for calculating pi-values(propensity) for carnivores</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>coordinate</strong> (<em>tuple</em>) &#8211; Coordinates  from which to find the animals to calculate pi&#8217;s for</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>pi_right, pi_up, pi_left, pi_down</strong> &#8211; Different propensity-values for each direction in given cell</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.get_pi_values_herbivores">
+<code class="descname">get_pi_values_herbivores</code><span class="sig-paren">(</span><em>coordinate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.get_pi_values_herbivores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.get_pi_values_herbivores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for calculating pi-values(propensity) for herbivores</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>coordinate</strong> (<em>tuple</em>) &#8211; Coordinates  from which to find the animals to calculate pi&#8217;s for</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>pi_right, pi_up, pi_left, pi_down</strong> &#8211; Different propensity-values for each direction in given cell</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.get_random_coordinates">
+<code class="descname">get_random_coordinates</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.get_random_coordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.get_random_coordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for getting random coordinates from the island</p>
+<p>Shuffles the coordinates on the island, for use in a different method
+excludes the ocean at the edge of the island</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>points_on_island</strong> &#8211; a randomly shuffled list of coordinates from the island</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.migration">
+<code class="descname">migration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for handling migration</p>
+<p>Implements the previous move-methods for herbivores and carnivores,
+including all new animals in that were appended in the move-methods</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.number_of_carnivores_island">
+<code class="descname">number_of_carnivores_island</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.number_of_carnivores_island"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.number_of_carnivores_island" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for getting the total amount of herbivores on island</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Number of carnivores on island</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.number_of_herbivores_island">
+<code class="descname">number_of_herbivores_island</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.number_of_herbivores_island"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.number_of_herbivores_island" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for getting the total amount of herbivores on island</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Number of herbivores on island</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.island.Island.string_to_array">
+<code class="descname">string_to_array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.string_to_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.string_to_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>A method for concerting thr given string into an array</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>map_arr</strong> &#8211; An array of the map, where each letter has a seperate place</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">arr</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">SyntaxError</span></code> &#8211; If self.map have lines of unequal length.
+If self.map have edges unequal to &#8216;O&#8217;.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Island</a><ul>
+<li><a class="reference internal" href="#the-island-module">The island module</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="animals.html" title="previous chapter">Animals</a></li>
+      <li>Next: <a href="landscape.html" title="next chapter">Landscape</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/island.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Lars Martin Lied, Jon-Fredrik Cappelen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/island.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

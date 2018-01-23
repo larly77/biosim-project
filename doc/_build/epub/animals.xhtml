@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Animals</title>
+    
+    <link rel="stylesheet" href="_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> 
+  </head>
+  <body role="document">
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="animals">
+<h1>Animals</h1>
+<div class="section" id="the-animals-module">
+<h2>The animals module</h2>
+<span class="target" id="module-biosim.animals"></span><dl class="class">
+<dt id="biosim.animals.Carnivore">
+<em class="property">class </em><code class="descclassname">biosim.animals.</code><code class="descname">Carnivore</code><span class="sig-paren">(</span><em>age</em>, <em>weight</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/animals.xhtml#Carnivore"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Constructor method for carnivore with entered age and weight.</p>
+<p>The carnivore class is a subclass of the Herbivore class, using most of
+the methods from Herbivore except the feeding method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>age</strong> (<em>int</em>) &#8211; Age of animal</li>
+<li><strong>weight</strong> (<em>float</em>) &#8211; Weight of animal</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="biosim.animals.Carnivore.feeding">
+<code class="descname">feeding</code><span class="sig-paren">(</span><em>preys</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/animals.xhtml#Carnivore.feeding"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Feeding method for carnivores</p>
+<p>Goes though all the herbivores in the same cell as the carnivore
+and checks if the carnivore eats it or not. This depends on fitness of
+both carnivore an herbivore, the parameters &#8216;DeltaPhiMax&#8217; and &#8216;beta&#8217;,
+and the appetite of the carnivore.
+It also updates the weight and fitness of the carnivore.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>preys</strong> (<em>list</em>) &#8211; A list of all the herbivores on the same tile as the given carnivore</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>eaten_bool</strong> &#8211; A list of true/false values for which herbivores to be eaten.
+False means it is to be eaten, and removed for the cell.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="biosim.animals.Herbivore">
+<em class="property">class </em><code class="descclassname">biosim.animals.</code><code class="descname">Herbivore</code><span class="sig-paren">(</span><em>age</em>, <em>weight</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/animals.xhtml#Herbivore"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Constructor-method for making an herbivore of set age and weight.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>age</strong> (<em>int</em>) &#8211; Age of herbivore</li>
+<li><strong>weight</strong> (<em>float</em>) &#8211; Weight of herbivore</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="biosim.animals.Herbivore.aging">
+<code class="descname">aging</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/animals.xhtml#Herbivore.aging"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for handling the aging of an animal. Also updates fitness.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.animals.Herbivore.death">
+<code class="descname">death</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/animals.xhtml#Herbivore.death"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for for checking if the animal should die from natural causes</p>
+<p>Calculates the chance of dying due to low fitness, by using the
+parameter &#8216;omega&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.animals.Herbivore.feeding">
+<code class="descname">feeding</code><span class="sig-paren">(</span><em>landscape_instance</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/animals.xhtml#Herbivore.feeding"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Handles the feeding of  the animal</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>landscape_instance</strong> (<em>The tile</em><em>, </em><em>that the given animal is in</em>) &#8211; </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.animals.Herbivore.get_weight">
+<code class="descname">get_weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/animals.xhtml#Herbivore.get_weight"><span class="viewcode-link">[source]</span></a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The weight of the animal</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.animals.Herbivore.loss_of_weight">
+<code class="descname">loss_of_weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/animals.xhtml#Herbivore.loss_of_weight"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for handling the loss of weight, by natural causes</p>
+<p>A method for decreasing the weight of animal every year by a parameter
+&#8216;eta&#8217; multiplied by the animals own weight. Also updates fitness.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.animals.Herbivore.migration">
+<code class="descname">migration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/animals.xhtml#Herbivore.migration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for checking if the animal will migrate</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True or False value; if the animal wil move or not</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.animals.Herbivore.procreation">
+<code class="descname">procreation</code><span class="sig-paren">(</span><em>landscape_instance</em>, <em>number_of_adults</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/animals.xhtml#Herbivore.procreation"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Handles the procreation of the animals</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>landscape_instance</strong> (<em>object</em>) &#8211; The tile of the animal</li>
+<li><strong>number_of_adults</strong> (<em>int</em>) &#8211; Number of animals old enough to procreate</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="biosim.animals.Herbivore.set_parameters">
+<em class="property">classmethod </em><code class="descname">set_parameters</code><span class="sig-paren">(</span><em>parameter_changes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/animals.xhtml#Herbivore.set_parameters"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method that allows the user to set parameter values for the animal.</p>
+<p>Method that allows the user to set parameter values for the animal.
+This replaces the default values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>parameter_changes</strong> (<em>dictionary</em>) &#8211; A dictionary with one or more keys to set new parameters for the
+animal. The items should be numeric.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">KeyError</span></code> &#8211; If parameter_changes contain key(s) not already in the parameters.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If parameter values that are to be set are not valid, such as
+negative amounts of fodder/weight.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biosim.animals.Herbivore.update_fitness">
+<code class="descname">update_fitness</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/animals.xhtml#Herbivore.update_fitness"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Method for updating fitness.</p>
+<p>The attribute self.fitness is updated.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>
