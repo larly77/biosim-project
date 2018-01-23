@@ -155,7 +155,7 @@ class BioSim:
         df = df[['x', 'y', 'herbivores', 'carnivores']]
         return df
 
-    def set_axis_limits(self, x_limits, y_limits):
+    def set_axis_limits(self, x_limits=None, y_limits=None):
         """
         Method for setting the x and y-limits on the line graph
 
@@ -173,15 +173,19 @@ class BioSim:
         -------
 
         """
-        if type(x_limits) is tuple or type(x_limits) is list:
-            self.x_lim = x_limits
-        else:
-            raise TypeError('x_limits must be a tuple or list of 2 numbers')
-        if type(y_limits) is tuple or type(y_limits) is list:
-            self.y_lim = y_limits
-        else:
-            raise TypeError('y_limits must be a tuple or list of 2 numbers')
-        self.user_limits = True
+
+        if x_limits is not None:
+            if type(x_limits) is tuple or type(x_limits) is list:
+                self.x_lim = x_limits
+                self.user_limits = True
+            else:
+                raise TypeError('x_limits must be a tuple or list of 2 numbers')
+
+        if y_limits is not None:
+            if type(y_limits) is tuple or type(y_limits) is list:
+                self.y_lim = y_limits
+            else:
+                raise TypeError('y_limits must be a tuple or list of 2 numbers')
 
     def reset_axis_limits(self):
         """
@@ -193,6 +197,7 @@ class BioSim:
         """
         self.user_limits = False
         self.y_lim = (0, 15000)  # default values
+        # Dynamic x-axis will be used
 
     def set_color_code_limits(self, herbivore_colors, carnivore_colors):
         """
@@ -303,13 +308,13 @@ class BioSim:
         -------
 
         """
+
         if self.user_limits:
             self.ax2.set_xlim(self.x_lim[0], self.x_lim[1])
-            self.ax2.set_ylim(self.y_lim[0], self.y_lim[1])
         else:
             self.ax2.set_xlim(0, self.last_step + 1)
-            self.ax2.set_ylim(self.y_lim[0], self.y_lim[1])
 
+        self.ax2.set_ylim(self.y_lim[0], self.y_lim[1])
         self.ax2.set_title('Populations')
 
         if self.line_herbivore is None:
@@ -498,10 +503,6 @@ class BioSim:
                 pass
 
             self.year += 1
-            """            print('Year over:', self.year)
-            print('Number of animals: ',
-                  self.island.number_of_herbivores_island(),
-                  self.island.number_of_carnivores_island())"""
 
 
 if __name__ == '__main__':
@@ -525,18 +526,3 @@ if __name__ == '__main__':
                          for _ in range(5)]}]
 
     sim = BioSim(island_map=isle_map, ini_pop=ini_herb + ini_carn, seed=12345)
-
-
-    #sim.simulate(50, 1, 2000)
-    #sim.make_visualization()
-
-    #sim.make_rgb_map()
-
-    #sim.simulate_in_one_place_herbivores(num_steps=200, printing=True)
-
-    df = sim.status_per_cell_animal_count()
-    print(df)
-    print(df['herbivores'][2,2])
-    print(df['carnivores'][3,4])
-
-    input('Press ENTER')
