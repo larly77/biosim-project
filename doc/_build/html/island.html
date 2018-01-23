@@ -54,7 +54,7 @@
 <dd><p>Class for the island</p>
 <p>Init method for class Island</p>
 <dl class="docutils">
-<dt>island_map <span class="classifier-delimiter">:</span> <span class="classifier">Str</span></dt>
+<dt>island_map <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
 <dd>A string representing the map</dd>
 </dl>
 <dl class="method">
@@ -85,11 +85,15 @@ matching the matrix.</p>
 <dl class="method">
 <dt id="biosim.island.Island.array_to_island">
 <code class="descname">array_to_island</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biosim/island.html#Island.array_to_island"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosim.island.Island.array_to_island" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts the array from the method string_to_array into a map</p>
+<dd><p>Converts the array from the method string_to_array into a island.</p>
 <p>changes the array consisting of strings into an array consisting of
 instances of classes depedning on the letter that was previously in
 the array, for example &#8216;J&#8217; would turn into an instance of the
 Jungle-class. These are stored in Island.cells</p>
+<dl class="docutils">
+<dt>SyntaxError</dt>
+<dd>If self.map contain other letters than &#8216;J&#8217;, &#8216;S&#8217;, &#8216;D&#8217;, &#8216;O&#8217;, &#8216;M&#8217;.</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -202,6 +206,11 @@ including all new animals in that were appended in the move-methods</p>
 <dl class="docutils">
 <dt>map_arr <span class="classifier-delimiter">:</span> <span class="classifier">arr</span></dt>
 <dd>An array of the map, where each letter has a seperate place</dd>
+</dl>
+<dl class="docutils">
+<dt>SyntaxError</dt>
+<dd>If self.map have lines of unequal length.
+If self.map have edges unequal to &#8216;O&#8217;.</dd>
 </dl>
 </dd></dl>
 

@@ -59,34 +59,56 @@
 
 <div class="viewcode-block" id="Jungle"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle">[docs]</a><span class="k">class</span> <span class="nc">Jungle</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    class for jungle</span>
+<span class="sd">    Class for the jungle, containing all methods used in the Jungle-landscape</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">DEFAULT_JUNGLE_PARAMETERS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;f_max&#39;</span><span class="p">:</span> <span class="mf">800.0</span><span class="p">}</span>
     <span class="n">parameters</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">DEFAULT_JUNGLE_PARAMETERS</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Jungle.set_parameters"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.set_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">set_parameters</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dictionary_changes</span><span class="p">):</span>
+<div class="viewcode-block" id="Jungle.set_parameters"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.set_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">set_parameters</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parameter_changes</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method that allows the user to set parameter values for the landscape.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        dictionary_changes : dict</span>
-<span class="sd">            The changes to be made from the default values</span>
+<span class="sd">        parameter_changes : dict</span>
+<span class="sd">            The changes to be made to the parameters</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="sd">&quot;&quot;&quot;Method that allows the user to set parameter values for the landscape.</span>
-<span class="sd">        This replaces the default values.&quot;&quot;&quot;</span>
-        <span class="c1">#       Idiotsikring her?</span>
 
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dictionary_changes</span><span class="p">:</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">dictionary_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parameter_changes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;f_max&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;f_max&#39; must be positive&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+                <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_changes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;alpha&#39; must be in interval [0, 1].&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;You have entered an unknown parameter key:&#39;</span><span class="si">{0}</span><span class="s2">&#39;&quot;</span>
+                               <span class="s2">&quot;.Keys must be found in Table 2; Column: &#39;Name&#39;.&quot;</span>
+                               <span class="s2">&quot; Table 2 can be found in the &#39;Modelling the &quot;</span>
+                               <span class="s2">&quot;Ecosystem of Rossumøya&#39; project description&quot;</span><span class="o">.</span>
+                               <span class="nb">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span></div>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor for the jungle class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">fodder</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;f_max&#39;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">herbivores</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">carnivores</span> <span class="o">=</span> <span class="p">[]</span>
@@ -95,20 +117,19 @@
 
 <div class="viewcode-block" id="Jungle.add_herbivore"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.add_herbivore">[docs]</a>    <span class="k">def</span> <span class="nf">add_herbivore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">weight</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Method for adding a herbivore into the landscape-cell</span>
+<span class="sd">        Method for adding a herbivore into the landscape instance.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        age : int</span>
-<span class="sd">            the age for the herbivore to be added</span>
+<span class="sd">            The age for the herbivore to be added</span>
 <span class="sd">        weight : float</span>
-<span class="sd">            the weight for the animal to be added</span>
+<span class="sd">            The weight for the animal to be added</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="sd">&quot;&quot;&quot;Method for adding a herbivore into the landscape-cell&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">herbivores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Herbivore</span><span class="p">(</span><span class="n">age</span><span class="p">,</span> <span class="n">weight</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Jungle.add_carnivore"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.add_carnivore">[docs]</a>    <span class="k">def</span> <span class="nf">add_carnivore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">weight</span><span class="p">):</span>
@@ -118,9 +139,9 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        age : int</span>
-<span class="sd">            the age for the carnivore to be added</span>
+<span class="sd">            The age for the carnivore to be added</span>
 <span class="sd">        weight : float</span>
-<span class="sd">            the weight for the carnivore to be added</span>
+<span class="sd">            The weight for the carnivore to be added</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -130,7 +151,7 @@
 
 <div class="viewcode-block" id="Jungle.reset_fodder"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.reset_fodder">[docs]</a>    <span class="k">def</span> <span class="nf">reset_fodder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Method that set the amount of fodder in the jungle to f_max.</span>
+<span class="sd">        Method that resets the amount of fodder in the jungle to f_max.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -140,11 +161,12 @@
 
 <div class="viewcode-block" id="Jungle.reduce_fodder"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.reduce_fodder">[docs]</a>    <span class="k">def</span> <span class="nf">reduce_fodder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        method for reducing the fodder by given amount</span>
+<span class="sd">        Method for reducing the amount of fodder available in landscape instance</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        amount</span>
+<span class="sd">        amount : float, int</span>
+<span class="sd">            How much fodder is to be removed from landscape instance.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -154,19 +176,19 @@
 
 <div class="viewcode-block" id="Jungle.get_fodder"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.get_fodder">[docs]</a>    <span class="k">def</span> <span class="nf">get_fodder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Method for getting fodder in the landscape</span>
+<span class="sd">        Method for getting fodder in the landscape instance.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        self.fodder : int</span>
-<span class="sd">            amount of fodder left</span>
+<span class="sd">            Amount of fodder left is landscape instance.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fodder</span></div>
     
 <div class="viewcode-block" id="Jungle.move_new_animals"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.move_new_animals">[docs]</a>    <span class="k">def</span> <span class="nf">move_new_animals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        method for moving animals from the new-lists into the real one</span>
+<span class="sd">        Method for moving animals from the new-lists into the real one.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -179,35 +201,35 @@
 
 <div class="viewcode-block" id="Jungle.get_herbivores"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.get_herbivores">[docs]</a>    <span class="k">def</span> <span class="nf">get_herbivores</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        method for getting a list of all herbivore in the landscape instance</span>
+<span class="sd">        Method for getting a list of all herbivore in the landscape instance</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        self.hebivores : list</span>
-<span class="sd">            list of herbivores in instance</span>
+<span class="sd">            List of herbivores in instance</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">herbivores</span></div>
 
 <div class="viewcode-block" id="Jungle.get_carnivores"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.get_carnivores">[docs]</a>    <span class="k">def</span> <span class="nf">get_carnivores</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        method for getting a list of all carnivores in the landscape instance</span>
+<span class="sd">        Method for getting a list of all carnivores in the landscape instance</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        self.carnivores : list</span>
-<span class="sd">            list of carnivores in instance</span>
+<span class="sd">            List of carnivores in landscape instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">carnivores</span></div>
 
 <div class="viewcode-block" id="Jungle.get_abundance_herbivore"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.get_abundance_herbivore">[docs]</a>    <span class="k">def</span> <span class="nf">get_abundance_herbivore</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        method for calculating abundance of food for herbivore in instance</span>
+<span class="sd">        Method for calculating abundance of food for herbivore in landscape.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        ek : float</span>
-<span class="sd">            abundance of food for herbivores in instance</span>
+<span class="sd">            Abundance of food for herbivores in landscape.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">ek</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_fodder</span><span class="p">())</span><span class="o">/</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">herbivores</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">herbivores_new</span><span class="p">)</span>
@@ -216,12 +238,12 @@
 
 <div class="viewcode-block" id="Jungle.get_abundance_carnivore"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.get_abundance_carnivore">[docs]</a>    <span class="k">def</span> <span class="nf">get_abundance_carnivore</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        method for calculating abundance of food for carnivore in instance</span>
+<span class="sd">        Method for calculating abundance of food for carnivore in landscape.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        ek : float</span>
-<span class="sd">            abundance of food for carnivores in instance</span>
+<span class="sd">            Abundance of food for carnivores in landscape</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">herbivores_weight</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">animal</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">herbivores</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">herbivores_new</span><span class="p">:</span>
@@ -233,7 +255,7 @@
 
 <div class="viewcode-block" id="Jungle.feeding"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.feeding">[docs]</a>    <span class="k">def</span> <span class="nf">feeding</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Method that makes all animals in the cell feed</span>
+<span class="sd">        Method that makes all animals in the cell feed.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -273,7 +295,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">move_new_animals</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Jungle.migration"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.migration">[docs]</a>    <span class="k">def</span> <span class="nf">migration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Dummy. Migration is handled by the class Island&quot;&quot;&quot;</span></div>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dummy. Migration is handled by the class Island.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="Jungle.aging"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.aging">[docs]</a>    <span class="k">def</span> <span class="nf">aging</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -294,13 +322,12 @@
 <span class="sd">        -------</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="sd">&quot;&quot;&quot;Method that makes all animals in the cell lose weight&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">animal</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">herbivores</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">carnivores</span><span class="p">:</span>
             <span class="n">animal</span><span class="o">.</span><span class="n">loss_of_weight</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Jungle.death"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Jungle.death">[docs]</a>    <span class="k">def</span> <span class="nf">death</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Method that makes some animals in the cell die, and remove them</span>
+<span class="sd">        Method that makes some animals in the cell die, and remove them.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -337,7 +364,7 @@
 
 <div class="viewcode-block" id="Desert"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Desert">[docs]</a><span class="k">class</span> <span class="nc">Desert</span><span class="p">(</span><span class="n">Jungle</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Desert is a sublass of Jungle inheriting most of its methods</span>
+<span class="sd">    Desert is a subclass of Jungle, inheriting most of its methods</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -362,9 +389,10 @@
 
 <span class="sd">        &quot;&quot;&quot;</span></div></div>
 
+
 <div class="viewcode-block" id="Ocean"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Ocean">[docs]</a><span class="k">class</span> <span class="nc">Ocean</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Class for Ocean landscape</span>
+<span class="sd">    Class for Ocean landscape. Is passive.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span></div>
@@ -372,7 +400,7 @@
 
 <div class="viewcode-block" id="Mountain"><a class="viewcode-back" href="../../landscape.html#biosim.landscape.Mountain">[docs]</a><span class="k">class</span> <span class="nc">Mountain</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    class for mountain landscape</span>
+<span class="sd">    Class for mountain landscape. Is passive.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span></div>
@@ -380,20 +408,11 @@
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
 
-    <span class="n">j1</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
+    <span class="n">Savannah</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">({</span><span class="s1">&#39;f_max&#39;</span><span class="p">:</span> <span class="mi">355414</span><span class="p">})</span>
+
     <span class="n">s1</span> <span class="o">=</span> <span class="n">Savannah</span><span class="p">()</span>
-    <span class="n">j2</span> <span class="o">=</span> <span class="n">Jungle</span><span class="p">()</span>
-    <span class="n">s2</span> <span class="o">=</span> <span class="n">Savannah</span><span class="p">()</span>
-    <span class="n">m1</span> <span class="o">=</span> <span class="n">Mountain</span><span class="p">()</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">j1</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;f_max&#39;</span><span class="p">])</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;f_max&#39;</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">j2</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;f_max&#39;</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">s2</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;f_max&#39;</span><span class="p">],</span> <span class="n">s2</span><span class="o">.</span><span class="n">fodder</span><span class="p">)</span>
-
-    <span class="c1"># isinstanse</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="p">(</span><span class="n">Jungle</span><span class="p">,</span> <span class="n">Savannah</span><span class="p">,</span> <span class="n">Desert</span><span class="p">)))</span>
 </pre></div>
 
           </div>

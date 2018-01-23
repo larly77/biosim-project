@@ -45,9 +45,12 @@
   <h1>Source code for biosim.simulation</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Jon-Fredrik Blakstad Cappelen&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;jon-fredrik.blakstad.cappelen@nmbu.no&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Jon-Fredrik Blakstad Cappelen&#39;</span><span class="p">,</span> <span class="s1">&#39;Lars Martin Boe Lied&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;jon-fredrik.blakstad.cappelen@nmbu.no&#39;</span><span class="p">,</span>\
+            <span class="s1">&#39;lars.martin.boe.lied@nmbu.no&#39;</span>
 
 
 <span class="kn">import</span> <span class="nn">matplotlib</span>
@@ -57,7 +60,17 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
 <span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">from</span> <span class="nn">biosim.island</span> <span class="k">import</span> <span class="n">Island</span>
+
+<span class="n">DEFAULT_GRAPHICS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">DEFAULT_GRAPHICS_NAME</span> <span class="o">=</span> <span class="s1">&#39;dv&#39;</span>
+<span class="n">DEFAULT_MOVIE_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;mp4&#39;</span>  <span class="c1"># alternatives: mp4, gif</span>
+
+<span class="c1"># update these variables to point to your ffmpeg and convert binaries</span>
+<span class="n">FFMPEG_BINARY</span> <span class="o">=</span> <span class="s1">&#39;ffmpeg&#39;</span>
+<span class="n">CONVERT_BINARY</span> <span class="o">=</span> <span class="s1">&#39;convert&#39;</span>
 
 
 <div class="viewcode-block" id="BioSim"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim">[docs]</a><span class="k">class</span> <span class="nc">BioSim</span><span class="p">:</span>
@@ -65,7 +78,8 @@
 <span class="sd">    class for the simulation</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">island_map</span><span class="p">,</span> <span class="n">ini_pop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">island_map</span><span class="p">,</span> <span class="n">ini_pop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">img_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">img_name</span><span class="o">=</span><span class="n">DEFAULT_GRAPHICS_NAME</span><span class="p">,</span> <span class="n">img_format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">):</span>
         <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
         <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">island_map</span> <span class="o">=</span> <span class="n">island_map</span>
@@ -92,6 +106,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">user_limits</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">herbivore_color_code</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>  <span class="c1"># population map color code limits</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">carnivore_color_code</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>  <span class="c1"># population map color code limits</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">img_counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">img_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">img_base</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">img_dir</span><span class="p">,</span> <span class="n">img_name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">img_base</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img_format</span> <span class="o">=</span> <span class="n">img_format</span>
 
 <div class="viewcode-block" id="BioSim.add_population"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.add_population">[docs]</a>    <span class="k">def</span> <span class="nf">add_population</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">population</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -145,8 +166,10 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        method for getting the total amount of animals on screen</span>
 
-<span class="sd">        Returns</span>
+<span class="sd">        Return</span>
 <span class="sd">        -------</span>
+<span class="sd">        total_animals : int</span>
+<span class="sd">            the total amount of animals on island</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">total_animals</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">number_of_herbivores_island</span><span class="p">()</span>
@@ -192,12 +215,12 @@
         <span class="n">col3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">herbivores_on_island</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
         <span class="n">col4</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">carnivores_on_island</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
 
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span><span class="n">col1</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span><span class="n">col2</span><span class="p">,</span> <span class="s1">&#39;herbivores&#39;</span><span class="p">:</span> <span class="n">col3</span><span class="p">,</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">col1</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">col2</span><span class="p">,</span> <span class="s1">&#39;herbivores&#39;</span><span class="p">:</span> <span class="n">col3</span><span class="p">,</span>
                            <span class="s1">&#39;carnivores&#39;</span><span class="p">:</span> <span class="n">col4</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="nb">zip</span><span class="p">(</span><span class="n">col1</span><span class="p">,</span> <span class="n">col2</span><span class="p">))</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;herbivores&#39;</span><span class="p">,</span> <span class="s1">&#39;carnivores&#39;</span><span class="p">]]</span>
         <span class="k">return</span> <span class="n">df</span></div>
 
-<div class="viewcode-block" id="BioSim.set_axis_limits"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.set_axis_limits">[docs]</a>    <span class="k">def</span> <span class="nf">set_axis_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_limits</span><span class="p">,</span> <span class="n">y_limits</span><span class="p">):</span>
+<div class="viewcode-block" id="BioSim.set_axis_limits"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.set_axis_limits">[docs]</a>    <span class="k">def</span> <span class="nf">set_axis_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method for setting the x and y-limits on the line graph</span>
 
@@ -215,15 +238,19 @@
 <span class="sd">        -------</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x_limits</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">x_limits</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">x_lim</span> <span class="o">=</span> <span class="n">x_limits</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;x_limits must be a tuple or list of 2 numbers&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">y_limits</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">y_limits</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span> <span class="o">=</span> <span class="n">y_limits</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;y_limits must be a tuple or list of 2 numbers&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">user_limits</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+        <span class="k">if</span> <span class="n">x_limits</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x_limits</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">x_limits</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">x_lim</span> <span class="o">=</span> <span class="n">x_limits</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">user_limits</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;x_limits must be a tuple or list of 2 numbers&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">y_limits</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">y_limits</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">y_limits</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span> <span class="o">=</span> <span class="n">y_limits</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;y_limits must be a tuple or list of 2 numbers&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BioSim.reset_axis_limits"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.reset_axis_limits">[docs]</a>    <span class="k">def</span> <span class="nf">reset_axis_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -235,6 +262,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user_limits</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15000</span><span class="p">)</span>  <span class="c1"># default values</span></div>
+        <span class="c1"># Dynamic x-axis will be used</span>
 
 <div class="viewcode-block" id="BioSim.set_color_code_limits"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.set_color_code_limits">[docs]</a>    <span class="k">def</span> <span class="nf">set_color_code_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">herbivore_colors</span><span class="p">,</span> <span class="n">carnivore_colors</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -345,13 +373,13 @@
 <span class="sd">        -------</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_limits</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_lim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_lim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_lim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Populations&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_herbivore</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -507,6 +535,65 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">update_carnivore_density_map</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">year_counter</span><span class="p">()</span></div>
 
+<div class="viewcode-block" id="BioSim.save_graphics"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.save_graphics">[docs]</a>    <span class="k">def</span> <span class="nf">save_graphics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves graphics to file if file name given.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_base</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{base}</span><span class="s1">_</span><span class="si">{num:05d}</span><span class="s1">.</span><span class="si">{type}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">img_base</span><span class="p">,</span>
+                                                     <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">img_counter</span><span class="p">,</span>
+                                                     <span class="nb">type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">img_format</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img_counter</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="BioSim.make_movie"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.make_movie">[docs]</a>    <span class="k">def</span> <span class="nf">make_movie</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">movie_format</span><span class="o">=</span><span class="n">DEFAULT_MOVIE_FORMAT</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates MPEG4 movie from visualization images saved.</span>
+
+<span class="sd">        .. :note:</span>
+<span class="sd">            Requires ffmpeg</span>
+
+<span class="sd">        The movie is stored as img_base + movie_format</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_base</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No filename defined.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">movie_format</span> <span class="o">==</span> <span class="s1">&#39;mp4&#39;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Parameters chosen according to</span>
+                <span class="c1"># http://trac.ffmpeg.org/wiki/Encode/H.264,</span>
+                <span class="c1"># section &quot;Compatibility&quot;</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">FFMPEG_BINARY</span><span class="p">,</span>
+                                       <span class="s1">&#39;-i&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">%05d</span><span class="s1">.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_base</span><span class="p">),</span>
+                                       <span class="s1">&#39;-y&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;-profile:v&#39;</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;-level&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;-pix_fmt&#39;</span><span class="p">,</span> <span class="s1">&#39;yuv420p&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_base</span><span class="p">,</span>
+                                                      <span class="n">movie_format</span><span class="p">)])</span>
+            <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;ERROR: ffmpeg failed with: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">movie_format</span> <span class="o">==</span> <span class="s1">&#39;gif&#39;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">CONVERT_BINARY</span><span class="p">,</span>
+                                       <span class="s1">&#39;-delay&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;-loop&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_*.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_base</span><span class="p">),</span>
+                                       <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_base</span><span class="p">,</span>
+                                                      <span class="n">movie_format</span><span class="p">)])</span>
+            <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;ERROR: convert failed with: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown movie format: &#39;</span> <span class="o">+</span> <span class="n">movie_format</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="BioSim.simulate"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">,</span> <span class="n">vis_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">img_steps</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method for simulating the entire island</span>
@@ -524,8 +611,11 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">img_steps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">img_steps</span> <span class="o">=</span> <span class="n">vis_steps</span>
+
+        <span class="k">if</span> <span class="n">img_steps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">img_steps</span> <span class="o">%</span> <span class="n">vis_steps</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;img_steps&#39; must be a multiple of &#39;vis_steps&#39;&quot;</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">last_step</span> <span class="o">+=</span> <span class="n">num_steps</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">make_visualization</span><span class="p">(</span><span class="n">vis_steps</span><span class="p">)</span>
@@ -536,22 +626,22 @@
 
             <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">%</span> <span class="n">vis_steps</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">update_visualization</span><span class="p">()</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">%</span> <span class="n">img_steps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">pass</span>
+            <span class="k">if</span> <span class="n">img_steps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">%</span> <span class="n">img_steps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">save_graphics</span><span class="p">()</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="sd">&quot;&quot;&quot;            print(&#39;Year over:&#39;, self.year)</span>
-<span class="sd">            print(&#39;Number of animals: &#39;,</span>
-<span class="sd">                  self.island.number_of_herbivores_island(),</span>
-<span class="sd">                  self.island.number_of_carnivores_island())&quot;&quot;&quot;</span></div></div>
-
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">number_of_herbivores_island</span><span class="p">()</span> <span class="o">+</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">number_of_carnivores_island</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;All the animals on the island died&#39;</span><span class="p">)</span>
+                <span class="k">break</span></div></div>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
 
     <span class="n">isle_map</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
 <span class="s2">              OOOOO</span>
 <span class="s2">              OJJJO</span>
-<span class="s2">              OSSSO</span>
+<span class="s2">              OSMSO</span>
 <span class="s2">              OOOOO&quot;&quot;&quot;</span>
 
     <span class="n">isle_map</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">isle_map</span><span class="p">)</span>
@@ -566,22 +656,17 @@
                           <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
                          <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]}]</span>
 
-    <span class="n">sim</span> <span class="o">=</span> <span class="n">BioSim</span><span class="p">(</span><span class="n">island_map</span><span class="o">=</span><span class="n">isle_map</span><span class="p">,</span> <span class="n">ini_pop</span><span class="o">=</span><span class="n">ini_herb</span> <span class="o">+</span> <span class="n">ini_carn</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
+    <span class="nb">dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
 
+    <span class="n">sim</span> <span class="o">=</span> <span class="n">BioSim</span><span class="p">(</span><span class="n">island_map</span><span class="o">=</span><span class="n">isle_map</span><span class="p">,</span> <span class="n">ini_pop</span><span class="o">=</span><span class="n">ini_herb</span> <span class="o">+</span> <span class="n">ini_carn</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span>
+                 <span class="n">img_dir</span><span class="o">=</span><span class="nb">dir</span><span class="p">,</span> <span class="n">img_name</span><span class="o">=</span><span class="s1">&#39;island&#39;</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">set_axis_limits</span><span class="p">(</span><span class="n">y_limits</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
 
-    <span class="c1">#sim.simulate(50, 1, 2000)</span>
-    <span class="c1">#sim.make_visualization()</span>
+    <span class="c1">#sim.make_movie(&#39;gif&#39;)</span>
+    <span class="c1">#sim.make_movie(&#39;mp4&#39;)</span>
 
-    <span class="c1">#sim.make_rgb_map()</span>
-
-    <span class="c1">#sim.simulate_in_one_place_herbivores(num_steps=200, printing=True)</span>
-
-    <span class="n">df</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">status_per_cell_animal_count</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;herbivores&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;carnivores&#39;</span><span class="p">][</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
-
-    <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Press ENTER&#39;</span><span class="p">)</span>
+    <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Press Enter&#39;</span><span class="p">)</span>
 </pre></div>
 
           </div>
