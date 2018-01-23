@@ -42,7 +42,7 @@
 
 
 \title{BioSim G04 Documentation}
-\date{Jan 22, 2018}
+\date{Jan 23, 2018}
 \release{2018.01.22}
 \author{Lars Martin Lied, Jon-Fredrik Cappelen}
 \newcommand{\sphinxlogo}{}
@@ -69,7 +69,7 @@ on an island
 
 
 \chapter{Animals}
-\label{\detokenize{animals:animals}}\label{\detokenize{animals:welcome-to-biosim-g04-s-documentation}}\label{\detokenize{animals::doc}}
+\label{\detokenize{animals:welcome-to-biosim-g04-s-documentation}}\label{\detokenize{animals:animals}}\label{\detokenize{animals::doc}}
 
 \section{The animals module}
 \label{\detokenize{animals:the-animals-module}}\phantomsection\label{\detokenize{animals:module-biosim.animals}}\index{biosim.animals (module)}\index{Carnivore (class in biosim.animals)}
@@ -260,7 +260,7 @@ The attribute self.fitness is updated.
 \phantomsection\label{\detokenize{island:biosim.island.Island}}\pysiglinewithargsret{\sphinxstrong{class }\sphinxcode{biosim.island.}\sphinxbfcode{Island}}{\emph{island\_map}}{}
 Class for the island
 
-Init method for class Island
+Constructor method for class Island
 \begin{description}
 \item[{island\_map}] \leavevmode{[}str{]}
 A string representing the map
@@ -303,12 +303,17 @@ matching the matrix.
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{island:biosim.island.Island.array_to_island}}\pysiglinewithargsret{\sphinxbfcode{array\_to\_island}}{}{}
-Converts the array from the method string\_to\_array into a map
+Converts the array from the method string\_to\_array into a island.
 
 changes the array consisting of strings into an array consisting of
 instances of classes depedning on the letter that was previously in
 the array, for example `J' would turn into an instance of the
 Jungle-class. These are stored in Island.cells
+\begin{description}
+\item[{SyntaxError}] \leavevmode
+If self.map contain other letters than `J', `S', `D', `O', `M'.
+
+\end{description}
 
 \end{fulllineitems}
 
@@ -316,7 +321,7 @@ Jungle-class. These are stored in Island.cells
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{island:biosim.island.Island.cell_move_carnivores}}\pysiglinewithargsret{\sphinxbfcode{cell\_move\_carnivores}}{\emph{coordinate}}{}
-method for moving herbivores in given cell, if they should move
+Method for moving herbivores in given cell, if they should move
 \begin{description}
 \item[{coordinate}] \leavevmode{[}tuple{]}
 coordinates in which to move herbivores
@@ -329,7 +334,7 @@ coordinates in which to move herbivores
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{island:biosim.island.Island.cell_move_herbivores}}\pysiglinewithargsret{\sphinxbfcode{cell\_move\_herbivores}}{\emph{coordinate}}{}
-method for moving herbivores in given cell, if they should move
+Method for moving herbivores in given cell, if they should move
 \begin{description}
 \item[{coordinate}] \leavevmode{[}tuple{]}
 coordinates in which to move herbivores
@@ -457,6 +462,12 @@ A method for concerting thr given string into an array
 \begin{description}
 \item[{map\_arr}] \leavevmode{[}arr{]}
 An array of the map, where each letter has a seperate place
+
+\end{description}
+\begin{description}
+\item[{SyntaxError}] \leavevmode
+If self.map have lines of unequal length.
+If self.map have edges unequal to `O'.
 
 \end{description}
 
@@ -727,19 +738,19 @@ Method that updates the fodder amount in the savannah each year
 
 
 \chapter{Simulation}
-\label{\detokenize{simulation:simulation}}\label{\detokenize{simulation::doc}}
+\label{\detokenize{simulation::doc}}\label{\detokenize{simulation:simulation}}
 
 \section{The simulation module}
 \label{\detokenize{simulation:the-simulation-module}}\phantomsection\label{\detokenize{simulation:module-biosim.simulation}}\index{biosim.simulation (module)}\index{BioSim (class in biosim.simulation)}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim}}\pysiglinewithargsret{\sphinxstrong{class }\sphinxcode{biosim.simulation.}\sphinxbfcode{BioSim}}{\emph{island\_map}, \emph{ini\_pop=None}, \emph{seed=12345}}{}
+\phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim}}\pysiglinewithargsret{\sphinxstrong{class }\sphinxcode{biosim.simulation.}\sphinxbfcode{BioSim}}{\emph{island\_map}, \emph{ini\_pop=None}, \emph{seed=12345}, \emph{img\_dir=None}, \emph{img\_name='Rossumoya'}, \emph{img\_format='png'}}{}
 class for the simulation
 \index{add\_population() (biosim.simulation.BioSim method)}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.add_population}}\pysiglinewithargsret{\sphinxbfcode{add\_population}}{\emph{population}}{}
-method for adding a population to the island
+Method for adding a population to the island
 \begin{description}
 \item[{population}] \leavevmode{[}list{]}
 A list of animals, containing dictionaries for each animal
@@ -769,8 +780,23 @@ Method for making the hebrivore density map
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.make_line_plot}}\pysiglinewithargsret{\sphinxbfcode{make\_line\_plot}}{\emph{vis\_steps}}{}
 Method for making the line plot
+\begin{description}
+\item[{vis\_steps}] \leavevmode
+Variable entered in BioSim.simulation.
+How often the graphics are updated.
+Examples: 1 = updated each year. 2 = every second year
 
-vis\_steps
+\end{description}
+
+\end{fulllineitems}
+
+\index{make\_movie() (biosim.simulation.BioSim method)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.make_movie}}\pysiglinewithargsret{\sphinxbfcode{make\_movie}}{\emph{movie\_format='mp4'}}{}
+Creates MPEG4 movie from visualization images saved.
+
+The movie is stored as img\_base + movie\_format
 
 \end{fulllineitems}
 
@@ -811,10 +837,18 @@ Method for resetting the color code to default values
 
 \end{fulllineitems}
 
+\index{save\_graphics() (biosim.simulation.BioSim method)}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.save_graphics}}\pysiglinewithargsret{\sphinxbfcode{save\_graphics}}{}{}
+Saves graphics to file if file name given.
+
+\end{fulllineitems}
+
 \index{set\_axis\_limits() (biosim.simulation.BioSim method)}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.set_axis_limits}}\pysiglinewithargsret{\sphinxbfcode{set\_axis\_limits}}{\emph{x\_limits}, \emph{y\_limits}}{}
+\phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.set_axis_limits}}\pysiglinewithargsret{\sphinxbfcode{set\_axis\_limits}}{\emph{x\_limits=None}, \emph{y\_limits=None}}{}
 Method for setting the x and y-limits on the line graph
 \begin{description}
 \item[{x\_limits}] \leavevmode{[}tuple, list{]}
@@ -867,7 +901,7 @@ img\_steps : How often the graphic should be saved
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.status_number_of_animals_by_species}}\pysiglinewithargsret{\sphinxbfcode{status\_number\_of\_animals\_by\_species}}{}{}
-method for getting number of herbivores and carnivores on screen
+Method for getting number of herbivores and carnivores on screen
 \begin{description}
 \item[{dictionary}] \leavevmode{[}dict{]}
 A dictionary containing number herbivores and carnivores on island
@@ -880,7 +914,7 @@ A dictionary containing number herbivores and carnivores on island
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.status_number_of_animals_total}}\pysiglinewithargsret{\sphinxbfcode{status\_number\_of\_animals\_total}}{}{}
-method for getting the total amount of animals on screen
+Method for getting the total amount of animals on screen
 
 \end{fulllineitems}
 
@@ -902,7 +936,7 @@ each cell
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{simulation:biosim.simulation.BioSim.status_year}}\pysiglinewithargsret{\sphinxbfcode{status\_year}}{}{}
-method for getting the current year on screen
+Method for getting the current year on screen
 \begin{description}
 \item[{self.year}] \leavevmode{[}int{]}
 the current year
@@ -957,7 +991,7 @@ Method for updating the counter on screen
 
 
 \chapter{Tests}
-\label{\detokenize{tests:tests}}\label{\detokenize{tests::doc}}
+\label{\detokenize{tests::doc}}\label{\detokenize{tests:tests}}
 
 \section{The animal test module}
 \label{\detokenize{tests:the-animal-test-module}}\phantomsection\label{\detokenize{tests:module-biosim.tests.test_animals}}\index{biosim.tests.test\_animals (module)}\index{TestAnimal (class in biosim.tests.test\_animals)}
@@ -1213,7 +1247,7 @@ Class for testing landscape
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_add_carnivores}}\pysiglinewithargsret{\sphinxbfcode{test\_add\_carnivores}}{}{}
-method for testing add carnivore
+Method for testing add carnivore
 Returns
 -------
 
@@ -1223,7 +1257,7 @@ Returns
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{tests:biosim.tests.test_landscape.TestLandscape.test_add_herbivore}}\pysiglinewithargsret{\sphinxbfcode{test\_add\_herbivore}}{}{}
-method for testing add\_herbivore
+Method for testing add\_herbivore
 Returns
 -------
 
