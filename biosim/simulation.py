@@ -20,8 +20,8 @@ import subprocess
 from biosim.island import Island
 
 DEFAULT_GRAPHICS_DIR = os.path.join('..', 'data')
-DEFAULT_GRAPHICS_NAME = 'dv'
-DEFAULT_MOVIE_FORMAT = 'mp4'  # alternatives: mp4, gif
+DEFAULT_GRAPHICS_NAME = 'Rossumoya'
+DEFAULT_MOVIE_FORMAT = 'mp4'  # alternatives: mp4, (gif does not work now)
 
 # update these variables to point to your ffmpeg and convert binaries
 FFMPEG_BINARY = r'C:\Program Files\ImageMagick-7.0.7-Q16\ffmpeg.exe'
@@ -535,6 +535,7 @@ class BioSim:
                                                       movie_format)])
             except subprocess.CalledProcessError as err:
                 raise RuntimeError('ERROR: ffmpeg failed with: {}'.format(err))
+            """
         elif movie_format == 'gif':
             try:
                 subprocess.check_call([CONVERT_BINARY,
@@ -547,6 +548,7 @@ class BioSim:
                 raise RuntimeError('ERROR: convert failed with: {}'.format(err))
         else:
             raise ValueError('Unknown movie format: ' + movie_format)
+            """
 
     def simulate(self, num_steps, vis_steps=1, img_steps=None):
         """
@@ -617,7 +619,5 @@ if __name__ == '__main__':
     sim.set_axis_limits(y_limits=(0,3000))
     sim.simulate(200,1,1)
 
-    #sim.make_movie('gif')   gif funker ikke
-    sim.make_movie('mp4')
 
     input('Press Enter')
