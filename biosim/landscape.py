@@ -359,12 +359,3 @@ class Mountain:
     """
     def __init__(self):
         """"""
-
-
-if __name__ == '__main__':
-
-    Savannah.set_parameters({'f_max': 355414})
-
-    s1 = Savannah()
-
-    print(s1.parameters['f_max'])

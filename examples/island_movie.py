@@ -48,12 +48,13 @@ if __name__ == '__main__':
 
     Herbivore.set_parameters({'zeta': 3.2, 'xi': 1.8})
     Carnivore.set_parameters({'a_half': 70, 'phi_age': 0.5,
-                                      'omega': 0.3, 'F': 65,
-                                      'DeltaPhiMax': 9.})
+                              'omega': 0.3, 'F': 65,
+                              'DeltaPhiMax': 9.})
     landscape.Jungle.set_parameters({'f_max': 700})
 
-    sim = biosim.simulation.BioSim(island_map=geogr, ini_pop=ini_herbs,
-                 seed=123456, img_dir=biosim.simulation.DEFAULT_GRAPHICS_DIR)
+    sim = biosim.simulation.\
+        BioSim(island_map=geogr, ini_pop=ini_herbs, seed=123456,
+               img_dir=biosim.simulation.DEFAULT_GRAPHICS_DIR)
 
     sim.simulate(num_steps=100, vis_steps=1, img_steps=1)
     sim.add_population(population=ini_carns)

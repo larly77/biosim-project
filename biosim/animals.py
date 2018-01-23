@@ -437,16 +437,3 @@ class Carnivore(Herbivore):
                 continue
 
         return eaten_bool
-
-
-if __name__ == '__main__':
-
-    h1 = Herbivore(3, 40)
-    c1 = Carnivore(2, 40)
-
-    Herbivore.set_parameters({'F': 20})
-    Carnivore.set_parameters({'omega':1})
-
-
-    print(h1.parameters['F'])
-    print(c1.parameters['omega'])

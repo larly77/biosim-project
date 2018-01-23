@@ -492,21 +492,3 @@ class Island:
                 self.cells[coord].death()
 
         self.animals_on_island()
-
-
-if __name__ == '__main__':
-
-    isle_map = """\
-            JSS
-            SSJ
-            SSS"""
-    ini_herb = [{'loc': (10, 10),
-                 'pop': [{'species': 'Herbivore',
-                          'age': 5,
-                          'weight': 20}
-                         for _ in range(20)]}]
-
-    isle = Island(isle_map)
-    isle.array_to_island()
-
-    print(isle.cells)

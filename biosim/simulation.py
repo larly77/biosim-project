@@ -8,16 +8,16 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
             'lars.martin.boe.lied@nmbu.no'
 
 
-import matplotlib
-matplotlib.use('TkAgg')
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import textwrap
 import random
 import os
 import subprocess
 from biosim.island import Island
+
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
 
 DEFAULT_GRAPHICS_DIR = os.path.join('..', 'data')
 DEFAULT_GRAPHICS_NAME = 'Rossumoya'
@@ -26,7 +26,7 @@ DEFAULT_MOVIE_FORMAT = 'mp4'  # alternatives: mp4, (gif does not work now)
 # update these variables to point to your ffmpeg and convert binaries
 FFMPEG_BINARY = r'C:\Program Files\ImageMagick-7.0.7-Q16\ffmpeg.exe'
 
-#CONVERT_BINARY = 'convert'    for GIF.
+# CONVERT_BINARY = 'convert'  # for GIF.
 
 
 class BioSim:
@@ -90,11 +90,11 @@ class BioSim:
             for j in range(1, island_shape[1] + 1):
                 points_on_island.append((i, j))
 
-        for index in range(len(population)):
+        for dictionary in population:
 
-            if type(population[index]['loc']) is tuple:
-                if population[index]['loc'] in points_on_island:
-                    coordinates = population[index]['loc']
+            if type(dictionary['loc']) is tuple:
+                if dictionary['loc'] in points_on_island:
+                    coordinates = dictionary['loc']
                 else:
                     raise IndexError('The coordinates must exist on the island'
                                      ': (x, y). (1,1) is the upper left corner')
@@ -102,7 +102,7 @@ class BioSim:
                 raise TypeError("'loc' must be tuple with coordinates: (x, y)")
 
             coordinates = (coordinates[0] - 1, coordinates[1] - 1)
-            animals = population[index]['pop']
+            animals = dictionary['pop']
             self.island.add_animal_island(coordinates, animals)
 
     def status_year(self):
@@ -570,7 +570,7 @@ class BioSim:
 
         if img_steps is not None:
             if img_steps % vis_steps != 0:
-                raise ValueError("'img_steps' must be a multiple of 'vis_steps'")
+                raise ValueError("'img_steps' must be multiple of 'vis_steps'")
 
         self.last_step += num_steps
 
@@ -588,36 +588,6 @@ class BioSim:
 
             self.year += 1
             if self.island.number_of_herbivores_island() + \
-                self.island.number_of_carnivores_island() == 0:
+               self.island.number_of_carnivores_island() == 0:
                 print('All the animals on the island died')
                 break
-
-if __name__ == '__main__':
-
-    isle_map = """\
-              OOOOO
-              OJJJO
-              OSMSO
-              OOOOO"""
-
-    isle_map = textwrap.dedent(isle_map)
-    ini_herb = [{'loc': (2, 2),
-                 'pop': [{'species': 'Herbivore',
-                          'age': 5,
-                          'weight': 20}
-                         for _ in range(40)]}]
-    ini_carn = [{'loc': (3, 4),
-                 'pop': [{'species': 'Carnivore',
-                          'age': 5,
-                          'weight': 20}
-                         for _ in range(5)]}]
-
-    dir = os.path.join('..', 'data')
-
-    sim = BioSim(island_map=isle_map, ini_pop=ini_herb + ini_carn, seed=12345,
-                 img_dir=dir, img_name='test1')
-    sim.set_axis_limits(y_limits=(0,3000))
-    sim.simulate(200,1,1)
-
-
-    input('Press Enter')

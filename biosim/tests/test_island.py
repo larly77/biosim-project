@@ -10,7 +10,7 @@ __email__ = 'jon-fredrik.blakstad.cappelen@nmbu.no',\
 
 import numpy as np
 from biosim.island import Island
-from biosim.landscape import Jungle, Savannah, Ocean
+from biosim.landscape import Savannah, Ocean
 from biosim.animals import Carnivore, Herbivore
 import math
 import pytest
