@@ -24,12 +24,17 @@ class BioSim:
     class for the simulation
     """
 
+    _DEFAULT_GRAPHICS_DIR = os.path.join('..', 'data')
+    _DEFAULT_GRAPHICS_NAME = 'dv'
+    _DEFAULT_MOVIE_FORMAT = 'mp4'  # alternatives: mp4, gif
+
     # update these variables to point to your ffmpeg and convert binaries
     FFMPEG_BINARY = 'ffmpeg'
     CONVERT_BINARY = 'convert'
 
 
-    def __init__(self, island_map, ini_pop=None, seed=12345, img_dir=None):
+    def __init__(self, island_map, ini_pop=None, seed=12345, img_dir=None,
+                 img_name=_DEFAULT_GRAPHICS_NAME, img_format='png'):
         random.seed(seed)
         np.random.seed(seed)
         self.island_map = island_map
@@ -57,9 +62,12 @@ class BioSim:
         self.herbivore_color_code = (0, 300)  # population map color code limits
         self.carnivore_color_code = (0, 300)  # population map color code limits
 
-        self.img_base = None
         self.img_counter = 0
-        self.img_format = None
+        if img_dir is not None:
+            self.img_base = os.path.join(img_dir, img_name)
+        else:
+            self.img_base = None
+        self.img_format = img_format
 
     def add_population(self, population):
         """
@@ -160,7 +168,7 @@ class BioSim:
         col3 = self.island.herbivores_on_island.ravel().astype(np.int)
         col4 = self.island.carnivores_on_island.ravel().astype(np.int)
 
-        df = pd.DataFrame({'x':col1, 'y':col2, 'herbivores': col3,
+        df = pd.DataFrame({'x': col1, 'y': col2, 'herbivores': col3,
                            'carnivores': col4}, index=zip(col1, col2))
         df = df[['x', 'y', 'herbivores', 'carnivores']]
         return df
