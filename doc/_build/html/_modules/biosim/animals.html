@@ -431,7 +431,7 @@
 <span class="sd">        preys : list</span>
 <span class="sd">            A list of all the herbivores on the same tile as the given carnivore</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        eaten_bool : list</span>
 <span class="sd">            A list of true/false values for which herbivores to be eaten.</span>
@@ -482,19 +482,6 @@
                 <span class="k">continue</span>
 
         <span class="k">return</span> <span class="n">eaten_bool</span></div></div>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-
-    <span class="n">h1</span> <span class="o">=</span> <span class="n">Herbivore</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
-    <span class="n">c1</span> <span class="o">=</span> <span class="n">Carnivore</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
-
-    <span class="n">Herbivore</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">({</span><span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
-    <span class="n">Carnivore</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">({</span><span class="s1">&#39;omega&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">})</span>
-
-
-    <span class="nb">print</span><span class="p">(</span><span class="n">h1</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;omega&#39;</span><span class="p">])</span>
 </pre></div>
 
           </div>

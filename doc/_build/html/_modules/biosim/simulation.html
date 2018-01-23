@@ -53,24 +53,25 @@
             <span class="s1">&#39;lars.martin.boe.lied@nmbu.no&#39;</span>
 
 
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;TkAgg&#39;</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">textwrap</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">from</span> <span class="nn">biosim.island</span> <span class="k">import</span> <span class="n">Island</span>
 
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;TkAgg&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
 <span class="n">DEFAULT_GRAPHICS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
-<span class="n">DEFAULT_GRAPHICS_NAME</span> <span class="o">=</span> <span class="s1">&#39;dv&#39;</span>
-<span class="n">DEFAULT_MOVIE_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;mp4&#39;</span>  <span class="c1"># alternatives: mp4, gif</span>
+<span class="n">DEFAULT_GRAPHICS_NAME</span> <span class="o">=</span> <span class="s1">&#39;Rossumoya&#39;</span>
+<span class="n">DEFAULT_MOVIE_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;mp4&#39;</span>  <span class="c1"># alternatives: mp4, (gif does not work now)</span>
 
 <span class="c1"># update these variables to point to your ffmpeg and convert binaries</span>
-<span class="n">FFMPEG_BINARY</span> <span class="o">=</span> <span class="s1">&#39;ffmpeg&#39;</span>
-<span class="n">CONVERT_BINARY</span> <span class="o">=</span> <span class="s1">&#39;convert&#39;</span>
+<span class="n">FFMPEG_BINARY</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Program Files\ImageMagick-7.0.7-Q16\ffmpeg.exe&#39;</span>
+
+<span class="c1"># CONVERT_BINARY = &#39;convert&#39;  # for GIF.</span>
 
 
 <div class="viewcode-block" id="BioSim"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim">[docs]</a><span class="k">class</span> <span class="nc">BioSim</span><span class="p">:</span>
@@ -134,11 +135,11 @@
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">island_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
                 <span class="n">points_on_island</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
 
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">population</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">dictionary</span> <span class="ow">in</span> <span class="n">population</span><span class="p">:</span>
 
-            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">population</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s1">&#39;loc&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">population</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s1">&#39;loc&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">points_on_island</span><span class="p">:</span>
-                    <span class="n">coordinates</span> <span class="o">=</span> <span class="n">population</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s1">&#39;loc&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;loc&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;loc&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">points_on_island</span><span class="p">:</span>
+                    <span class="n">coordinates</span> <span class="o">=</span> <span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;loc&#39;</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">&#39;The coordinates must exist on the island&#39;</span>
                                      <span class="s1">&#39;: (x, y). (1,1) is the upper left corner&#39;</span><span class="p">)</span>
@@ -146,7 +147,7 @@
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&#39;loc&#39; must be tuple with coordinates: (x, y)&quot;</span><span class="p">)</span>
 
             <span class="n">coordinates</span> <span class="o">=</span> <span class="p">(</span><span class="n">coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-            <span class="n">animals</span> <span class="o">=</span> <span class="n">population</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s1">&#39;pop&#39;</span><span class="p">]</span>
+            <span class="n">animals</span> <span class="o">=</span> <span class="n">dictionary</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">add_animal_island</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">animals</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BioSim.status_year"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.status_year">[docs]</a>    <span class="k">def</span> <span class="nf">status_year</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -166,10 +167,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        method for getting the total amount of animals on screen</span>
 
-<span class="sd">        Return</span>
+<span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        total_animals : int</span>
-<span class="sd">            the total amount of animals on island</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">total_animals</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">number_of_herbivores_island</span><span class="p">()</span>
@@ -581,18 +580,20 @@
                                                       <span class="n">movie_format</span><span class="p">)])</span>
             <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;ERROR: ffmpeg failed with: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">movie_format</span> <span class="o">==</span> <span class="s1">&#39;gif&#39;</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">CONVERT_BINARY</span><span class="p">,</span>
-                                       <span class="s1">&#39;-delay&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
-                                       <span class="s1">&#39;-loop&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
-                                       <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_*.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_base</span><span class="p">),</span>
-                                       <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_base</span><span class="p">,</span>
-                                                      <span class="n">movie_format</span><span class="p">)])</span>
-            <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;ERROR: convert failed with: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown movie format: &#39;</span> <span class="o">+</span> <span class="n">movie_format</span><span class="p">)</span></div>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        elif movie_format == &#39;gif&#39;:</span>
+<span class="sd">            try:</span>
+<span class="sd">                subprocess.check_call([CONVERT_BINARY,</span>
+<span class="sd">                                       &#39;-delay&#39;, &#39;1&#39;,</span>
+<span class="sd">                                       &#39;-loop&#39;, &#39;0&#39;,</span>
+<span class="sd">                                       &#39;{}_*.png&#39;.format(self.img_base),</span>
+<span class="sd">                                       &#39;{}.{}&#39;.format(self.img_base,</span>
+<span class="sd">                                                      movie_format)])</span>
+<span class="sd">            except subprocess.CalledProcessError as err:</span>
+<span class="sd">                raise RuntimeError(&#39;ERROR: convert failed with: {}&#39;.format(err))</span>
+<span class="sd">        else:</span>
+<span class="sd">            raise ValueError(&#39;Unknown movie format: &#39; + movie_format)</span>
+<span class="sd">            &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="BioSim.simulate"><a class="viewcode-back" href="../../simulation.html#biosim.simulation.BioSim.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">,</span> <span class="n">vis_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">img_steps</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -614,7 +615,7 @@
 
         <span class="k">if</span> <span class="n">img_steps</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">img_steps</span> <span class="o">%</span> <span class="n">vis_steps</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;img_steps&#39; must be a multiple of &#39;vis_steps&#39;&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;img_steps&#39; must be multiple of &#39;vis_steps&#39;&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">last_step</span> <span class="o">+=</span> <span class="n">num_steps</span>
 
@@ -632,41 +633,9 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">number_of_herbivores_island</span><span class="p">()</span> <span class="o">+</span> \
-                <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">number_of_carnivores_island</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">island</span><span class="o">.</span><span class="n">number_of_carnivores_island</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;All the animals on the island died&#39;</span><span class="p">)</span>
                 <span class="k">break</span></div></div>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-
-    <span class="n">isle_map</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
-<span class="s2">              OOOOO</span>
-<span class="s2">              OJJJO</span>
-<span class="s2">              OSMSO</span>
-<span class="s2">              OOOOO&quot;&quot;&quot;</span>
-
-    <span class="n">isle_map</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">isle_map</span><span class="p">)</span>
-    <span class="n">ini_herb</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;loc&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                 <span class="s1">&#39;pop&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;species&#39;</span><span class="p">:</span> <span class="s1">&#39;Herbivore&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-                          <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
-                         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">)]}]</span>
-    <span class="n">ini_carn</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;loc&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-                 <span class="s1">&#39;pop&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;species&#39;</span><span class="p">:</span> <span class="s1">&#39;Carnivore&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-                          <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
-                         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]}]</span>
-
-    <span class="nb">dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
-
-    <span class="n">sim</span> <span class="o">=</span> <span class="n">BioSim</span><span class="p">(</span><span class="n">island_map</span><span class="o">=</span><span class="n">isle_map</span><span class="p">,</span> <span class="n">ini_pop</span><span class="o">=</span><span class="n">ini_herb</span> <span class="o">+</span> <span class="n">ini_carn</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span>
-                 <span class="n">img_dir</span><span class="o">=</span><span class="nb">dir</span><span class="p">,</span> <span class="n">img_name</span><span class="o">=</span><span class="s1">&#39;island&#39;</span><span class="p">)</span>
-    <span class="n">sim</span><span class="o">.</span><span class="n">set_axis_limits</span><span class="p">(</span><span class="n">y_limits</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
-    <span class="n">sim</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
-
-    <span class="c1">#sim.make_movie(&#39;gif&#39;)</span>
-    <span class="c1">#sim.make_movie(&#39;mp4&#39;)</span>
-
-    <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Press Enter&#39;</span><span class="p">)</span>
 </pre></div>
 
           </div>
