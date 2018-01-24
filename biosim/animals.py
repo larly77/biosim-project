@@ -15,7 +15,7 @@ import copy
 
 class Herbivore:
     """
-
+    Class for herbivores, with all methods and parameters
     """
 
     DEFAULT_HERBIVORE_PARAMETERS = {'w_birth': 8.0,
@@ -334,7 +334,7 @@ class Herbivore:
 
 class Carnivore(Herbivore):
     """
-
+    Class for carnivores, with methods and parameters, subclass of Herbivore
     """
     
     DEFAULT_CARNIVORE_PARAMETERS = {'w_birth': 6.0,
