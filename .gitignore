@@ -227,10 +227,10 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/linux,macos,python,windows,pycharm
-ex01_project/.idea/
-ex02_project/.idea/
-ex03_project/.idea/
+
+
 
 .idea/
 .cache/
+data/
 

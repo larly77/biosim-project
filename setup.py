@@ -16,7 +16,7 @@ setup(
       version='1.0.0',
 
       # Packages to include
-      packages=['biosim', 'biosim.tests', 'examples'],
+      packages=['biosim', 'biosim.tests', 'examples', 'doc'],
 
       # Required packages not included in Python standard library
       requires=['pytest (>=3.0.7)', 'numpy (>=1.12.1)', 'matplotlib (>=2.0.2)',
